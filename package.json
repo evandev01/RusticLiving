@@ -1,0 +1,15 @@
+{
+  "name": "rusticliving",
+  "version": "1.0.0",
+  "description": "Rustic Living",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "evanDev",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
