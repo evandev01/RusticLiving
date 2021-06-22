@@ -9,7 +9,7 @@ const HomeScreen = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get('/api/products')
-
+      // { data } is destructured res.data
       setProducts(data)
     }
     fetchProducts()
