@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
-import './darkly_bootstrap.min.css'
+import './slate_bootstrap.min.css'
 import './index.css'
 import App from './App'
 
