@@ -4,22 +4,25 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case CART_ADD_ITEM:
+      // Item being added //
       const item = action.payload
-      ////////////////////////// TAKE NOTES FIRST THING //////////////////////
-      ////////////////////////// TAKE NOTES FIRST THING //////////////////////
-      ////////////////////////// TAKE NOTES FIRST THING //////////////////////
-      ////////////////////////// TAKE NOTES FIRST THING //////////////////////
+
+      // Checks to see if the item already exists. If it does, store it in constant //
+      // Finds item where id of item being added matches the id of an item already in the cart //
       const existItem = state.cartItems.find(x => x.product === item.product)
 
       if (existItem) {
         return {
           ...state,
+          // If the item exists in the cart, return the item //
+          // Else return all of the cart items(Cart items will stay the same) //
           cartItems: state.cartItems.map(x =>
             x.product === existItem.product ? item : x
           ),
         }
       } else {
         return {
+          // If it doesn't exist, add the new item to the array of items in the cart //
           ...state,
           cartItems: [...state.cartItems, item],
         }

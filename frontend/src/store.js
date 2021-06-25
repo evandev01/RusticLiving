@@ -13,6 +13,7 @@ const reducer = combineReducers({
   cart: cartReducer,
 })
 
+// Gets items from local storage and parses them back from string(in cartAction) to JavaScript format
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : []

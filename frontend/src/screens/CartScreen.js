@@ -10,7 +10,7 @@ const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
 
   // location.search accesses query at end of URL (ex: ?qty=1)
-  // Split to left and right of '=' - ?qty is [0] and the number is [1] index
+  // Split to left and right of '=' means ?qty is [0] index and the number is [1] index
   const qty = location.search ? Number(location.search.split('=')[1]) : 1
 
   // Save useDispatch function in constant, 'dispatch'

@@ -16,6 +16,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     },
   })
 
+  // Gets the current state of cart items and adds them to local storage in string format
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
@@ -25,5 +26,6 @@ export const removeFromCart = id => (dispatch, getState) => {
     payload: id,
   })
 
+  // Gets the current state of cart items and adds them to local storage in string format
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
