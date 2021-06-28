@@ -10,6 +10,7 @@ import {
   userDetailsReducer,
   userLoginReducer,
   userRegisterReducer,
+  userUpdateProfileReducer,
 } from './reducers/userReducers'
 
 const reducer = combineReducers({
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 })
 
 // Gets items from local storage and parses them back from string(in cartActions) to JavaScript format
@@ -31,8 +33,16 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
+// Gets shipping address from local storage and parses them back from string(in userActions) to JavaScript format
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
+  ? JSON.parse(localStorage.getItem('shippingAddress'))
+  : {}
+
 const initialState = {
-  cart: { cartItems: cartItemsFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shippingAddress: { shippingAddress: shippingAddressFromStorage },
+  },
   userLogin: { userInfo: userInfoFromStorage },
 }
 
