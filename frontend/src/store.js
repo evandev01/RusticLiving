@@ -12,7 +12,10 @@ import {
   userRegisterReducer,
   userUpdateProfileReducer,
 } from './reducers/userReducers'
-import { orderCreateReducer } from './reducers/orderReducers'
+import {
+  orderCreateReducer,
+  orderDetailsReducer,
+} from './reducers/orderReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -23,6 +26,7 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
 })
 
 // Gets data from local storage and parses it back from string(in actions) to JavaScript format
@@ -42,6 +46,10 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
 const paymentMethodFromStorage = localStorage.getItem('paymentMethod')
   ? JSON.parse(localStorage.getItem('paymentMethod'))
   : {}
+
+// const orderDetailsFromStorage = localStorage.getItem('orderDetails')
+//   ? JSON.parse(localStorage.getItem('orderDetails'))
+//   : {}
 
 const initialState = {
   cart: {
