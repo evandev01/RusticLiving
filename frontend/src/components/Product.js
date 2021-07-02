@@ -5,7 +5,7 @@ import Rating from './Rating'
 
 const Product = ({ product }) => {
   return (
-    <Card>
+    <Card className='my-3 p-3 rounded'>
       <Link to={`/product/${product._id}`}>
         <Card.Img src={product.image} variant='top' />
       </Link>
@@ -25,7 +25,7 @@ const Product = ({ product }) => {
         </Card.Text>
 
         <Card.Text as='h3'>
-          <div className='my-3'>${product.price}</div>
+          <div>${product.price}</div>
         </Card.Text>
       </Card.Body>
     </Card>
@@ -33,7 +33,7 @@ const Product = ({ product }) => {
 }
 
 Rating.defaultProps = {
-  color: '#f8e825'
+  color: '#f8e825',
 }
 
 export default Product
