@@ -32,10 +32,11 @@ app.get('/api/config/paypal', (req, res) =>
 )
 
 // __dirname not available with esmodules // path.resolve() mimics common js
-const __dirname = path.resolve()
-
 // Makes uploads (uploads/file.txt in root folder) accessible from the browser
-app.use('/api/uploads', express.static(path.join(__dirname), '/uploads'))
+// __dirname gives access to all segments of the file
+
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 app.use(notFound)
 
