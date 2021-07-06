@@ -5,9 +5,27 @@ import Product from '../models/productModel.js'
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({})
+  const pageSize = 10
+  const page = Number(req.query.pageNumber) || 1
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          // Regular expression ($regex) allows search for items by part of the name
+          // ie: 'iph' pulls up iPhone
+          // req.query accesses the query string which is the keyword after the question mark in the url
+          $regex: req.query.keyword,
+          // $options: 'i' allows for case insensitive search
+          $options: 'i',
+        },
+      }
+    : {}
 
-  res.json(products)
+  const count = await Product.countDocuments({ ...keyword })
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc    Fetch single product
