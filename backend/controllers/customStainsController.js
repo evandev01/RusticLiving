@@ -5,7 +5,7 @@ import CustomStain from '../models/customProductModels/customStainModel.js'
 // @route   GET /api/customstains
 // @access  Public
 const getCustomStains = asyncHandler(async (req, res) => {
-  const customStains = await CustomStains.find({})
+  const customStains = await CustomStain.find({})
 
   if (customStains) {
     res.json(customStains)
@@ -19,7 +19,7 @@ const getCustomStains = asyncHandler(async (req, res) => {
 // @route   GET /api/customstains/:id
 // @access  Public
 const getCustomStainById = asyncHandler(async (req, res) => {
-  const customStains = await CustomStains.findById(req.params.id)
+  const customStains = await CustomStain.findById(req.params.id)
 
   if (customStains) {
     res.json(customStains)
@@ -35,7 +35,7 @@ const getCustomStainById = asyncHandler(async (req, res) => {
 const createCustomStain = asyncHandler(async (req, res) => {
   const { stainName, stainImage } = req.body
 
-  const customStain = new CustomSpecies({
+  const customStain = new CustomStain({
     stainName: stainName,
     stainImage: stainImage,
     user: req.user._id,

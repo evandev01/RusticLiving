@@ -17,7 +17,16 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
+//ADMIN CUSTOM SCREENS
+import CustomProductScreen from './screens/CustomProductScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import CustomProductListScreen from './screens/CustomProductListScreen'
+import CustomSpeciesListScreen from './screens/CustomSpeciesListScreen'
+import CustomBaseListScreen from './screens/CustomBaseListScreen'
+import CustomPaintListScreen from './screens/CustomPaintListScreen'
+import CustomStainListScreen from './screens/CustomStainListScreen'
+import CustomAccentListScreen from './screens/CustomAccentListScreen'
+import CustomProductEditScreen from './screens/CustomProductEditScreen'
 
 const App = () => {
   return (
@@ -50,6 +59,35 @@ const App = () => {
             <Route
               path='/admin/product/:id/edit'
               component={ProductEditScreen}
+            />
+            <Route
+              path='/admin/customproducts'
+              component={CustomProductScreen}
+            />
+            <Route
+              path='/admin/customproductlist'
+              component={CustomProductListScreen}
+            />
+            <Route
+              path='/admin/customspecieslist'
+              component={CustomSpeciesListScreen}
+            />
+            <Route
+              path='/admin/custombaselist'
+              component={CustomBaseListScreen}
+            />
+            <Route
+              path='/admin/custompaintlist'
+              component={CustomPaintListScreen}
+            />
+
+            <Route
+              path='/admin/customstainlist'
+              component={CustomStainListScreen}
+            />
+            <Route
+              path='/admin/customaccentlist'
+              component={CustomAccentListScreen}
             />
             <Route path='/admin/orderlist' component={OrderListScreen} />
             <Route path='/search/:keyword' component={HomeScreen} exact />

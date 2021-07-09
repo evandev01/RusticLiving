@@ -10,6 +10,12 @@ import {
   productReviewCreateReducer,
   productTopRatedReducer,
 } from './reducers/productReducers'
+import { customProductListReducer } from './reducers/customProductReducers'
+import { customAccentListReducer } from './reducers/customAccentReducers'
+import { customBaseListReducer } from './reducers/customBaseReducers'
+import { customPaintListReducer } from './reducers/customPaintReducers'
+import { customSpeciesListReducer } from './reducers/customSpeciesReducers'
+import { customStainListReducer } from './reducers/customStainReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
   userDetailsReducer,
@@ -31,6 +37,12 @@ import {
 
 const reducer = combineReducers({
   productList: productListReducer,
+  customProductList: customProductListReducer,
+  customAccentList: customAccentListReducer,
+  customBaseList: customBaseListReducer,
+  customPaintList: customPaintListReducer,
+  customSpeciesList: customSpeciesListReducer,
+  customStainList: customStainListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
