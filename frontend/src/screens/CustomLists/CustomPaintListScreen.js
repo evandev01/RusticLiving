@@ -1,16 +1,29 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Row, Col, Button, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { listCustomPaints } from '../actions/customPaintActions'
+import Loader from '../../components/Loader'
+import Message from '../../components/Message'
+import CustomProductButtons from '../../components/CustomProductButtons'
+import {
+  listCustomPaints,
+  listCustomPaintDetails,
+  deleteCustomPaint,
+} from '../../actions/customPaintActions'
 
 const CustomPaintListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
   const customPaintList = useSelector(state => state.customPaintList)
   const { loading, customPaints, error } = customPaintList
+
+  const customPaintDelete = useSelector(state => state.customPaintDelete)
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+  } = customPaintDelete
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -21,54 +34,31 @@ const CustomPaintListScreen = ({ history }) => {
     } else {
       dispatch(listCustomPaints())
     }
-  }, [dispatch, history])
+  }, [dispatch, history, userInfo, successDelete])
+
+  const deleteHandler = id => {
+    window.confirm('Are you sure?')
+    dispatch(deleteCustomPaint(id))
+  }
 
   return (
     <>
-      <Row className='align-items-center'>
-        <Col className='text-center'>
-          <LinkContainer
-            className='btn btn-dark btn-lg my-3'
-            to='/admin/customproducts'
-          >
-            <h1>Custom Products</h1>
-          </LinkContainer>
+      <CustomProductButtons />
+      <Row>
+        <Col className='text-center p-3'>
+          <Link to='/admin/custompaints/create'>
+            <Button>
+              <i className='fas fa-plus'></i> Create New
+            </Button>
+          </Link>
         </Col>
       </Row>
-      <Row className='align-items-center'>
-        <Col className='text-center'>
-          <LinkContainer to='/admin/customproductlist'>
-            <Button variant='outline-success' size='md'>
-              Products
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customspecieslist'>
-            <Button variant='outline-success' size='md' block>
-              Species
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/custombaselist'>
-            <Button variant='outline-success' size='md' block>
-              Bases
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/custompaintlist'>
-            <Button variant='outline-success' size='md' block>
-              Paints
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customstainlist'>
-            <Button variant='outline-success' size='md' block>
-              Stains
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customaccentlist'>
-            <Button variant='outline-success' size='md' block>
-              Accents
-            </Button>
-          </LinkContainer>
-        </Col>
-      </Row>
+      <Link to='/admin/custompaintlist' className='btn btn-dark my-3'>
+        Go Back
+      </Link>
+
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       <Row>
         <Col>
           {loading ? (
@@ -101,16 +91,22 @@ const CustomPaintListScreen = ({ history }) => {
                         <td>{paint.paintImage}</td>
                         <td></td>
                         <LinkContainer
-                          to={`/admin/custompaint/${paint._id}/edit`}
+                          to={`/admin/custompaints/${paint._id}/edit`}
                         >
-                          <Button variant='light' className='btn-sm'>
+                          <Button
+                            variant='light'
+                            className='btn-sm'
+                            onClick={dispatch(
+                              listCustomPaintDetails(paint._id)
+                            )}
+                          >
                             <i className='fas fa-edit'></i>
                           </Button>
                         </LinkContainer>
                         <Button
                           variant='danger'
                           className='btn-sm'
-                          // onClick={() => deleteHandler(product._id)}
+                          onClick={() => deleteHandler(paint._id)}
                         >
                           <i className='fas fa-trash'></i>
                         </Button>

@@ -36,9 +36,9 @@ const createCustomProduct = asyncHandler(async (req, res) => {
   const { productName, estCompletionDate } = req.body
 
   const customProduct = new CustomProduct({
+    user: req.user._id,
     productName: productName,
     estCompletionDate: estCompletionDate,
-    user: req.user._id,
   })
 
   const createdCreatedCustomProduct = await customProduct.save()

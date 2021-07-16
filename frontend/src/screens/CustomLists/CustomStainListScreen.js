@@ -1,17 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Row, Col, Button, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { listCustomStains } from '../actions/customStainActions'
+import Loader from '../../components/Loader'
+import Message from '../../components/Message'
+import CustomProductButtons from '../../components/CustomProductButtons'
+import {
+  listCustomStains,
+  listCustomStainDetails,
+  deleteCustomStain,
+} from '../../actions/customStainActions'
 
 const CustomStainListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
   const customStainList = useSelector(state => state.customStainList)
   const { loading, customStains, error } = customStainList
+
+  const customStainDelete = useSelector(state => state.customStainDelete)
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+  } = customStainDelete
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -22,54 +34,31 @@ const CustomStainListScreen = ({ history }) => {
     } else {
       dispatch(listCustomStains())
     }
-  }, [dispatch, history])
+  }, [dispatch, history, userInfo, successDelete])
+
+  const deleteHandler = id => {
+    window.confirm('Are you sure?')
+    dispatch(deleteCustomStain(id))
+  }
 
   return (
     <>
-      <Row className='align-items-center'>
-        <Col className='text-center'>
-          <LinkContainer
-            className='btn btn-dark btn-lg my-3'
-            to='/admin/customproducts'
-          >
-            <h1>Custom Products</h1>
-          </LinkContainer>
+      <CustomProductButtons />
+      <Link to='/admin/customproducts' className='btn btn-dark my-3'>
+        Go Back
+      </Link>
+      <Row>
+        <Col className='text-center p-3'>
+          <Link to='/admin/customstains/create'>
+            <Button>
+              <i className='fas fa-plus'></i> Create New
+            </Button>
+          </Link>
         </Col>
       </Row>
-      <Row className='align-items-center'>
-        <Col className='text-center'>
-          <LinkContainer to='/admin/customproductlist'>
-            <Button variant='outline-success' size='md'>
-              Products
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customspecieslist'>
-            <Button variant='outline-success' size='md' block>
-              Species
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/custombaselist'>
-            <Button variant='outline-success' size='md' block>
-              Bases
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/custompaintlist'>
-            <Button variant='outline-success' size='md' block>
-              Paints
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customstainlist'>
-            <Button variant='outline-success' size='md' block>
-              Stains
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customaccentlist'>
-            <Button variant='outline-success' size='md' block>
-              Accents
-            </Button>
-          </LinkContainer>
-        </Col>
-      </Row>
+
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       <Row>
         <Col>
           {loading ? (
@@ -99,19 +88,25 @@ const CustomStainListScreen = ({ history }) => {
                       <tr key={stain._id}>
                         <td>{stain._id}</td>
                         <td>{stain.stainName}</td>
-                        <td>{stain.estCompletionDate}</td>
+                        <td>{stain.stainImage}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/customstains/${stain._id}/edit`}
                         >
-                          <Button variant='light' className='btn-sm'>
+                          <Button
+                            variant='light'
+                            className='btn-sm'
+                            onClick={dispatch(
+                              listCustomStainDetails(stain._id)
+                            )}
+                          >
                             <i className='fas fa-edit'></i>
                           </Button>
                         </LinkContainer>
                         <Button
                           variant='danger'
                           className='btn-sm'
-                          // onClick={() => deleteHandler(product._id)}
+                          onClick={() => deleteHandler(stain._id)}
                         >
                           <i className='fas fa-trash'></i>
                         </Button>

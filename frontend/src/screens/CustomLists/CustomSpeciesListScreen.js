@@ -1,16 +1,29 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Row, Col, Button, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { listCustomSpecies } from '../actions/customSpeciesActions'
+import Loader from '../../components/Loader'
+import Message from '../../components/Message'
+import CustomProductButtons from '../../components/CustomProductButtons'
+import {
+  listCustomSpecies,
+  listCustomSpeciesDetails,
+  deleteCustomSpecies,
+} from '../../actions/customSpeciesActions'
 
 const CustomSpeciesListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
   const customSpeciesList = useSelector(state => state.customSpeciesList)
   const { loading, customSpecies, error } = customSpeciesList
+
+  const customSpeciesDelete = useSelector(state => state.customSpeciesDelete)
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+  } = customSpeciesDelete
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -21,54 +34,31 @@ const CustomSpeciesListScreen = ({ history }) => {
     } else {
       dispatch(listCustomSpecies())
     }
-  }, [dispatch, history])
+  }, [dispatch, history, successDelete, userInfo])
+
+  const deleteHandler = id => {
+    window.confirm('Are you sure?')
+    dispatch(deleteCustomSpecies(id))
+  }
 
   return (
     <>
-      <Row className='align-items-center'>
-        <Col className='text-center'>
-          <LinkContainer
-            className='btn btn-dark btn-lg my-3'
-            to='/admin/customproducts'
-          >
-            <h1>Custom Products</h1>
-          </LinkContainer>
+      <CustomProductButtons />
+      <Row>
+        <Col className='text-center p-3'>
+          <Link to='/admin/customspecies/create'>
+            <Button>
+              <i className='fas fa-plus'></i> Create New
+            </Button>
+          </Link>
         </Col>
       </Row>
-      <Row className='align-items-center'>
-        <Col className='text-center'>
-          <LinkContainer to='/admin/customproductlist'>
-            <Button variant='outline-success' size='md'>
-              Products
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customspecieslist'>
-            <Button variant='outline-success' size='md' block>
-              Species
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/custombaselist'>
-            <Button variant='outline-success' size='md' block>
-              Bases
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/custompaintlist'>
-            <Button variant='outline-success' size='md' block>
-              Paints
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customstainlist'>
-            <Button variant='outline-success' size='md' block>
-              Stains
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customaccentlist'>
-            <Button variant='outline-success' size='md' block>
-              Accents
-            </Button>
-          </LinkContainer>
-        </Col>
-      </Row>
+      <Link to='/admin/customproducts' className='btn btn-dark my-3'>
+        Go Back
+      </Link>
+
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       <Row>
         <Col>
           {loading ? (
@@ -103,14 +93,20 @@ const CustomSpeciesListScreen = ({ history }) => {
                         <LinkContainer
                           to={`/admin/customspecies/${species._id}/edit`}
                         >
-                          <Button variant='light' className='btn-sm'>
+                          <Button
+                            variant='light'
+                            className='btn-sm'
+                            onClick={() =>
+                              dispatch(listCustomSpeciesDetails(species._id))
+                            }
+                          >
                             <i className='fas fa-edit'></i>
                           </Button>
                         </LinkContainer>
                         <Button
                           variant='danger'
                           className='btn-sm'
-                          // onClick={() => deleteHandler(product._id)}
+                          onClick={() => deleteHandler(species._id)}
                         >
                           <i className='fas fa-trash'></i>
                         </Button>

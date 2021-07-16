@@ -20,13 +20,26 @@ import ProductEditScreen from './screens/ProductEditScreen'
 //ADMIN CUSTOM SCREENS
 import CustomProductScreen from './screens/CustomProductScreen'
 import OrderListScreen from './screens/OrderListScreen'
-import CustomProductListScreen from './screens/CustomProductListScreen'
-import CustomSpeciesListScreen from './screens/CustomSpeciesListScreen'
-import CustomBaseListScreen from './screens/CustomBaseListScreen'
-import CustomPaintListScreen from './screens/CustomPaintListScreen'
-import CustomStainListScreen from './screens/CustomStainListScreen'
-import CustomAccentListScreen from './screens/CustomAccentListScreen'
-import CustomProductEditScreen from './screens/CustomProductEditScreen'
+import CustomProductListScreen from './screens/CustomLists/CustomProductListScreen'
+import CustomSpeciesListScreen from './screens/CustomLists/CustomSpeciesListScreen'
+import CustomBaseListScreen from './screens/CustomLists/CustomBaseListScreen'
+import CustomPaintListScreen from './screens/CustomLists/CustomPaintListScreen'
+import CustomStainListScreen from './screens/CustomLists/CustomStainListScreen'
+import CustomAccentListScreen from './screens/CustomLists/CustomAccentListScreen'
+//ADMIN CUSTOM CREATE SCREENS
+import CustomProductCreateScreen from './screens/CustomCreate/CustomProductCreateScreen'
+import CustomAccentCreateScreen from './screens/CustomCreate/CustomAccentCreateScreen'
+import CustomBaseCreateScreen from './screens/CustomCreate/CustomBaseCreateScreen'
+import CustomPaintCreateScreen from './screens/CustomCreate/CustomPaintCreateScreen'
+import CustomSpeciesCreateScreen from './screens/CustomCreate/CustomSpeciesCreateScreen'
+import CustomStainCreateScreen from './screens/CustomCreate/CustomStainCreateScreen'
+//ADMIN CUSTOM EDIT SCREENS
+import CustomProductEditScreen from './screens/CustomEdit/CustomProductEditScreen'
+import CustomAccentEditScreen from './screens/CustomEdit/CustomAccentEditScreen'
+import CustomBaseEditScreen from './screens/CustomEdit/CustomBaseEditScreen'
+import CustomPaintEditScreen from './screens/CustomEdit/CustomPaintEditScreen'
+import CustomSpeciesEditScreen from './screens/CustomEdit/CustomSpeciesEditScreen'
+import CustomStainEditScreen from './screens/CustomEdit/CustomStainEditScreen'
 
 const App = () => {
   return (
@@ -60,10 +73,12 @@ const App = () => {
               path='/admin/product/:id/edit'
               component={ProductEditScreen}
             />
+            {/* CUSTOM PRODUCTS */}
             <Route
               path='/admin/customproducts'
               component={CustomProductScreen}
             />
+            {/* CUSTOM PRODUCT LISTS */}
             <Route
               path='/admin/customproductlist'
               component={CustomProductListScreen}
@@ -89,6 +104,59 @@ const App = () => {
               path='/admin/customaccentlist'
               component={CustomAccentListScreen}
             />
+
+            {/* CUSTOM PRODUCT CREATE */}
+            <Route
+              path='/admin/customproducts/create'
+              component={CustomProductCreateScreen}
+            />
+            <Route
+              path='/admin/customaccents/create'
+              component={CustomAccentCreateScreen}
+            />
+            <Route
+              path='/admin/custombases/create'
+              component={CustomBaseCreateScreen}
+            />
+            <Route
+              path='/admin/custompaints/create'
+              component={CustomPaintCreateScreen}
+            />
+            <Route
+              path='/admin/customspecies/create'
+              component={CustomSpeciesCreateScreen}
+            />
+            <Route
+              path='/admin/customstains/create'
+              component={CustomStainCreateScreen}
+            />
+
+            {/* CUSTOM PRODUCT EDIT */}
+            <Route
+              path='/admin/customproducts/:id/edit'
+              component={CustomProductEditScreen}
+            />
+            <Route
+              path='/admin/customaccents/:id/edit'
+              component={CustomAccentEditScreen}
+            />
+            <Route
+              path='/admin/custombases/:id/edit'
+              component={CustomBaseEditScreen}
+            />
+            <Route
+              path='/admin/custompaints/:id/edit'
+              component={CustomPaintEditScreen}
+            />
+            <Route
+              path='/admin/customspecies/:id/edit'
+              component={CustomSpeciesEditScreen}
+            />
+            <Route
+              path='/admin/customstains/:id/edit'
+              component={CustomStainEditScreen}
+            />
+
             <Route path='/admin/orderlist' component={OrderListScreen} />
             <Route path='/search/:keyword' component={HomeScreen} exact />
             <Route path='/page/:pageNumber' component={HomeScreen} exact />

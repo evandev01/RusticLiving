@@ -111,11 +111,12 @@ export const createProduct = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
 
-    const { data } = await axios.post(`/api/products`, {}, config)
+    const { data } = await axios.post(`/api/customproducts`, {}, config)
 
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,

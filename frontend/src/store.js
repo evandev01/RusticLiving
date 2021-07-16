@@ -10,12 +10,48 @@ import {
   productReviewCreateReducer,
   productTopRatedReducer,
 } from './reducers/productReducers'
-import { customProductListReducer } from './reducers/customProductReducers'
-import { customAccentListReducer } from './reducers/customAccentReducers'
-import { customBaseListReducer } from './reducers/customBaseReducers'
-import { customPaintListReducer } from './reducers/customPaintReducers'
-import { customSpeciesListReducer } from './reducers/customSpeciesReducers'
-import { customStainListReducer } from './reducers/customStainReducers'
+import {
+  customProductListReducer,
+  customProductDetailsReducer,
+  customProductUpdateReducer,
+  customProductCreateReducer,
+  customProductDeleteReducer,
+} from './reducers/customProductReducers'
+import {
+  customAccentDetailsReducer,
+  customAccentListReducer,
+  customAccentCreateReducer,
+  customAccentUpdateReducer,
+  customAccentDeleteReducer,
+} from './reducers/customAccentReducers'
+import {
+  customBaseListReducer,
+  customBaseDetailsReducer,
+  customBaseCreateReducer,
+  customBaseUpdateReducer,
+  customBaseDeleteReducer,
+} from './reducers/customBaseReducers'
+import {
+  customPaintListReducer,
+  customPaintDetailsReducer,
+  customPaintCreateReducer,
+  customPaintUpdateReducer,
+  customPaintDeleteReducer,
+} from './reducers/customPaintReducers'
+import {
+  customSpeciesListReducer,
+  customSpeciesDetailsReducer,
+  customSpeciesCreateReducer,
+  customSpeciesUpdateReducer,
+  customSpeciesDeleteReducer,
+} from './reducers/customSpeciesReducers'
+import {
+  customStainListReducer,
+  customStainDetailsReducer,
+  customStainCreateReducer,
+  customStainUpdateReducer,
+  customStainDeleteReducer,
+} from './reducers/customStainReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
   userDetailsReducer,
@@ -36,33 +72,67 @@ import {
 } from './reducers/orderReducers'
 
 const reducer = combineReducers({
-  productList: productListReducer,
+  // CUSTOM PRODUCTS
   customProductList: customProductListReducer,
+  customProductDetails: customProductDetailsReducer,
+  customProductCreate: customProductCreateReducer,
+  customProductUpdate: customProductUpdateReducer,
+  customProductDelete: customProductDeleteReducer,
+  // CUSTOM ACCENTS
   customAccentList: customAccentListReducer,
+  customAccentDetails: customAccentDetailsReducer,
+  customAccentCreate: customAccentCreateReducer,
+  customAccentUpdate: customAccentUpdateReducer,
+  customAccentDelete: customAccentDeleteReducer,
+  // CUSTOM BASES
   customBaseList: customBaseListReducer,
+  customBaseDetails: customBaseDetailsReducer,
+  customBaseCreate: customBaseCreateReducer,
+  customBaseUpdate: customBaseUpdateReducer,
+  customBaseDelete: customBaseDeleteReducer,
+  // CUSTOM PAINTS
   customPaintList: customPaintListReducer,
+  customPaintDetails: customPaintDetailsReducer,
+  customPaintCreate: customPaintCreateReducer,
+  customPaintUpdate: customPaintUpdateReducer,
+  customPaintDelete: customPaintDeleteReducer,
+  // CUSTOM SPECIES
   customSpeciesList: customSpeciesListReducer,
+  customSpeciesDetails: customSpeciesDetailsReducer,
+  customSpeciesCreate: customSpeciesCreateReducer,
+  customSpeciesUpdate: customSpeciesUpdateReducer,
+  customSpeciesDelete: customSpeciesDeleteReducer,
+  // CUSTOM STAINS
   customStainList: customStainListReducer,
+  customStainDetails: customStainDetailsReducer,
+  customStainCreate: customStainCreateReducer,
+  customStainUpdate: customStainUpdateReducer,
+  customStainDelete: customStainDeleteReducer,
+  // PRODUCTS
+  productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
   productTopRated: productTopRatedReducer,
+  // CART
   cart: cartReducer,
+  // USER
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
+  userUpdate: userUpdateReducer,
+  // ORDER
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
-  userUpdate: userUpdateReducer,
 })
 
 // Gets data from local storage and parses it back from string(in actions) to JavaScript format
