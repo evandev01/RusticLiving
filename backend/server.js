@@ -13,6 +13,7 @@ import customBaseRoutes from './routes/customBaseRoutes.js'
 import customPaintRoutes from './routes/customPaintRoutes.js'
 import customSpeciesRoutes from './routes/customSpeciesRoutes.js'
 import customStainRoutes from './routes/customStainRoutes.js'
+import customPriceRoutes from './routes/customPriceRoutes.js'
 
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
@@ -38,6 +39,7 @@ app.use('/api/custombases', customBaseRoutes)
 app.use('/api/custompaints', customPaintRoutes)
 app.use('/api/customspecies', customSpeciesRoutes)
 app.use('/api/customstains', customStainRoutes)
+app.use('/api/customprices', customPriceRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/customorders', customOrderRoutes)
