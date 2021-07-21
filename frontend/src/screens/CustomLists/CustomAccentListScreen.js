@@ -44,9 +44,6 @@ const CustomAccentListScreen = ({ history }) => {
   return (
     <>
       <CustomProductButtons />
-      <Link to='/admin/customproducts' className='btn btn-dark my-3'>
-        Go Back
-      </Link>
       <Row>
         <Col className='text-center p-3'>
           <Link to='/admin/customaccents/create'>

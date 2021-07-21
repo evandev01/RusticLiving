@@ -1,29 +1,28 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { Row, Col, Button, Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import Loader from '../../components/Loader'
-import Message from '../../components/Message'
-import CustomProductButtons from '../../components/CustomProductButtons'
+import Loader from '../../../components/Loader'
+import Message from '../../../components/Message'
 import {
-  listCustomPaints,
-  listCustomPaintDetails,
-  deleteCustomPaint,
-} from '../../actions/customPaintActions'
+  deletePaintPrice,
+  listPaintPriceDetails,
+  listPaintPrices,
+} from '../../../actions/customPrices/paintPriceActions'
 
-const CustomPaintListScreen = ({ history }) => {
+const PaintPriceListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
-  const customPaintList = useSelector(state => state.customPaintList)
-  const { loading, customPaints, error } = customPaintList
+  const paintPriceList = useSelector(state => state.paintPriceList)
+  const { loading, paintPrices, error } = paintPriceList
 
-  const customPaintDelete = useSelector(state => state.customPaintDelete)
+  const paintPriceDelete = useSelector(state => state.paintPriceDelete)
   const {
     loading: loadingDelete,
     success: successDelete,
     error: errorDelete,
-  } = customPaintDelete
+  } = paintPriceDelete
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -32,21 +31,20 @@ const CustomPaintListScreen = ({ history }) => {
     if (!userInfo && !userInfo.isAdmin) {
       history.push('/login')
     } else {
-      dispatch(listCustomPaints())
+      dispatch(listPaintPrices())
     }
   }, [dispatch, history, userInfo, successDelete])
 
   const deleteHandler = id => {
     window.confirm('Are you sure?')
-    dispatch(deleteCustomPaint(id))
+    dispatch(deletePaintPrice(id))
   }
 
   return (
     <>
-      <CustomProductButtons />
       <Row>
         <Col className='text-center p-3'>
-          <Link to='/admin/custompaints/create'>
+          <Link to='/admin/paintprice/create'>
             <Button>
               <i className='fas fa-plus'></i> Create New
             </Button>
@@ -63,7 +61,7 @@ const CustomPaintListScreen = ({ history }) => {
           ) : error ? (
             <Message variant='danger'>{error}</Message>
           ) : (
-            customPaints && (
+            paintPrices && (
               <>
                 <Table
                   striped
@@ -75,27 +73,27 @@ const CustomPaintListScreen = ({ history }) => {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>NAME</th>
-                      <th>IMAGE</th>
+                      <th>PRODUCT TYPE</th>
+                      <th>PRICE PER SQ FT</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {customPaints.map(paint => (
-                      <tr key={paint._id}>
-                        <td>{paint._id}</td>
-                        <td>{paint.paintName}</td>
-                        <td>{paint.paintImage}</td>
+                    {paintPrices.map(price => (
+                      <tr key={price._id}>
+                        <td>{price._id}</td>
+                        <td>{price.productType}</td>
+                        <td>{price.pricePerSqFt}</td>
                         <td></td>
                         <LinkContainer
-                          to={`/admin/custompaints/${paint._id}/edit`}
+                          to={`/admin/paintprice/${price._id}/edit`}
                         >
                           <Button
                             variant='light'
                             className='btn-sm'
-                            onClick={dispatch(
-                              listCustomPaintDetails(paint._id)
-                            )}
+                            onClick={() =>
+                              dispatch(listPaintPriceDetails(price._id))
+                            }
                           >
                             <i className='fas fa-edit'></i>
                           </Button>
@@ -103,7 +101,7 @@ const CustomPaintListScreen = ({ history }) => {
                         <Button
                           variant='danger'
                           className='btn-sm'
-                          onClick={() => deleteHandler(paint._id)}
+                          onClick={() => deleteHandler(price._id)}
                         >
                           <i className='fas fa-trash'></i>
                         </Button>
@@ -120,4 +118,4 @@ const CustomPaintListScreen = ({ history }) => {
   )
 }
 
-export default CustomPaintListScreen
+export default PaintPriceListScreen

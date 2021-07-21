@@ -1,55 +1,54 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Row, Col, Button } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const CustomProductButtons = () => {
+const CustomPriceButtons = () => {
   return (
     <>
+      <Link to='/admin/customproducts' className='btn btn-dark my-3'>
+        Go Back
+      </Link>
       <Row className='align-items-center'>
         <Col className='text-center'>
           <LinkContainer
             className='btn btn-dark btn-lg my-3'
-            to='/admin/customproducts'
+            to='/admin/customprices'
           >
-            <h1>Custom Products</h1>
+            <h1>Custom Prices</h1>
           </LinkContainer>
         </Col>
       </Row>
       <Row className='align-items-center'>
         <Col className='text-center'>
-          <LinkContainer to='/admin/customproductlist'>
+          <LinkContainer to='/admin/customprices/table'>
             <Button variant='outline-success' size='md'>
-              Products
+              Table
             </Button>
           </LinkContainer>
-          <LinkContainer to='/admin/customspecieslist'>
+          <LinkContainer to='/admin/customprices/bedframe'>
             <Button variant='outline-success' size='md' block>
-              Species
+              Bed Frame
             </Button>
           </LinkContainer>
-          <LinkContainer to='/admin/custombaselist'>
+          <LinkContainer to='/admin/customprices/door'>
             <Button variant='outline-success' size='md' block>
-              Bases
+              Door
             </Button>
           </LinkContainer>
-          <LinkContainer to='/admin/custompaintlist'>
+          <LinkContainer to='/admin/customprices/paint'>
             <Button variant='outline-success' size='md' block>
-              Paints
+              Paint
             </Button>
           </LinkContainer>
-          <LinkContainer to='/admin/customstainlist'>
+          <LinkContainer to='/admin/customprices/stain'>
             <Button variant='outline-success' size='md' block>
-              Stains
+              Stain
             </Button>
           </LinkContainer>
-          <LinkContainer to='/admin/customaccentlist'>
+          <LinkContainer to='/admin/customprices/accent'>
             <Button variant='outline-success' size='md' block>
-              Accents
-            </Button>
-          </LinkContainer>
-          <LinkContainer to='/admin/customprices'>
-            <Button variant='outline-success' size='md' block>
-              Prices
+              Accent
             </Button>
           </LinkContainer>
         </Col>
@@ -58,4 +57,4 @@ const CustomProductButtons = () => {
   )
 }
 
-export default CustomProductButtons
+export default CustomPriceButtons

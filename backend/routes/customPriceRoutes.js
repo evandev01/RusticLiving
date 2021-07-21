@@ -1,13 +1,6 @@
 import express from 'express'
 const router = express.Router()
 import {
-  getSpeciesPrices,
-  getSpeciesPriceById,
-  createSpeciesPrice,
-  updateSpeciesPrice,
-  deleteSpeciesPrice,
-} from '../controllers/customPriceControllers/speciesPriceController.js'
-import {
   getAccentPrices,
   getAccentPriceById,
   createAccentPrice,
@@ -29,17 +22,57 @@ import {
   deleteStainPrice,
 } from '../controllers/customPriceControllers/stainPriceController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
+import {
+  createTablePrice,
+  deleteTablePrice,
+  getTablePriceById,
+  getTablePrices,
+  updateTablePrice,
+} from '../controllers/customPriceControllers/tablePriceController.js'
+import {
+  createBedFramePrice,
+  deleteBedFramePrice,
+  getBedFramePriceById,
+  getBedFramePrices,
+  updateBedFramePrice,
+} from '../controllers/customPriceControllers/bedFramePriceController.js'
+import {
+  createDoorPrice,
+  deleteDoorPrice,
+  getDoorPriceById,
+  getDoorPrices,
+  updateDoorPrice,
+} from '../controllers/customPriceControllers/doorPriceController.js'
 
-// Species price routes
+// Table price routes
 router
-  .route('/species')
-  .get(getSpeciesPrices)
-  .post(protect, admin, createSpeciesPrice)
+  .route('/table')
+  .get(getTablePrices)
+  .post(protect, admin, createTablePrice)
 router
-  .route('/species/:id')
-  .get(getSpeciesPriceById)
-  .put(protect, admin, updateSpeciesPrice)
-  .delete(protect, admin, deleteSpeciesPrice)
+  .route('/table/:id')
+  .get(getTablePriceById)
+  .put(protect, admin, updateTablePrice)
+  .delete(protect, admin, deleteTablePrice)
+
+// Bed frame price routes
+router
+  .route('/bedframe')
+  .get(getBedFramePrices)
+  .post(protect, admin, createBedFramePrice)
+router
+  .route('/bedframe/:id')
+  .get(getBedFramePriceById)
+  .put(protect, admin, updateBedFramePrice)
+  .delete(protect, admin, deleteBedFramePrice)
+
+// Door price routes
+router.route('/door').get(getDoorPrices).post(protect, admin, createDoorPrice)
+router
+  .route('/door/:id')
+  .get(getDoorPriceById)
+  .put(protect, admin, updateDoorPrice)
+  .delete(protect, admin, deleteDoorPrice)
 
 // Accent price routes
 router

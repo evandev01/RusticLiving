@@ -1,29 +1,28 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { Row, Col, Button, Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import Loader from '../../components/Loader'
-import Message from '../../components/Message'
-import CustomProductButtons from '../../components/CustomProductButtons'
+import Loader from '../../../components/Loader'
+import Message from '../../../components/Message'
 import {
-  listCustomPaints,
-  listCustomPaintDetails,
-  deleteCustomPaint,
-} from '../../actions/customPaintActions'
+  listBedFramePrices,
+  deleteBedFramePrice,
+  listBedFramePriceDetails,
+} from '../../../actions/customPrices/bedFramePriceActions'
 
-const CustomPaintListScreen = ({ history }) => {
+const BedFramePriceListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
-  const customPaintList = useSelector(state => state.customPaintList)
-  const { loading, customPaints, error } = customPaintList
+  const bedFramePriceList = useSelector(state => state.bedFramePriceList)
+  const { loading, bedFramePrices, error } = bedFramePriceList
 
-  const customPaintDelete = useSelector(state => state.customPaintDelete)
+  const bedFramePriceDelete = useSelector(state => state.bedFramePriceDelete)
   const {
     loading: loadingDelete,
     success: successDelete,
     error: errorDelete,
-  } = customPaintDelete
+  } = bedFramePriceDelete
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -32,21 +31,20 @@ const CustomPaintListScreen = ({ history }) => {
     if (!userInfo && !userInfo.isAdmin) {
       history.push('/login')
     } else {
-      dispatch(listCustomPaints())
+      dispatch(listBedFramePrices())
     }
   }, [dispatch, history, userInfo, successDelete])
 
   const deleteHandler = id => {
     window.confirm('Are you sure?')
-    dispatch(deleteCustomPaint(id))
+    dispatch(deleteBedFramePrice(id))
   }
 
   return (
     <>
-      <CustomProductButtons />
       <Row>
         <Col className='text-center p-3'>
-          <Link to='/admin/custompaints/create'>
+          <Link to='/admin/bedframeprice/create'>
             <Button>
               <i className='fas fa-plus'></i> Create New
             </Button>
@@ -63,7 +61,7 @@ const CustomPaintListScreen = ({ history }) => {
           ) : error ? (
             <Message variant='danger'>{error}</Message>
           ) : (
-            customPaints && (
+            bedFramePrices && (
               <>
                 <Table
                   striped
@@ -75,27 +73,27 @@ const CustomPaintListScreen = ({ history }) => {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>NAME</th>
-                      <th>IMAGE</th>
+                      <th>SPECIES NAME</th>
+                      <th>PRICE PER SQ FT</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {customPaints.map(paint => (
-                      <tr key={paint._id}>
-                        <td>{paint._id}</td>
-                        <td>{paint.paintName}</td>
-                        <td>{paint.paintImage}</td>
+                    {bedFramePrices.map(price => (
+                      <tr key={price._id}>
+                        <td>{price._id}</td>
+                        <td>{price.speciesName}</td>
+                        <td>{price.pricePerSqFt}</td>
                         <td></td>
                         <LinkContainer
-                          to={`/admin/custompaints/${paint._id}/edit`}
+                          to={`/admin/bedframeprice/${price._id}/edit`}
                         >
                           <Button
                             variant='light'
                             className='btn-sm'
-                            onClick={dispatch(
-                              listCustomPaintDetails(paint._id)
-                            )}
+                            onClick={() =>
+                              dispatch(listBedFramePriceDetails(price._id))
+                            }
                           >
                             <i className='fas fa-edit'></i>
                           </Button>
@@ -103,7 +101,7 @@ const CustomPaintListScreen = ({ history }) => {
                         <Button
                           variant='danger'
                           className='btn-sm'
-                          onClick={() => deleteHandler(paint._id)}
+                          onClick={() => deleteHandler(price._id)}
                         >
                           <i className='fas fa-trash'></i>
                         </Button>
@@ -120,4 +118,4 @@ const CustomPaintListScreen = ({ history }) => {
   )
 }
 
-export default CustomPaintListScreen
+export default BedFramePriceListScreen

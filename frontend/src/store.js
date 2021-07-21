@@ -70,8 +70,87 @@ import {
   orderListMyReducer,
   orderListReducer,
 } from './reducers/orderReducers'
+import {
+  tablePriceListReducer,
+  tablePriceDetailsReducer,
+  tablePriceCreateReducer,
+  tablePriceUpdateReducer,
+  tablePriceDeleteReducer,
+} from './reducers/priceReducers/tablePriceReducers'
+import {
+  bedFramePriceListReducer,
+  bedFramePriceDetailsReducer,
+  bedFramePriceCreateReducer,
+  bedFramePriceUpdateReducer,
+  bedFramePriceDeleteReducer,
+} from './reducers/priceReducers/bedFramePriceReducers'
+import {
+  doorPriceListReducer,
+  doorPriceDetailsReducer,
+  doorPriceCreateReducer,
+  doorPriceUpdateReducer,
+  doorPriceDeleteReducer,
+} from './reducers/priceReducers/doorPriceReducers'
+import {
+  accentPriceListReducer,
+  accentPriceDetailsReducer,
+  accentPriceCreateReducer,
+  accentPriceUpdateReducer,
+  accentPriceDeleteReducer,
+} from './reducers/priceReducers/accentPriceReducers'
+import {
+  paintPriceListReducer,
+  paintPriceDetailsReducer,
+  paintPriceCreateReducer,
+  paintPriceUpdateReducer,
+  paintPriceDeleteReducer,
+} from './reducers/priceReducers/paintPriceReducers'
+import {
+  stainPriceListReducer,
+  stainPriceDetailsReducer,
+  stainPriceCreateReducer,
+  stainPriceUpdateReducer,
+  stainPriceDeleteReducer,
+} from './reducers/priceReducers/stainPriceReducers'
 
 const reducer = combineReducers({
+  // CUSTOM PRICES
+  // Table
+  tablePriceList: tablePriceListReducer,
+  tablePriceDetails: tablePriceDetailsReducer,
+  tablePriceCreate: tablePriceCreateReducer,
+  tablePriceUpdate: tablePriceUpdateReducer,
+  tablePriceDelete: tablePriceDeleteReducer,
+  // Bed Frame
+  bedFramePriceList: bedFramePriceListReducer,
+  bedFramePriceDetails: bedFramePriceDetailsReducer,
+  bedFramePriceCreate: bedFramePriceCreateReducer,
+  bedFramePriceUpdate: bedFramePriceUpdateReducer,
+  bedFramePriceDelete: bedFramePriceDeleteReducer,
+  // Door
+  doorPriceList: doorPriceListReducer,
+  doorPriceDetails: doorPriceDetailsReducer,
+  doorPriceCreate: doorPriceCreateReducer,
+  doorPriceUpdate: doorPriceUpdateReducer,
+  doorPriceDelete: doorPriceDeleteReducer,
+  // Accent
+  accentPriceList: accentPriceListReducer,
+  accentPriceDetails: accentPriceDetailsReducer,
+  accentPriceCreate: accentPriceCreateReducer,
+  accentPriceUpdate: accentPriceUpdateReducer,
+  accentPriceDelete: accentPriceDeleteReducer,
+  // Paint
+  paintPriceList: paintPriceListReducer,
+  paintPriceDetails: paintPriceDetailsReducer,
+  paintPriceCreate: paintPriceCreateReducer,
+  paintPriceUpdate: paintPriceUpdateReducer,
+  paintPriceDelete: paintPriceDeleteReducer,
+  // Stain
+  stainPriceList: stainPriceListReducer,
+  stainPriceDetails: stainPriceDetailsReducer,
+  stainPriceCreate: stainPriceCreateReducer,
+  stainPriceUpdate: stainPriceUpdateReducer,
+  stainPriceDelete: stainPriceDeleteReducer,
   // CUSTOM PRODUCTS
   customProductList: customProductListReducer,
   customProductDetails: customProductDetailsReducer,

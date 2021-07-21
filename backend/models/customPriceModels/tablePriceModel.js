@@ -1,13 +1,12 @@
 import mongoose from 'mongoose'
 
-const speciesPriceSchema = mongoose.Schema({
+const tablePriceSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User',
   },
   speciesName: { type: String, required: true },
-  productType: { type: String, required: true },
   pricePerSqFt: {
     type: Number,
     required: true,
@@ -15,6 +14,6 @@ const speciesPriceSchema = mongoose.Schema({
   },
 })
 
-const SpeciesPrice = mongoose.model('Species Price', speciesPriceSchema)
+const TablePrice = mongoose.model('TablePrice', tablePriceSchema)
 
-export default SpeciesPrice
+export default TablePrice

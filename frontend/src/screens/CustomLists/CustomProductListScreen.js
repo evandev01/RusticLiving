@@ -53,9 +53,6 @@ const CustomProductListScreen = ({ history }) => {
           </Link>
         </Col>
       </Row>
-      <Link to='/admin/customproducts' className='btn btn-dark my-3'>
-        Go Back
-      </Link>
 
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
