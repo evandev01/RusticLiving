@@ -128,7 +128,7 @@ const CustomStainCreateScreen = ({ history }) => {
             <Form.Group controlId='stainPrice' className='mt-3'>
               <Form.Label>Stain Price PSF</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter stain price psf'
                 value={stainPrice}
                 onChange={e => setStainPrice(e.target.value)}

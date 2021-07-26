@@ -131,7 +131,7 @@ const BaseCreateScreen = ({ history }) => {
             <Form.Group controlId='basePrice' className='mt-3'>
               <Form.Label>Base Price Per Unit</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter base price per unit'
                 value={basePrice}
                 onChange={e => setBasePrice(e.target.value)}

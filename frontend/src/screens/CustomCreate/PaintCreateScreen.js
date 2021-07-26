@@ -124,7 +124,7 @@ const CustomPaintCreateScreen = ({ history }) => {
             <Form.Group controlId='paintPrice' className='mt-3'>
               <Form.Label>Paint Price PSF</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter paint price psf'
                 value={paintPrice}
                 onChange={e => setPaintPrice(e.target.value)}

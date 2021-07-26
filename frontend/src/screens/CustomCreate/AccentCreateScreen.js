@@ -124,7 +124,7 @@ const AccentCreateScreen = ({ history }) => {
             <Form.Group controlId='accentPrice' className='mt-3'>
               <Form.Label>Accent Price Per Unit</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter accent price'
                 value={accentPrice}
                 onChange={e => setAccentPrice(e.target.value)}

@@ -110,7 +110,7 @@ const TableCreateScreen = ({ history }) => {
             <Form.Group controlId='speciesPrice' className='mt-3'>
               <Form.Label>Species Price PSF</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter species price psf for table'
                 value={speciesPrice}
                 onChange={e => setSpeciesPrice(e.target.value)}
