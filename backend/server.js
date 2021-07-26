@@ -5,19 +5,12 @@ import colors from 'colors'
 import morgan from 'morgan'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
-
 import productRoutes from './routes/productRoutes.js'
-import customProductRoutes from './routes/customProductRoutes.js'
-import customAccentRoutes from './routes/customAccentRoutes.js'
-import customBaseRoutes from './routes/customBaseRoutes.js'
-import customPaintRoutes from './routes/customPaintRoutes.js'
-import customSpeciesRoutes from './routes/customSpeciesRoutes.js'
-import customStainRoutes from './routes/customStainRoutes.js'
-import customPriceRoutes from './routes/customPriceRoutes.js'
-
-import userRoutes from './routes/userRoutes.js'
+import customRoutes from './routes/customRoutes/index.js'
 import orderRoutes from './routes/orderRoutes.js'
+import customPreOrderRoutes from './routes/customPreOrderRoutes.js'
 import customOrderRoutes from './routes/customOrderRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 
 dotenv.config()
@@ -33,14 +26,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use('/api/products', productRoutes)
-app.use('/api/customproducts', customProductRoutes)
-app.use('/api/customaccents', customAccentRoutes)
-app.use('/api/custombases', customBaseRoutes)
-app.use('/api/custompaints', customPaintRoutes)
-app.use('/api/customspecies', customSpeciesRoutes)
-app.use('/api/customstains', customStainRoutes)
-app.use('/api/customprices', customPriceRoutes)
+app.use('/api/custom', customRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/custompreorders', customPreOrderRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/customorders', customOrderRoutes)
 app.use('/api/upload', uploadRoutes)

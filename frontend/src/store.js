@@ -10,48 +10,6 @@ import {
   productReviewCreateReducer,
   productTopRatedReducer,
 } from './reducers/productReducers'
-import {
-  customProductListReducer,
-  customProductDetailsReducer,
-  customProductUpdateReducer,
-  customProductCreateReducer,
-  customProductDeleteReducer,
-} from './reducers/customProductReducers'
-import {
-  customAccentDetailsReducer,
-  customAccentListReducer,
-  customAccentCreateReducer,
-  customAccentUpdateReducer,
-  customAccentDeleteReducer,
-} from './reducers/customAccentReducers'
-import {
-  customBaseListReducer,
-  customBaseDetailsReducer,
-  customBaseCreateReducer,
-  customBaseUpdateReducer,
-  customBaseDeleteReducer,
-} from './reducers/customBaseReducers'
-import {
-  customPaintListReducer,
-  customPaintDetailsReducer,
-  customPaintCreateReducer,
-  customPaintUpdateReducer,
-  customPaintDeleteReducer,
-} from './reducers/customPaintReducers'
-import {
-  customSpeciesListReducer,
-  customSpeciesDetailsReducer,
-  customSpeciesCreateReducer,
-  customSpeciesUpdateReducer,
-  customSpeciesDeleteReducer,
-} from './reducers/customSpeciesReducers'
-import {
-  customStainListReducer,
-  customStainDetailsReducer,
-  customStainCreateReducer,
-  customStainUpdateReducer,
-  customStainDeleteReducer,
-} from './reducers/customStainReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
   userDetailsReducer,
@@ -71,122 +29,99 @@ import {
   orderListReducer,
 } from './reducers/orderReducers'
 import {
-  tablePriceListReducer,
-  tablePriceDetailsReducer,
-  tablePriceCreateReducer,
-  tablePriceUpdateReducer,
-  tablePriceDeleteReducer,
-} from './reducers/priceReducers/tablePriceReducers'
+  tableListReducer,
+  tableDetailsReducer,
+  tableCreateReducer,
+  tableUpdateReducer,
+  tableDeleteReducer,
+} from './reducers/customProductReducers/tableReducers'
 import {
-  bedFramePriceListReducer,
-  bedFramePriceDetailsReducer,
-  bedFramePriceCreateReducer,
-  bedFramePriceUpdateReducer,
-  bedFramePriceDeleteReducer,
-} from './reducers/priceReducers/bedFramePriceReducers'
+  bedFrameListReducer,
+  bedFrameDetailsReducer,
+  bedFrameCreateReducer,
+  bedFrameUpdateReducer,
+  bedFrameDeleteReducer,
+} from './reducers/customProductReducers/bedFrameReducers'
 import {
-  doorPriceListReducer,
-  doorPriceDetailsReducer,
-  doorPriceCreateReducer,
-  doorPriceUpdateReducer,
-  doorPriceDeleteReducer,
-} from './reducers/priceReducers/doorPriceReducers'
+  doorListReducer,
+  doorDetailsReducer,
+  doorCreateReducer,
+  doorUpdateReducer,
+  doorDeleteReducer,
+} from './reducers/customProductReducers/doorReducers'
 import {
-  accentPriceListReducer,
-  accentPriceDetailsReducer,
-  accentPriceCreateReducer,
-  accentPriceUpdateReducer,
-  accentPriceDeleteReducer,
-} from './reducers/priceReducers/accentPriceReducers'
+  accentListReducer,
+  accentDetailsReducer,
+  accentCreateReducer,
+  accentUpdateReducer,
+  accentDeleteReducer,
+} from './reducers/customProductReducers/accentReducers'
 import {
-  paintPriceListReducer,
-  paintPriceDetailsReducer,
-  paintPriceCreateReducer,
-  paintPriceUpdateReducer,
-  paintPriceDeleteReducer,
-} from './reducers/priceReducers/paintPriceReducers'
+  paintListReducer,
+  paintDetailsReducer,
+  paintCreateReducer,
+  paintUpdateReducer,
+  paintDeleteReducer,
+} from './reducers/customProductReducers/paintReducers'
 import {
-  stainPriceListReducer,
-  stainPriceDetailsReducer,
-  stainPriceCreateReducer,
-  stainPriceUpdateReducer,
-  stainPriceDeleteReducer,
-} from './reducers/priceReducers/stainPriceReducers'
+  stainListReducer,
+  stainDetailsReducer,
+  stainCreateReducer,
+  stainUpdateReducer,
+  stainDeleteReducer,
+} from './reducers/customProductReducers/stainReducers'
+import {
+  baseListReducer,
+  baseDetailsReducer,
+  baseCreateReducer,
+  baseUpdateReducer,
+  baseDeleteReducer,
+} from './reducers/customProductReducers/baseReducers'
 
 const reducer = combineReducers({
-  // CUSTOM PRICES
-  // Table
-  tablePriceList: tablePriceListReducer,
-  tablePriceDetails: tablePriceDetailsReducer,
-  tablePriceCreate: tablePriceCreateReducer,
-  tablePriceUpdate: tablePriceUpdateReducer,
-  tablePriceDelete: tablePriceDeleteReducer,
+  // CUSTOM
+  // Tables
+  tableList: tableListReducer,
+  tableDetails: tableDetailsReducer,
+  tableCreate: tableCreateReducer,
+  tableUpdate: tableUpdateReducer,
+  tableDelete: tableDeleteReducer,
   // Bed Frame
-  bedFramePriceList: bedFramePriceListReducer,
-  bedFramePriceDetails: bedFramePriceDetailsReducer,
-  bedFramePriceCreate: bedFramePriceCreateReducer,
-  bedFramePriceUpdate: bedFramePriceUpdateReducer,
-  bedFramePriceDelete: bedFramePriceDeleteReducer,
+  bedFrameList: bedFrameListReducer,
+  bedFrameDetails: bedFrameDetailsReducer,
+  bedFrameCreate: bedFrameCreateReducer,
+  bedFrameUpdate: bedFrameUpdateReducer,
+  bedFrameDelete: bedFrameDeleteReducer,
   // Door
-  doorPriceList: doorPriceListReducer,
-  doorPriceDetails: doorPriceDetailsReducer,
-  doorPriceCreate: doorPriceCreateReducer,
-  doorPriceUpdate: doorPriceUpdateReducer,
-  doorPriceDelete: doorPriceDeleteReducer,
-  // Accent
-  accentPriceList: accentPriceListReducer,
-  accentPriceDetails: accentPriceDetailsReducer,
-  accentPriceCreate: accentPriceCreateReducer,
-  accentPriceUpdate: accentPriceUpdateReducer,
-  accentPriceDelete: accentPriceDeleteReducer,
-  // Paint
-  paintPriceList: paintPriceListReducer,
-  paintPriceDetails: paintPriceDetailsReducer,
-  paintPriceCreate: paintPriceCreateReducer,
-  paintPriceUpdate: paintPriceUpdateReducer,
-  paintPriceDelete: paintPriceDeleteReducer,
-  // Stain
-  stainPriceList: stainPriceListReducer,
-  stainPriceDetails: stainPriceDetailsReducer,
-  stainPriceCreate: stainPriceCreateReducer,
-  stainPriceUpdate: stainPriceUpdateReducer,
-  stainPriceDelete: stainPriceDeleteReducer,
-  // CUSTOM PRODUCTS
-  customProductList: customProductListReducer,
-  customProductDetails: customProductDetailsReducer,
-  customProductCreate: customProductCreateReducer,
-  customProductUpdate: customProductUpdateReducer,
-  customProductDelete: customProductDeleteReducer,
-  // CUSTOM ACCENTS
-  customAccentList: customAccentListReducer,
-  customAccentDetails: customAccentDetailsReducer,
-  customAccentCreate: customAccentCreateReducer,
-  customAccentUpdate: customAccentUpdateReducer,
-  customAccentDelete: customAccentDeleteReducer,
-  // CUSTOM BASES
-  customBaseList: customBaseListReducer,
-  customBaseDetails: customBaseDetailsReducer,
-  customBaseCreate: customBaseCreateReducer,
-  customBaseUpdate: customBaseUpdateReducer,
-  customBaseDelete: customBaseDeleteReducer,
-  // CUSTOM PAINTS
-  customPaintList: customPaintListReducer,
-  customPaintDetails: customPaintDetailsReducer,
-  customPaintCreate: customPaintCreateReducer,
-  customPaintUpdate: customPaintUpdateReducer,
-  customPaintDelete: customPaintDeleteReducer,
-  // CUSTOM SPECIES
-  customSpeciesList: customSpeciesListReducer,
-  customSpeciesDetails: customSpeciesDetailsReducer,
-  customSpeciesCreate: customSpeciesCreateReducer,
-  customSpeciesUpdate: customSpeciesUpdateReducer,
-  customSpeciesDelete: customSpeciesDeleteReducer,
-  // CUSTOM STAINS
-  customStainList: customStainListReducer,
-  customStainDetails: customStainDetailsReducer,
-  customStainCreate: customStainCreateReducer,
-  customStainUpdate: customStainUpdateReducer,
-  customStainDelete: customStainDeleteReducer,
+  doorList: doorListReducer,
+  doorDetails: doorDetailsReducer,
+  doorCreate: doorCreateReducer,
+  doorUpdate: doorUpdateReducer,
+  doorDelete: doorDeleteReducer,
+  // Accents
+  accentList: accentListReducer,
+  accentDetails: accentDetailsReducer,
+  accentCreate: accentCreateReducer,
+  accentUpdate: accentUpdateReducer,
+  accentDelete: accentDeleteReducer,
+  // Paints
+  paintList: paintListReducer,
+  paintDetails: paintDetailsReducer,
+  paintCreate: paintCreateReducer,
+  paintUpdate: paintUpdateReducer,
+  paintDelete: paintDeleteReducer,
+  // Stains
+  stainList: stainListReducer,
+  stainDetails: stainDetailsReducer,
+  stainCreate: stainCreateReducer,
+  stainUpdate: stainUpdateReducer,
+  stainDelete: stainDeleteReducer,
+  // Bases
+  baseList: baseListReducer,
+  baseDetails: baseDetailsReducer,
+  baseCreate: baseCreateReducer,
+  baseUpdate: baseUpdateReducer,
+  baseDelete: baseDeleteReducer,
   // PRODUCTS
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -214,7 +149,7 @@ const reducer = combineReducers({
   orderList: orderListReducer,
 })
 
-// Gets data from local storage and parses it back from string(in actions) to JavaScript format
+// Gets data from local storage and parses it back from string (in actions) to JavaScript format
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))

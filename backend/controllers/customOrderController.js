@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler'
-import CustomOrder from '../models/customProductModels/customOrderModel.js'
+import CustomOrder from '../models/customOrderModel.js'
 
 // @desc    Create new custom order
 // @route   POST /api/customorders

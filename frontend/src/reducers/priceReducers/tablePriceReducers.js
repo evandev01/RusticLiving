@@ -28,6 +28,7 @@ export const tablePriceListReducer = (state = { tablePrices: [] }, action) => {
     case TABLE_PRICE_SUCCESS:
       return {
         loading: false,
+        success: true,
         tablePrices: action.payload,
       }
     case TABLE_PRICE_FAIL:

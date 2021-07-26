@@ -29,7 +29,12 @@ const Header = () => {
             <Nav className='ml-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>
-                  <i className='fas fa-shopping-cart'></i>Cart
+                  <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/custom'>
+                <Nav.Link>
+                  <i className='fas fa-wrench'></i> Build Your Own
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
@@ -44,7 +49,7 @@ const Header = () => {
               ) : (
                 <LinkContainer to='/login'>
                   <Nav.Link>
-                    <i className='fas fa-user'></i>Sign In
+                    <i className='fas fa-user'></i> Sign In
                   </Nav.Link>
                 </LinkContainer>
               )}
@@ -56,7 +61,7 @@ const Header = () => {
                   <LinkContainer to='/admin/productlist'>
                     <NavDropdown.Item>Products</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='/admin/customproducts'>
+                  <LinkContainer to='/admin/custom/products'>
                     <NavDropdown.Item>Custom</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/orderlist'>
