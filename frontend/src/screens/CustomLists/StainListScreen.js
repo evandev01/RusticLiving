@@ -89,7 +89,7 @@ const StainListScreen = ({ history }) => {
                         <td>{stain.productType}</td>
                         <td>{stain.stainName}</td>
                         <td>{stain.stainImage}</td>
-                        <td>{stain.stainPrice}</td>
+                        <td>${stain.stainPrice}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/custom/stain/${stain._id}/edit`}

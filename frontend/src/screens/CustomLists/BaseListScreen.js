@@ -78,7 +78,7 @@ const BaseListScreen = ({ history }) => {
                       <th>PRODUCT</th>
                       <th>NAME</th>
                       <th>IMAGE</th>
-                      <th>PRICE/SQFT</th>
+                      <th>PRICE</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -89,7 +89,7 @@ const BaseListScreen = ({ history }) => {
                         <td>{base.productType}</td>
                         <td>{base.baseName}</td>
                         <td>{base.baseImage}</td>
-                        <td>{base.basePrice}</td>
+                        <td>${base.basePrice}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/custom/base/${base._id}/edit`}

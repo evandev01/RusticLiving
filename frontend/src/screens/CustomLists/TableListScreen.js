@@ -87,7 +87,7 @@ const TableListScreen = ({ history }) => {
                         <td>{table._id}</td>
                         <td>{table.speciesName}</td>
                         <td>{table.speciesImage}</td>
-                        <td>{table.speciesPrice}</td>
+                        <td>${table.speciesPrice}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/custom/table/${table._id}/edit`}

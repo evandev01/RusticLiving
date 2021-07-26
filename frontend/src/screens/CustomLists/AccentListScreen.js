@@ -78,7 +78,7 @@ const AccentListScreen = ({ history }) => {
                       <th>PRODUCT</th>
                       <th>NAME</th>
                       <th>IMAGE</th>
-                      <th>PRICE/PSF</th>
+                      <th>PRICE/UNIT</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -89,7 +89,7 @@ const AccentListScreen = ({ history }) => {
                         <td>{accent.productType}</td>
                         <td>{accent.accentName}</td>
                         <td>{accent.accentImage}</td>
-                        <td>{accent.accentPrice}</td>
+                        <td>${accent.accentPrice}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/custom/accent/${accent._id}/edit`}

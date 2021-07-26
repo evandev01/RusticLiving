@@ -87,7 +87,7 @@ const BedFrameListScreen = ({ history }) => {
                         <td>{bedFrame._id}</td>
                         <td>{bedFrame.speciesName}</td>
                         <td>{bedFrame.speciesImage}</td>
-                        <td>{bedFrame.speciesPrice}</td>
+                        <td>${bedFrame.speciesPrice}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/custom/bedframe/${bedFrame._id}/edit`}

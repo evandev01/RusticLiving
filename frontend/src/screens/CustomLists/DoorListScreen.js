@@ -87,7 +87,7 @@ const DoorListScreen = ({ history }) => {
                         <td>{door._id}</td>
                         <td>{door.speciesName}</td>
                         <td>{door.speciesImage}</td>
-                        <td>{door.speciesPrice}</td>
+                        <td>${door.speciesPrice}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/custom/door/${door._id}/edit`}

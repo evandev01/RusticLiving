@@ -89,7 +89,7 @@ const PaintListScreen = ({ history }) => {
                         <td>{paint.productType}</td>
                         <td>{paint.paintName}</td>
                         <td>{paint.paintImage}</td>
-                        <td>{paint.paintPrice}</td>
+                        <td>${paint.paintPrice}</td>
                         <td></td>
                         <LinkContainer
                           to={`/admin/custom/paint/${paint._id}/edit`}
