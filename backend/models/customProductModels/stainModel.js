@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const customStainSchema = mongoose.Schema(
+const stainSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +21,6 @@ const customStainSchema = mongoose.Schema(
   }
 )
 
-const CustomStain = mongoose.model('CustomStain', customStainSchema)
+const CustomStain = mongoose.model('CustomStain', stainSchema)
 
 export default CustomStain

@@ -9,7 +9,7 @@ const baseSchema = mongoose.Schema(
     },
     productType: { type: String, required: true },
     baseName: { type: String, required: true },
-    baseImage: { type: String, required: false },
+    baseImage: { type: String, required: true },
     basePrice: {
       type: Number,
       required: true,

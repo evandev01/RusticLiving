@@ -77,6 +77,7 @@ import {
   baseUpdateReducer,
   baseDeleteReducer,
 } from './reducers/customProductReducers/baseReducers'
+import { tableBuildReducer } from './reducers/customPreOrderReducers/customBuildReducers'
 
 const reducer = combineReducers({
   // CUSTOM
@@ -147,14 +148,33 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
+  // CUSTOM SUBTOTAL
+  tableBuild: tableBuildReducer,
 })
 
 // Gets data from local storage and parses it back from string (in actions) to JavaScript format
 
+// Custom subtotal local storage
+const sizeFromStorage = localStorage.getItem('size')
+  ? JSON.parse(localStorage.getItem('size'))
+  : {}
+const speciesFromStorage = localStorage.getItem('species')
+  ? JSON.parse(localStorage.getItem('species'))
+  : {}
+const stainFromStorage = localStorage.getItem('stain')
+  ? JSON.parse(localStorage.getItem('stain'))
+  : {}
+const paintFromStorage = localStorage.getItem('paint')
+  ? JSON.parse(localStorage.getItem('paint'))
+  : {}
+
+const baseFromStorage = localStorage.getItem('base')
+  ? JSON.parse(localStorage.getItem('base'))
+  : {}
+
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : []
-
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
@@ -174,6 +194,14 @@ const initialState = {
     paymentMethod: paymentMethodFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+  size: sizeFromStorage,
+  tableBuild: {
+    size: sizeFromStorage,
+    species: speciesFromStorage,
+    stain: stainFromStorage,
+    paint: paintFromStorage,
+    base: baseFromStorage,
+  },
 }
 
 const middleware = [thunk]

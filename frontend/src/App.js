@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
-// import CustomBuildScreen from './screens/CustomBuildScreen'
+import CustomBuildScreen from './screens/CustomBuildScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -53,7 +53,7 @@ import StainEditScreen from './screens/CustomEdit/StainEditScreen'
 // import AccentPriceEditScreen from './screens/CustomEdit/CustomPrices/AccentPriceEditScreen'
 // import PaintPriceEditScreen from './screens/CustomEdit/CustomPrices/PaintPriceEditScreen'
 // import StainPriceEditScreen from './screens/CustomEdit/CustomPrices/StainPriceEditScreen'
-// import CustomizeTableScreen from './screens/CustomizeScreens/CustomizeTableScreen'
+import CustomizeTableScreen from './screens/CustomizeScreens/CustomizeTableScreen'
 
 const App = () => {
   return (
@@ -66,8 +66,8 @@ const App = () => {
             <Route path='/shipping' component={ShippingScreen} />
             <Route path='/payment' component={PaymentScreen} />
             <Route path='/placeorder' component={PlaceOrderScreen} />
-            {/* <Route path='/custom' component={CustomBuildScreen} /> */}
-            {/* <Route path='/customize/table' component={CustomizeTableScreen} /> */}
+            <Route path='/custom' component={CustomBuildScreen} />
+            <Route path='/customize/table' component={CustomizeTableScreen} />
             {/* <Route path='/customize/bedframe' component={CustomizeBedFrameScreen} /> */}
             {/* <Route path='/customize/door' component={CustomizeDoorScreen} /> */}
             <Route path='/login' component={LoginScreen} />

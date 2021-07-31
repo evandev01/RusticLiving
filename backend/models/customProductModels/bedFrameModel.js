@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const customBedFrameSchema = mongoose.Schema({
+const bedFrameSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -15,6 +15,6 @@ const customBedFrameSchema = mongoose.Schema({
   },
 })
 
-const CustomBedFrame = mongoose.model('CustomBedFrame', customBedFrameSchema)
+const CustomBedFrame = mongoose.model('CustomBedFrame', bedFrameSchema)
 
 export default CustomBedFrame

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const customDoorSchema = mongoose.Schema({
+const doorSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -15,6 +15,6 @@ const customDoorSchema = mongoose.Schema({
   },
 })
 
-const CustomDoor = mongoose.model('CustomDoor', customDoorSchema)
+const CustomDoor = mongoose.model('CustomDoor', doorSchema)
 
 export default CustomDoor

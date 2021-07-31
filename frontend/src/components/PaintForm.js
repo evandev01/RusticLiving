@@ -3,57 +3,56 @@ import { Row, Col, Card, Form, Image, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
-import { listStains } from '../actions/customProducts/stainActions'
-import { addStain } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
+import { listPaints } from '../actions/customProducts/paintActions'
+import { addPaint } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
-const StainForm = () => {
+const PaintForm = () => {
   const [checkedValue, setCheckedValue] = useState('')
-  const [total, setTotal] = useState('')
   const [price, setPrice] = useState('')
+  const [total, setTotal] = useState('')
 
   const dispatch = useDispatch()
 
   const tableBuild = useSelector(state => state.tableBuild)
-  const { size, stain } = tableBuild
+  const { size, paint: paintTable } = tableBuild
 
-  const stainList = useSelector(state => state.stainList)
-  const { stains, error, loading } = stainList
+  const paintList = useSelector(state => state.paintList)
+  const { paints, error, loading } = paintList
 
   useEffect(() => {
-    dispatch(listStains())
+    dispatch(listPaints())
 
     if (size && price) {
       setTotal(size * price)
     }
 
-    if (stain) {
-      console.log(`stain name: ${stain.stainName}`)
+    if (paintTable) {
+      console.log(`paint name: ${paintTable.paintName}`)
     }
-  }, [dispatch, size, price, stain, tableBuild])
+  }, [dispatch, size, price, paintTable])
 
   return (
     <Row className='mt-3'>
       <Col md={2}>
-        <h5>Select a stain: </h5>
+        <h5>Select a paint: </h5>
         <p>(Cost per sq ft)</p>
       </Col>
       <Col md={8}>
         <Card>
           <Form inline>
             <Row>
-              {/* MAP THROUGH STAINS HERE */}
               {loading ? (
                 <Loader />
               ) : error ? (
                 <Message>{error}</Message>
               ) : (
-                stains.map(
-                  (stain, index) =>
-                    stain.productType === 'Table' && (
+                paints.map(
+                  (paint, index) =>
+                    paint.productType === 'Table' && (
                       <>
-                        <Col md={2} key={stain._id}>
+                        <Col md={2} key={paint._id}>
                           <Image
-                            src={stain.stainImage}
+                            src={paint.paintImage}
                             fluid
                             thumbnail
                             rounded
@@ -63,20 +62,19 @@ const StainForm = () => {
                             id={`radio-${index}`}
                             type='radio'
                             variant='outline-success'
-                            name={stain.speciesName}
+                            name={paint.speciesName}
                             value={index}
                             onChange={() => setCheckedValue(index)}
                             checked={index === checkedValue}
                             onClick={() => {
-                              dispatch(addStain(stain._id))
-
-                              setPrice(stain.stainPrice)
+                              dispatch(addPaint(paint._id))
+                              setPrice(paint.paintPrice)
                             }}
                             isValid
                           />
                           <p>
-                            {stain.stainName}
-                            <br />${stain.stainPrice}
+                            {paint.paintName}
+                            <br />${paint.paintPrice}
                           </p>
                         </Col>
                       </>
@@ -100,4 +98,4 @@ const StainForm = () => {
   )
 }
 
-export default StainForm
+export default PaintForm
