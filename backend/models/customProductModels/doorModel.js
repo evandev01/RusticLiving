@@ -1,19 +1,24 @@
 import mongoose from 'mongoose'
 
-const doorSchema = mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
+const doorSchema = mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    speciesName: { type: String, required: true },
+    speciesImage: { type: String, required: true },
+    speciesPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
   },
-  speciesName: { type: String, required: true },
-  speciesImage: { type: String, required: true },
-  speciesPrice: {
-    type: Number,
-    required: true,
-    default: 0.0,
-  },
-})
+  {
+    timestamps: true,
+  }
+)
 
 const CustomDoor = mongoose.model('CustomDoor', doorSchema)
 
