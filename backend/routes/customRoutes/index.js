@@ -8,6 +8,7 @@ import table from './tableRoutes.js'
 import door from './doorRoutes.js'
 import bedFrame from './bedFrameRoutes.js'
 import accent from './accentRoutes.js'
+import estCompDate from './estCompRoutes.js'
 
 // Route for Custom Products CRUD
 router.use('/base', base)
@@ -17,5 +18,6 @@ router.use('/table', table)
 router.use('/door', door)
 router.use('/bedframe', bedFrame)
 router.use('/accent', accent)
+router.use('/estcompdate', estCompDate)
 
 export default router

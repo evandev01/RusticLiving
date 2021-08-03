@@ -4,17 +4,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
 import { listPaints } from '../actions/customProducts/paintActions'
-import { addPaint } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
+import {
+  addPaint,
+  addPaintTotal,
+} from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
 const PaintForm = () => {
   const [checkedValue, setCheckedValue] = useState('')
-  const [price, setPrice] = useState('')
-  const [total, setTotal] = useState('')
+  const [total, setTotal] = useState(0)
 
   const dispatch = useDispatch()
 
   const tableBuild = useSelector(state => state.tableBuild)
-  const { size, paint: paintTable } = tableBuild
+  const { size, paint, paintTotal } = tableBuild
 
   const paintList = useSelector(state => state.paintList)
   const { paints, error, loading } = paintList
@@ -22,14 +24,16 @@ const PaintForm = () => {
   useEffect(() => {
     dispatch(listPaints())
 
-    if (size && price) {
-      setTotal(size * price)
+    if (paintTotal && paintTotal !== null) {
+      setTotal(paintTotal)
+    } else {
+      setTotal(0)
     }
 
-    if (paintTable) {
-      console.log(`paint name: ${paintTable.paintName}`)
+    if (paint) {
+      setCheckedValue(paint._id)
     }
-  }, [dispatch, size, price, paintTable])
+  }, [dispatch, size, paint, paintTotal])
 
   return (
     <Row className='mt-3'>
@@ -49,35 +53,36 @@ const PaintForm = () => {
                 paints.map(
                   (paint, index) =>
                     paint.productType === 'Table' && (
-                      <>
-                        <Col md={2} key={paint._id}>
-                          <Image
-                            src={paint.paintImage}
-                            fluid
-                            thumbnail
-                            rounded
-                          />
+                      <Col md={2} key={index}>
+                        <Image
+                          key={paint.paintImage}
+                          src={paint.paintImage}
+                          id='paintImage'
+                          fluid
+                          thumbnail
+                          rounded
+                        />
 
-                          <Form.Check
-                            id={`radio-${index}`}
-                            type='radio'
-                            variant='outline-success'
-                            name={paint.speciesName}
-                            value={index}
-                            onChange={() => setCheckedValue(index)}
-                            checked={index === checkedValue}
-                            onClick={() => {
-                              dispatch(addPaint(paint._id))
-                              setPrice(paint.paintPrice)
-                            }}
-                            isValid
-                          />
-                          <p>
-                            {paint.paintName}
-                            <br />${paint.paintPrice}
-                          </p>
-                        </Col>
-                      </>
+                        <Form.Check
+                          key={paint._id}
+                          id={`radio-${index}`}
+                          type='radio'
+                          variant='outline-success'
+                          name={paint.speciesName}
+                          value={paint._id}
+                          onChange={() => setCheckedValue(paint._id)}
+                          checked={paint._id === checkedValue}
+                          onClick={() => {
+                            dispatch(addPaint(paint._id))
+                            dispatch(addPaintTotal(paint.paintPrice * size))
+                          }}
+                          isValid
+                        />
+                        <p>
+                          {paint.paintName}
+                          <br />${paint.paintPrice}
+                        </p>
+                      </Col>
                     )
                 )
               )}
@@ -89,7 +94,7 @@ const PaintForm = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h5>Total: ${total}</h5>
+              <h5>Total: ${total}.00</h5>
             </ListGroup.Item>
           </ListGroup>
         </Card>

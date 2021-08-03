@@ -161,15 +161,26 @@ const sizeFromStorage = localStorage.getItem('size')
 const speciesFromStorage = localStorage.getItem('species')
   ? JSON.parse(localStorage.getItem('species'))
   : {}
+const speciesTotalFromStorage = localStorage.getItem('speciesTotal')
+  ? JSON.parse(localStorage.getItem('speciesTotal'))
+  : {}
 const stainFromStorage = localStorage.getItem('stain')
   ? JSON.parse(localStorage.getItem('stain'))
+  : {}
+const stainTotalFromStorage = localStorage.getItem('stainTotal')
+  ? JSON.parse(localStorage.getItem('stainTotal'))
   : {}
 const paintFromStorage = localStorage.getItem('paint')
   ? JSON.parse(localStorage.getItem('paint'))
   : {}
-
+const paintTotalFromStorage = localStorage.getItem('paintTotal')
+  ? JSON.parse(localStorage.getItem('paintTotal'))
+  : {}
 const baseFromStorage = localStorage.getItem('base')
   ? JSON.parse(localStorage.getItem('base'))
+  : {}
+const baseTotalFromStorage = localStorage.getItem('baseTotal')
+  ? JSON.parse(localStorage.getItem('baseTotal'))
   : {}
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -198,9 +209,13 @@ const initialState = {
   tableBuild: {
     size: sizeFromStorage,
     species: speciesFromStorage,
+    speciesTotal: speciesTotalFromStorage,
     stain: stainFromStorage,
+    stainTotal: stainTotalFromStorage,
     paint: paintFromStorage,
+    paintTotal: paintTotalFromStorage,
     base: baseFromStorage,
+    baseTotal: baseTotalFromStorage,
   },
 }
 

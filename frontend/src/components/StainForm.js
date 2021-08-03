@@ -4,17 +4,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
 import { listStains } from '../actions/customProducts/stainActions'
-import { addStain } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
+import {
+  addStain,
+  addStainTotal,
+} from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
 const StainForm = () => {
   const [checkedValue, setCheckedValue] = useState('')
   const [total, setTotal] = useState('')
-  const [price, setPrice] = useState('')
 
   const dispatch = useDispatch()
 
   const tableBuild = useSelector(state => state.tableBuild)
-  const { size, stain } = tableBuild
+  const { size, stain, stainTotal } = tableBuild
 
   const stainList = useSelector(state => state.stainList)
   const { stains, error, loading } = stainList
@@ -22,14 +24,16 @@ const StainForm = () => {
   useEffect(() => {
     dispatch(listStains())
 
-    if (size && price) {
-      setTotal(size * price)
+    if (stainTotal && stainTotal !== null) {
+      setTotal(stainTotal)
+    } else {
+      setTotal(0)
     }
 
     if (stain) {
-      console.log(`stain name: ${stain.stainName}`)
+      setCheckedValue(stain._id)
     }
-  }, [dispatch, size, price, stain, tableBuild])
+  }, [dispatch, stain, size, stainTotal])
 
   return (
     <Row className='mt-3'>
@@ -41,7 +45,6 @@ const StainForm = () => {
         <Card>
           <Form inline>
             <Row>
-              {/* MAP THROUGH STAINS HERE */}
               {loading ? (
                 <Loader />
               ) : error ? (
@@ -50,36 +53,35 @@ const StainForm = () => {
                 stains.map(
                   (stain, index) =>
                     stain.productType === 'Table' && (
-                      <>
-                        <Col md={2} key={stain._id}>
-                          <Image
-                            src={stain.stainImage}
-                            fluid
-                            thumbnail
-                            rounded
-                          />
+                      <Col md={2} key={index}>
+                        <Image
+                          key={stain.stainImage}
+                          src={stain.stainImage}
+                          fluid
+                          thumbnail
+                          rounded
+                        />
 
-                          <Form.Check
-                            id={`radio-${index}`}
-                            type='radio'
-                            variant='outline-success'
-                            name={stain.speciesName}
-                            value={index}
-                            onChange={() => setCheckedValue(index)}
-                            checked={index === checkedValue}
-                            onClick={() => {
-                              dispatch(addStain(stain._id))
-
-                              setPrice(stain.stainPrice)
-                            }}
-                            isValid
-                          />
-                          <p>
-                            {stain.stainName}
-                            <br />${stain.stainPrice}
-                          </p>
-                        </Col>
-                      </>
+                        <Form.Check
+                          key={stain._id}
+                          id={`radio-${index}`}
+                          type='radio'
+                          variant='outline-success'
+                          name={stain.speciesName}
+                          value={stain._id}
+                          onChange={() => setCheckedValue(stain._id)}
+                          checked={stain._id === checkedValue}
+                          onClick={() => {
+                            dispatch(addStain(stain._id))
+                            dispatch(addStainTotal(stain.stainPrice * size))
+                          }}
+                          isValid
+                        />
+                        <p>
+                          {stain.stainName}
+                          <br />${stain.stainPrice}
+                        </p>
+                      </Col>
                     )
                 )
               )}
@@ -91,7 +93,7 @@ const StainForm = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h5>Total: ${total}</h5>
+              <h5>Total: ${total}.00</h5>
             </ListGroup.Item>
           </ListGroup>
         </Card>

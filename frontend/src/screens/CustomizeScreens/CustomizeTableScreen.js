@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Row,
-  Col,
-  Dropdown,
-  DropdownButton,
-  ListGroup,
-  Card,
-  Button,
-} from 'react-bootstrap'
+import { Row, Col, Dropdown, DropdownButton } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 // import Loader from '../../components/Loader'
 // import Message from '../../components/Message'
@@ -15,28 +7,69 @@ import StainForm from '../../components/StainForm'
 import SpeciesForm from '../../components/SpeciesForm'
 import BaseForm from '../../components/BaseForm'
 import PaintForm from '../../components/PaintForm'
-import { addSize } from '../../actions/customProducts/customPreOrderActions/tableBuildActions'
+import CustomSubtotalCol from '../../components/CustomSubtotalCol'
+import {
+  addSize,
+  addSpeciesTotal,
+  addStainTotal,
+  addPaintTotal,
+  addBaseTotal,
+} from '../../actions/customProducts/customPreOrderActions/tableBuildActions'
 
 const CustomizeTableScreen = () => {
   const [sizeSelect, setSizeSelect] = useState('')
   const sizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-  const [speciesSelect, setSpeciesSelect] = useState('')
 
   const dispatch = useDispatch()
 
   const tableBuild = useSelector(state => state.tableBuild)
-  const { size, species, base } = tableBuild
+  const {
+    size,
+    species,
+    stain,
+    paint,
+    base,
+    speciesTotal,
+    stainTotal,
+    paintTotal,
+    baseTotal,
+  } = tableBuild
+
+  const result = sizes.find(num => num === size)
 
   useEffect(() => {
-    if (sizeSelect !== '') {
-      dispatch(addSize(sizeSelect))
-    } else {
-      dispatch(addSize(0))
+    if (result) {
+      setSizeSelect(`${result} ft`)
+    } else if (!sizeSelect) {
+      setSizeSelect('Size')
     }
-    if (species) {
-      setSpeciesSelect(species.speciesName)
+
+    if (size && species) {
+      dispatch(addSpeciesTotal(species.speciesPrice * size))
     }
-  }, [dispatch, size, sizeSelect, species, base])
+    if (size && stain) {
+      dispatch(addStainTotal(stain.stainPrice * size))
+    }
+    if (size && paint) {
+      dispatch(addPaintTotal(paint.paintPrice * size))
+    }
+    if (size && base) {
+      dispatch(addBaseTotal(base.basePrice * size))
+    }
+  }, [
+    dispatch,
+    size,
+    sizeSelect,
+    result,
+    species,
+    stain,
+    // paint,
+    // base,
+    // speciesTotal,
+    // stainTotal,
+    // paintTotal,
+    // baseTotal,
+  ])
 
   return (
     <>
@@ -45,18 +78,20 @@ const CustomizeTableScreen = () => {
           <h2>Select a size: </h2>
         </Col>
         <Col md={8} className='text-left'>
-          <DropdownButton id='dropdown-basic-button' title={sizeSelect}>
-            {sizes.map(num => (
-              <Dropdown.Item
-                key={num}
-                onClick={() => {
-                  setSizeSelect(num)
-                }}
-              >
-                {num} {'ft'}
-              </Dropdown.Item>
-            ))}
-          </DropdownButton>
+          <>
+            <DropdownButton id='dropdown-basic' title={sizeSelect}>
+              {sizes.map(num => (
+                <Dropdown.Item
+                  key={num}
+                  onClick={() => {
+                    dispatch(addSize(num))
+                  }}
+                >
+                  {num} {'ft'}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+          </>
         </Col>
       </Row>
 
@@ -64,37 +99,7 @@ const CustomizeTableScreen = () => {
       <StainForm />
       <PaintForm />
       <BaseForm />
-
-      <Row className='justify-content-center'>
-        <Col md={4} className='text-left'>
-          <Card>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <p>Size: {size && size}</p>
-                <p>Species: {speciesSelect} </p>
-
-                {/* <p>Species Price: $</p> */}
-                {/* <p>Stain: </p> */}
-                {/* <p>Stain Price: $</p> */}
-                {/* <p>Paint: </p> */}
-                {/* <p>Paint Price: $</p> */}
-                {/* <p>Base: </p> */}
-                {/* <p>Base Price: $</p> */}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  type='button'
-                  className='btn-block'
-                  disabled={!size && !species && !base}
-                  // onClick={checkoutHandler}
-                >
-                  Proceed to Checkout
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
+      <CustomSubtotalCol />
     </>
   )
 }

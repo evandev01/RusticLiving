@@ -7,7 +7,11 @@ import {
   listTables,
   // listTableDetails,
 } from '../actions/customProducts/tableActions'
-import { addSpecies } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
+import {
+  addSpecies,
+  addSpeciesTotal,
+  getSpeciesTotal,
+} from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
 const SpeciesForm = () => {
   const [checkedValue, setCheckedValue] = useState('')
@@ -20,19 +24,21 @@ const SpeciesForm = () => {
   const { tables, error, loading } = tableList
 
   const tableBuild = useSelector(state => state.tableBuild)
-  const { size, species } = tableBuild
+  const { size, species, speciesTotal } = tableBuild
 
   useEffect(() => {
     dispatch(listTables())
 
-    if (size && price) {
-      setTotal(size * price)
+    if (speciesTotal && speciesTotal !== null) {
+      setTotal(speciesTotal)
+    } else {
+      setTotal(0)
     }
 
     if (species) {
       setCheckedValue(species._id)
     }
-  }, [dispatch, size, price, species, total])
+  }, [dispatch, species, speciesTotal])
 
   return (
     <Row className='mt-3'>
@@ -52,8 +58,9 @@ const SpeciesForm = () => {
               ) : (
                 tables.map((table, index) => {
                   return (
-                    <Col md={2} key={table._id}>
+                    <Col md={3} key={index}>
                       <Image
+                        key={table.speciesImage}
                         src={table.speciesImage}
                         id='speciesImage'
                         fluid
@@ -61,6 +68,7 @@ const SpeciesForm = () => {
                         rounded
                       />
                       <Form.Check
+                        key={table._id}
                         id={`radio-${index}`}
                         type='radio'
                         variant='outline-success'
@@ -69,8 +77,8 @@ const SpeciesForm = () => {
                         onChange={() => setCheckedValue(table._id)}
                         checked={table._id === checkedValue}
                         onClick={() => {
-                          setPrice(table.speciesPrice)
                           dispatch(addSpecies(table._id))
+                          dispatch(addSpeciesTotal(table.speciesPrice * size))
                         }}
                         isValid
                       ></Form.Check>
@@ -91,7 +99,7 @@ const SpeciesForm = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h5>Total: ${total}</h5>
+              <h5>Total: ${total}.00</h5>
             </ListGroup.Item>
           </ListGroup>
         </Card>

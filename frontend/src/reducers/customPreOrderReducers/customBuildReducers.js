@@ -1,87 +1,64 @@
 import {
   SIZE_ADD,
   SPECIES_ADD,
+  SPECIES_TOTAL_ADD,
   STAIN_ADD,
+  STAIN_TOTAL_ADD,
   PAINT_ADD,
   BASE_ADD,
+  SPECIES_TOTAL_REQUEST,
+  PAINT_TOTAL_ADD,
+  BASE_TOTAL_ADD,
 } from '../../constants/customPreOrderConstants/customBuildConstants'
 
 export const tableBuildReducer = (state = {}, action) => {
   switch (action.type) {
     case SIZE_ADD:
-      return { size: action.payload }
+      return {
+        ...state,
+        size: action.payload,
+      }
     case SPECIES_ADD:
-      return { species: action.payload }
+      return {
+        ...state,
+        species: action.payload,
+      }
+    case SPECIES_TOTAL_ADD:
+      return {
+        ...state,
+        speciesTotal: action.payload,
+      }
     case STAIN_ADD:
-      return { stain: action.payload }
+      return {
+        ...state,
+        stain: action.payload,
+      }
+    case STAIN_TOTAL_ADD:
+      return {
+        ...state,
+        stainTotal: action.payload,
+      }
     case PAINT_ADD:
-      return { paint: action.payload }
+      return {
+        ...state,
+        paint: action.payload,
+      }
+    case PAINT_TOTAL_ADD:
+      return {
+        ...state,
+        paintTotal: action.payload,
+      }
     case BASE_ADD:
-      return { base: action.payload }
+      return {
+        ...state,
+        base: action.payload,
+      }
+    case BASE_TOTAL_ADD:
+      return {
+        ...state,
+        baseTotal: action.payload,
+      }
     default:
       return state
   }
 }
-// export const sizeAddReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case SIZE_ADD:
-//       return { loading: true, size: action.payload }
-//     default:
-//       return state
-//   }
-// }
-
-// export const speciesAddReducer = (state = { species: {} }, action) => {
-//   switch (action.type) {
-//     case SPECIES_ADD:
-//       return { species: action.payload }
-//     case SPECIES_ADD_RESET:
-//       return { species: {} }
-//     default:
-//       return state
-//   }
-// }
-
-// export const speciesTotalAddReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case SPECIES_TOTAL_ADD:
-//       return { loading: true, speciesTotal: action.payload }
-//     // case SIZE_ADD_RESET:
-//     //   return {}
-//     default:
-//       return state
-//   }
-// }
-
-// export const stainTotalAddReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case STAIN_TOTAL_ADD:
-//       return { loading: true, stainTotal: action.payload }
-//     // case SIZE_ADD_RESET:
-//     //   return {}
-//     default:
-//       return state
-//   }
-// }
-
-// export const paintTotalAddReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case PAINT_TOTAL_ADD:
-//       return { loading: true, paintTotal: action.payload }
-//     // case SIZE_ADD_RESET:
-//     //   return {}
-//     default:
-//       return state
-//   }
-// }
-
-// export const baseTotalAddReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case BASE_TOTAL_ADD:
-//       return { loading: true, baseTotal: action.payload }
-//     // case SIZE_ADD_RESET:
-//     //   return {}
-//     default:
-//       return state
-//   }
-// }

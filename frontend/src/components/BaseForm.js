@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
 import { listBases } from '../actions/customProducts/baseActions'
-import { addBase } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
+import {
+  addBase,
+  addBaseTotal,
+} from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
 const BaseForm = () => {
   const [checkedValue, setCheckedValue] = useState('')
-  const [price, setPrice] = useState('')
-  const [total, setTotal] = useState('')
+  const [total, setTotal] = useState(0)
 
   const dispatch = useDispatch()
 
@@ -17,19 +19,21 @@ const BaseForm = () => {
   const { bases, error, loading } = baseList
 
   const tableBuild = useSelector(state => state.tableBuild)
-  const { size, base } = tableBuild
+  const { size, base, baseTotal } = tableBuild
 
   useEffect(() => {
     dispatch(listBases())
 
-    if (size && price) {
-      setTotal(size * price)
+    if (baseTotal && baseTotal !== null) {
+      setTotal(baseTotal)
+    } else {
+      setTotal(0)
     }
 
     if (base) {
-      console.log(`base name: ${base.baseName}`)
+      setCheckedValue(base._id)
     }
-  }, [dispatch, size, price, base, tableBuild])
+  }, [dispatch, size, base, baseTotal])
 
   return (
     <Row className='mt-3'>
@@ -49,31 +53,35 @@ const BaseForm = () => {
                 bases.map(
                   (base, index) =>
                     base.productType === 'Table' && (
-                      <>
-                        <Col md={2} key={base._id}>
-                          <Image src={base.baseImage} fluid thumbnail rounded />
+                      <Col md={2} key={index}>
+                        <Image
+                          key={base.baseImage}
+                          src={base.baseImage}
+                          fluid
+                          thumbnail
+                          rounded
+                        />
 
-                          <Form.Check
-                            id={`radio-${index}`}
-                            type='radio'
-                            variant='outline-success'
-                            name={base.speciesName}
-                            value={index}
-                            onChange={() => setCheckedValue(index)}
-                            checked={index === checkedValue}
-                            onClick={() => {
-                              dispatch(addBase(base._id))
-
-                              setPrice(base.basePrice)
-                            }}
-                            isValid
-                          />
-                          <p>
-                            {base.baseName}
-                            <br />${base.basePrice}
-                          </p>
-                        </Col>
-                      </>
+                        <Form.Check
+                          key={base._id}
+                          id={`radio-${index}`}
+                          type='radio'
+                          variant='outline-success'
+                          name={base.speciesName}
+                          value={base._id}
+                          onChange={() => setCheckedValue(base._id)}
+                          checked={base._id === checkedValue}
+                          onClick={() => {
+                            dispatch(addBase(base._id))
+                            dispatch(addBaseTotal(base.basePrice * size))
+                          }}
+                          isValid
+                        />
+                        <p>
+                          {base.baseName}
+                          <br />${base.basePrice}
+                        </p>
+                      </Col>
                     )
                 )
               )}
@@ -85,7 +93,7 @@ const BaseForm = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h5>Total: ${total}</h5>
+              <h5>Total: ${total}.00</h5>
             </ListGroup.Item>
           </ListGroup>
         </Card>
