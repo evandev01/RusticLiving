@@ -3,26 +3,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Button, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import Loader from '../../../components/Loader'
-import Message from '../../../components/Message'
+import Loader from '../../components/Loader'
+import Message from '../../components/Message'
+import CustomProductButtons from '../../components/CustomProductButtons'
 import {
-  listDoorPrices,
-  deleteDoorPrice,
-  listDoorPriceDetails,
-} from '../../../actions/customPrices/doorPriceActions'
+  listEstCompDates,
+  listEstCompDateDetails,
+  deleteEstCompDate,
+} from '../../actions/customProducts/estCompActions'
 
-const DoorPriceListScreen = ({ history }) => {
+const DoorListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
-  const doorPriceList = useSelector(state => state.doorPriceList)
-  const { loading, doorPrices, error } = doorPriceList
+  const estCompList = useSelector(state => state.estCompList)
+  const { loading, estCompDates, error } = estCompList
 
-  const doorPriceDelete = useSelector(state => state.doorPriceDelete)
-  const {
-    loading: loadingDelete,
-    success: successDelete,
-    error: errorDelete,
-  } = doorPriceDelete
+  const estCompDelete = useSelector(state => state.estCompDelete)
+  const { success: successDelete } = estCompDelete
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -31,20 +28,23 @@ const DoorPriceListScreen = ({ history }) => {
     if (!userInfo && !userInfo.isAdmin) {
       history.push('/login')
     } else {
-      dispatch(listDoorPrices())
+      dispatch(listEstCompDates())
     }
   }, [dispatch, history, userInfo, successDelete])
 
   const deleteHandler = id => {
     window.confirm('Are you sure?')
-    dispatch(deleteDoorPrice(id))
+    dispatch(deleteEstCompDate(id))
   }
 
   return (
     <>
+      <CustomProductButtons />
       <Row>
         <Col className='text-center p-3'>
-          <Link to='/admin/doorprice/create'>
+          <Link
+          // to='/admin/custom/estcompdate/create'
+          >
             <Button>
               <i className='fas fa-plus'></i> Create New
             </Button>
@@ -52,8 +52,8 @@ const DoorPriceListScreen = ({ history }) => {
         </Col>
       </Row>
 
-      {loadingDelete && <Loader />}
-      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+      {/* {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>} */}
       <Row>
         <Col>
           {loading ? (
@@ -61,7 +61,7 @@ const DoorPriceListScreen = ({ history }) => {
           ) : error ? (
             <Message variant='danger'>{error}</Message>
           ) : (
-            doorPrices && (
+            estCompDates && (
               <>
                 <Table
                   striped
@@ -73,35 +73,34 @@ const DoorPriceListScreen = ({ history }) => {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>SPECIES NAME</th>
-                      <th>PRICE PER SQ FT</th>
+                      <th>COMP DATE</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {doorPrices.map(price => (
-                      <tr key={price._id}>
-                        <td>{price._id}</td>
-                        <td>{price.speciesName}</td>
-                        <td>{price.pricePerSqFt}</td>
+                    {estCompDates.map(item => (
+                      <tr key={item._id}>
+                        <td>{item._id}</td>
+                        <td>{item.estCompDate}</td>
                         <td></td>
                         <LinkContainer
-                          to={`/admin/doorprice/${price._id}/edit`}
+                          to={`/admin/custom/estcompdate/${item._id}/edit`}
                         >
                           <Button
                             variant='light'
                             className='btn-sm'
                             onClick={() =>
-                              dispatch(listDoorPriceDetails(price._id))
+                              dispatch(listEstCompDateDetails(item._id))
                             }
                           >
                             <i className='fas fa-edit'></i>
                           </Button>
                         </LinkContainer>
                         <Button
+                          disabled='true'
                           variant='danger'
                           className='btn-sm'
-                          onClick={() => deleteHandler(price._id)}
+                          onClick={() => deleteHandler(item._id)}
                         >
                           <i className='fas fa-trash'></i>
                         </Button>
@@ -118,4 +117,4 @@ const DoorPriceListScreen = ({ history }) => {
   )
 }
 
-export default DoorPriceListScreen
+export default DoorListScreen

@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Row, Col, Image } from 'react-bootstrap'
 
-const CustomBuildScreen = () => {
+const CustomBuildScreen = ({ history }) => {
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
+
+  useEffect(() => {
+    if (!userInfo) {
+      alert('Please login to build your own')
+      history.push('/login')
+    }
+  }, [history, userInfo])
+
   return (
     <>
       <Row>

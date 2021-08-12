@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux'
 import CustomProductButtons from '../components/CustomProductButtons'
 
 const CustomProductScreen = ({ history }) => {
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
+  // const userLogin = useSelector(state => state.userLogin)
+  // const { userInfo } = userLogin
 
-  useEffect(() => {
-    if (!userInfo && !userInfo.isAdmin) {
-      history.push('/login')
-    }
-  }, [userInfo, history])
+  // useEffect(() => {
+  //   if (!userInfo && !userInfo.isAdmin) {
+  //     history.push('/login')
+  //   }
+  // }, [userInfo, history])
 
   return (
     <>

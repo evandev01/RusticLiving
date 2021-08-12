@@ -6,9 +6,9 @@ import {
   STAIN_TOTAL_ADD,
   PAINT_ADD,
   BASE_ADD,
-  SPECIES_TOTAL_REQUEST,
   PAINT_TOTAL_ADD,
   BASE_TOTAL_ADD,
+  ALL_RESET,
 } from '../../constants/customPreOrderConstants/customBuildConstants'
 
 export const tableBuildReducer = (state = {}, action) => {
@@ -58,6 +58,8 @@ export const tableBuildReducer = (state = {}, action) => {
         ...state,
         baseTotal: action.payload,
       }
+    case ALL_RESET:
+      return {}
     default:
       return state
   }

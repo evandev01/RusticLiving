@@ -3,20 +3,15 @@ import { Row, Col, Card, Form, Image, ListGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
-import {
-  listTables,
-  // listTableDetails,
-} from '../actions/customProducts/tableActions'
+import { listTables } from '../actions/customProducts/tableActions'
 import {
   addSpecies,
   addSpeciesTotal,
-  getSpeciesTotal,
 } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
-const SpeciesForm = () => {
+const SpeciesForm = ({ resetSpeciesValue, setResetSpeciesValue }) => {
   const [checkedValue, setCheckedValue] = useState('')
-  const [total, setTotal] = useState(0)
-  const [price, setPrice] = useState('')
+  // const [speciesTotal, setSpeciesTotal] = useState('')
 
   const dispatch = useDispatch()
 
@@ -29,16 +24,16 @@ const SpeciesForm = () => {
   useEffect(() => {
     dispatch(listTables())
 
-    if (speciesTotal && speciesTotal !== null) {
-      setTotal(speciesTotal)
-    } else {
-      setTotal(0)
-    }
-
     if (species) {
       setCheckedValue(species._id)
+    } else {
+      setCheckedValue('')
     }
-  }, [dispatch, species, speciesTotal])
+
+    if (size && species) {
+      dispatch(addSpeciesTotal(size * species.speciesPrice))
+    }
+  }, [dispatch, size, species])
 
   return (
     <Row className='mt-3'>
@@ -50,7 +45,6 @@ const SpeciesForm = () => {
         <Card>
           <Form>
             <Row>
-              {/* MAP THROUGH Species HERE */}
               {loading ? (
                 <Loader />
               ) : error ? (
@@ -74,12 +68,16 @@ const SpeciesForm = () => {
                         variant='outline-success'
                         name={table.speciesName}
                         value={table._id}
-                        onChange={() => setCheckedValue(table._id)}
-                        checked={table._id === checkedValue}
-                        onClick={() => {
+                        onChange={() => {
+                          setCheckedValue(table._id)
+                          setResetSpeciesValue(true)
                           dispatch(addSpecies(table._id))
-                          dispatch(addSpeciesTotal(table.speciesPrice * size))
                         }}
+                        checked={
+                          resetSpeciesValue === false
+                            ? resetSpeciesValue
+                            : table._id === checkedValue
+                        }
                         isValid
                       ></Form.Check>
                       <p>
@@ -99,7 +97,10 @@ const SpeciesForm = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h5>Total: ${total}.00</h5>
+              <h5>
+                Total: ${speciesTotal && speciesTotal !== 0 ? speciesTotal : 0}
+                .00
+              </h5>
             </ListGroup.Item>
           </ListGroup>
         </Card>

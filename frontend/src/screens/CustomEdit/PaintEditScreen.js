@@ -38,10 +38,15 @@ const PaintEditScreen = ({ match, history }) => {
   const { userInfo } = userLogin
 
   useEffect(() => {
+    if (!userInfo && !userInfo.isAdmin) {
+      history.push('/login')
+    }
+
     if (successUpdate) {
       dispatch({ type: PAINT_UPDATE_RESET })
       history.push('/admin/custom/paints')
     }
+
     if (!paint.paintName || paintId !== paint._id) {
       dispatch(listPaintDetails(paintId))
     } else {

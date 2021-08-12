@@ -9,31 +9,31 @@ import {
   addStainTotal,
 } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
-const StainForm = () => {
+const StainForm = ({ resetStainValue, setResetStainValue }) => {
   const [checkedValue, setCheckedValue] = useState('')
-  const [total, setTotal] = useState('')
+  // const [stainTotal, setStainTotal] = useState('')
 
   const dispatch = useDispatch()
-
-  const tableBuild = useSelector(state => state.tableBuild)
-  const { size, stain, stainTotal } = tableBuild
 
   const stainList = useSelector(state => state.stainList)
   const { stains, error, loading } = stainList
 
+  const tableBuild = useSelector(state => state.tableBuild)
+  const { size, stain, stainTotal } = tableBuild
+
   useEffect(() => {
     dispatch(listStains())
 
-    if (stainTotal && stainTotal !== null) {
-      setTotal(stainTotal)
-    } else {
-      setTotal(0)
-    }
-
     if (stain) {
       setCheckedValue(stain._id)
+    } else {
+      setCheckedValue('')
     }
-  }, [dispatch, stain, size, stainTotal])
+
+    if (size && stain) {
+      dispatch(addStainTotal(size * stain.stainPrice))
+    }
+  }, [dispatch, stain, size])
 
   return (
     <Row className='mt-3'>
@@ -69,12 +69,16 @@ const StainForm = () => {
                           variant='outline-success'
                           name={stain.speciesName}
                           value={stain._id}
-                          onChange={() => setCheckedValue(stain._id)}
-                          checked={stain._id === checkedValue}
-                          onClick={() => {
+                          onChange={() => {
+                            setCheckedValue(stain._id)
+                            setResetStainValue(true)
                             dispatch(addStain(stain._id))
-                            dispatch(addStainTotal(stain.stainPrice * size))
                           }}
+                          checked={
+                            resetStainValue === false
+                              ? resetStainValue
+                              : stain._id === checkedValue
+                          }
                           isValid
                         />
                         <p>
@@ -93,7 +97,10 @@ const StainForm = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h5>Total: ${total}.00</h5>
+              <h5>
+                Total: ${stainTotal && stainTotal !== 0 ? stainTotal : 0}
+                .00
+              </h5>
             </ListGroup.Item>
           </ListGroup>
         </Card>

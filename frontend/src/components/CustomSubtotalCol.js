@@ -1,87 +1,262 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import Message from './Message'
+import Loader from './Loader'
+import { listEstCompDateDetails } from '../actions/customProducts/estCompActions'
+import { saveCustomPreOrder } from '../actions/customProducts/customPreOrderActions/customPreOrderActions'
 
 const CustomSubtotalCol = () => {
+  const [qty, setQty] = useState('')
+  const [size, setSize] = useState('')
+  const [speciesName, setSpeciesName] = useState('')
+  const [speciesImage, setSpeciesImage] = useState('')
+  const [stainName, setStainName] = useState('')
+  const [stainImage, setStainImage] = useState('')
+  const [paintName, setPaintName] = useState('')
+  const [paintImage, setPaintImage] = useState('')
+  const [baseName, setBaseName] = useState('')
+  const [baseImage, setBaseImage] = useState('')
+  const [estCompDate, setEstCompDate] = useState('')
+  const [productType, setProductType] = useState('')
+
+  // const [totalArr, setTotalArr] = useState([''])
+  const [totalAmount, setTotalAmount] = useState('')
+  const [subtotal, setSubtotal] = useState('')
+
   const dispatch = useDispatch()
+
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
 
   const tableBuild = useSelector(state => state.tableBuild)
   const {
-    size,
+    size: sizeTable,
     species,
-    speciesTotal,
     stain,
-    stainTotal,
     paint,
-    paintTotal,
     base,
+    speciesTotal,
+    stainTotal,
+    paintTotal,
     baseTotal,
   } = tableBuild
 
-  const totalArr = [speciesTotal, stainTotal, paintTotal, baseTotal]
+  const estCompDetails = useSelector(state => state.estCompDetails)
+  const { estCompDate: estComp, loading, error } = estCompDetails
 
-  useEffect(() => {}, [
-    size,
+  const customPreOrderAdd = useSelector(state => state.customPreOrderAdd)
+  const {
+    success,
+    loading: loadingSave,
+    error: errorOrder,
+    customPreOrder,
+  } = customPreOrderAdd
+
+  const totalArr = []
+
+  useEffect(() => {
+    if (customPreOrder) {
+      console.log(customPreOrder)
+    }
+
+    dispatch(listEstCompDateDetails('61099b0e9e612c5b2c4210d1'))
+
+    setProductType('Table')
+
+    setQty(1)
+
+    if (estComp) {
+      setEstCompDate(estComp.estCompDate)
+    }
+
+    if (sizeTable) {
+      setSize(sizeTable)
+    } else {
+      setSize(0)
+    }
+
+    if (species) {
+      setSpeciesName(species.speciesName)
+      setSpeciesImage(species.speciesImage)
+    }
+    if (stain) {
+      setStainName(stain.stainName)
+      setStainImage(stain.stainImage)
+    } else {
+      setStainName('none')
+      setStainImage('none')
+    }
+    if (paint) {
+      setPaintName(paint.paintName)
+      setPaintImage(paint.paintImage)
+    } else {
+      setPaintName('none')
+      setPaintImage('none')
+    }
+    if (base) {
+      setBaseName(base.baseName)
+      setBaseImage(base.baseImage)
+    }
+
+    if (speciesTotal) {
+      totalArr.push(speciesTotal)
+    } else {
+      totalArr.push(0)
+    }
+    if (stainTotal) {
+      totalArr.push(stainTotal)
+    } else {
+      totalArr.push(0)
+    }
+    if (paintTotal) {
+      totalArr.push(paintTotal)
+    } else {
+      totalArr.push(0)
+    }
+    if (baseTotal) {
+      totalArr.push(baseTotal)
+    } else {
+      totalArr.push(0)
+    }
+
+    setSubtotal(totalArr.reduce((acc, cur) => acc + cur))
+
+    console.log(`total: ${subtotal}`)
+  }, [
+    dispatch,
+    sizeTable,
     species,
-    speciesTotal,
     stain,
-    stainTotal,
     paint,
-    paintTotal,
     base,
+    speciesTotal,
+    stainTotal,
+    paintTotal,
     baseTotal,
+    success,
+    errorOrder,
+    customPreOrder,
   ])
+
+  const saveHandler = e => {
+    e.preventDefault()
+    dispatch(
+      saveCustomPreOrder({
+        productType: productType,
+        qty: qty,
+        size: size,
+        speciesName: speciesName,
+        speciesImage: speciesImage,
+        speciesTotal: speciesTotal,
+        stainName: stainName,
+        stainImage: stainImage,
+        stainTotal: stainTotal,
+        paintName: paintName,
+        paintImage: paintImage,
+        paintTotal: paintTotal,
+        baseName: baseName,
+        baseImage: baseImage,
+        baseTotal: baseTotal,
+        estCompDate: estCompDate,
+        subtotal: subtotal,
+      })
+    )
+  }
 
   return (
     <>
-      <Row className='justify-content-center'>
-        <Col md={4}>
+      <Row className='justify-content-center mt-3'>
+        <Col md={6}>
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
                 <Row>
                   <Col className='text-left'>
                     <h6>Size:</h6>
-
-                    <h6>Species:</h6>
-
-                    <h6>Stain:</h6>
-
-                    <h6>Paint:</h6>
-
-                    <h6>Base:</h6>
                   </Col>
-
                   <Col className='text-right'>
                     <h6>
-                      <strong>{size && size}</strong> ft
+                      <strong>
+                        {sizeTable && sizeTable !== 0 ? sizeTable : 0}
+                      </strong>{' '}
+                      ft
                     </h6>
+                  </Col>
+                </Row>
 
+                <Row>
+                  <Col className='text-left'>
+                    <h6>Species:</h6>
+                  </Col>
+                  <Col className='text-right'>
                     <h6>
-                      <strong>{species && species.speciesName}</strong>
+                      <strong>
+                        {species ? species.speciesName : 'select'}
+                      </strong>
                     </h6>
+                  </Col>
+                </Row>
 
+                <Row>
+                  <Col className='text-left'>
+                    <h6>Stain:</h6>
+                  </Col>
+                  <Col className='text-right'>
                     <h6>
-                      <strong>{stain && stain.stainName}</strong>
+                      <strong>{stain ? stain.stainName : 'select'}</strong>
                     </h6>
+                  </Col>
+                </Row>
 
+                <Row>
+                  <Col className='text-left'>
+                    <h6>Paint:</h6>
+                  </Col>
+                  <Col className='text-right'>
                     <h6>
-                      <strong>{paint && paint.paintName}</strong>
+                      <strong>{paint ? paint.paintName : 'select'}</strong>
                     </h6>
+                  </Col>
+                </Row>
 
+                <Row>
+                  <Col className='text-left'>
+                    <h6>Base:</h6>
+                  </Col>
+                  <Col className='text-right'>
                     <h6>
-                      <strong>{base && base.baseName}</strong>
+                      <strong>{base ? base.baseName : 'select'}</strong>
                     </h6>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col className='text-left'>
+                    <h6>Est Comp:</h6>
+                  </Col>
+                  <Col className='text-right'>
+                    {loading ? (
+                      <Loader />
+                    ) : error ? (
+                      <Message variant='danger'>{error}</Message>
+                    ) : (
+                      estComp && (
+                        <h6>
+                          <strong>{estComp.estCompDate}</strong>
+                        </h6>
+                      )
+                    )}
                   </Col>
                 </Row>
                 <Row>
                   <Col className='text-left'>
-                    <h5>Total:</h5>
+                    <h6>Subtotal:</h6>
                   </Col>
 
                   <Col className='text-right'>
                     <h5>
-                      ${totalArr.reduce((acc, itemTotal) => acc + itemTotal, 0)}
+                      ${subtotal}
                       .00
                     </h5>
                   </Col>
@@ -89,22 +264,33 @@ const CustomSubtotalCol = () => {
               </ListGroup.Item>
 
               <ListGroup.Item className='text-center'>
-                <Button
-                  type='button'
-                  className='btn-block mb-2 p-3'
-                  // disabled={!speciesTotal}
-                  // onClick={checkoutHandler}
-                >
-                  Proceed to Checkout
-                </Button>
-                <Button
-                  type='button'
-                  className='btn-block p-2'
-                  // disabled={!speciesTotal}
-                  // onClick={checkoutHandler}
-                >
-                  Save for Later
-                </Button>
+                <Row>
+                  <Button
+                    type='button'
+                    className='btn-block mb-2 p-3'
+                    // disabled={!speciesTotal}
+                    // onClick={checkoutHandler}
+                  >
+                    Proceed to Checkout
+                  </Button>
+                </Row>{' '}
+                <Row>
+                  {loadingSave ? (
+                    <Loader />
+                  ) : errorOrder ? (
+                    <Message variant='danger'>{errorOrder}</Message>
+                  ) : (
+                    console.log(customPreOrder)
+                  )}
+                  <Button
+                    type='submit'
+                    className='btn-block p-2'
+                    // disabled={!speciesTotal}
+                    onClick={saveHandler}
+                  >
+                    Save for Later
+                  </Button>
+                </Row>
               </ListGroup.Item>
             </ListGroup>
           </Card>

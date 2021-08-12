@@ -52,6 +52,11 @@ const CustomProductButtons = () => {
               Stains
             </Button>
           </LinkContainer>
+          <LinkContainer to='/admin/custom/estcompdates'>
+            <Button variant='outline-success' size='md' block>
+              estComp
+            </Button>
+          </LinkContainer>
         </Col>
       </Row>
     </>

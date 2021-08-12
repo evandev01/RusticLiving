@@ -29,6 +29,7 @@ import AccentListScreen from './screens/CustomLists/AccentListScreen'
 import BaseListScreen from './screens/CustomLists/BaseListScreen'
 import StainListScreen from './screens/CustomLists/StainListScreen'
 import PaintListScreen from './screens/CustomLists/PaintListScreen'
+import EstCompListScreen from './screens/CustomLists/EstCompListScreen'
 // ADMIN CUSTOM CREATE SCREENS
 import TableCreateScreen from './screens/CustomCreate/TableCreateScreen'
 import BedFrameCreateScreen from './screens/CustomCreate/BedFrameCreateScreen'
@@ -37,7 +38,7 @@ import AccentCreateScreen from './screens/CustomCreate/AccentCreateScreen'
 import BaseCreateScreen from './screens/CustomCreate/BaseCreateScreen'
 import PaintCreateScreen from './screens/CustomCreate/PaintCreateScreen'
 import StainCreateScreen from './screens/CustomCreate/StainCreateScreen'
-
+// import EstCompCreateScreen from './screens/CustomCreate/EstCompCreateScreen'
 //ADMIN CUSTOM EDIT SCREENS
 import TableEditScreen from './screens/CustomEdit/TableEditScreen'
 import BedFrameEditScreen from './screens/CustomEdit/BedFrameEditScreen'
@@ -46,6 +47,7 @@ import AccentEditScreen from './screens/CustomEdit/AccentEditScreen'
 import BaseEditScreen from './screens/CustomEdit/BaseEditScreen'
 import PaintEditScreen from './screens/CustomEdit/PaintEditScreen'
 import StainEditScreen from './screens/CustomEdit/StainEditScreen'
+import EstCompEditScreen from './screens/CustomEdit/EstCompEditScreen'
 
 //ADMIN CUSTOM PRICE EDIT SCREENS
 // import TablePriceEditScreen from './screens/CustomEdit/CustomPrices/TablePriceEditScreen'
@@ -109,6 +111,10 @@ const App = () => {
             <Route path='/admin/custom/bases' component={BaseListScreen} />
             <Route path='/admin/custom/paints' component={PaintListScreen} />
             <Route path='/admin/custom/stains' component={StainListScreen} />
+            <Route
+              path='/admin/custom/estcompdates'
+              component={EstCompListScreen}
+            />
 
             {/* CUSTOM PRODUCT CREATE */}
             <Route
@@ -168,6 +174,10 @@ const App = () => {
             <Route
               path='/admin/custom/stain/:id/edit'
               component={StainEditScreen}
+            />
+            <Route
+              path='/admin/custom/estcompdate/:id/edit'
+              component={EstCompEditScreen}
             />
 
             <Route path='/admin/orderlist' component={OrderListScreen} />

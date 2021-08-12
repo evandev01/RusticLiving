@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Dropdown, DropdownButton } from 'react-bootstrap'
+import { Row, Col, Dropdown, DropdownButton, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 // import Loader from '../../components/Loader'
 // import Message from '../../components/Message'
@@ -14,80 +14,75 @@ import {
   addStainTotal,
   addPaintTotal,
   addBaseTotal,
+  resetAll,
 } from '../../actions/customProducts/customPreOrderActions/tableBuildActions'
+import { ALL_RESET } from '../../constants/customPreOrderConstants/customBuildConstants'
 
 const CustomizeTableScreen = () => {
-  const [sizeSelect, setSizeSelect] = useState('')
+  const [resetSpeciesValue, setResetSpeciesValue] = useState(true)
+  const [resetStainValue, setResetStainValue] = useState(true)
+  const [resetPaintValue, setResetPaintValue] = useState(true)
+  const [resetBaseValue, setResetBaseValue] = useState(true)
+  const [size, setSize] = useState('')
   const sizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
   const dispatch = useDispatch()
 
   const tableBuild = useSelector(state => state.tableBuild)
-  const {
-    size,
-    species,
-    stain,
-    paint,
-    base,
-    speciesTotal,
-    stainTotal,
-    paintTotal,
-    baseTotal,
-  } = tableBuild
+  const { size: sizeTable, species, stain, paint, base } = tableBuild
 
-  const result = sizes.find(num => num === size)
+  const resetHandler = e => {
+    e.preventDefault()
+    dispatch(resetAll())
+    setResetSpeciesValue(false)
+    setResetStainValue(false)
+    setResetPaintValue(false)
+    setResetBaseValue(false)
+  }
 
   useEffect(() => {
-    if (result) {
-      setSizeSelect(`${result} ft`)
-    } else if (!sizeSelect) {
-      setSizeSelect('Size')
+    if (sizeTable) {
+      setSize(sizeTable)
+    } else {
+      setSize('')
     }
 
-    if (size && species) {
-      dispatch(addSpeciesTotal(species.speciesPrice * size))
-    }
-    if (size && stain) {
-      dispatch(addStainTotal(stain.stainPrice * size))
-    }
-    if (size && paint) {
-      dispatch(addPaintTotal(paint.paintPrice * size))
-    }
-    if (size && base) {
-      dispatch(addBaseTotal(base.basePrice * size))
-    }
-  }, [
-    dispatch,
-    size,
-    sizeSelect,
-    result,
-    species,
-    stain,
-    // paint,
-    // base,
-    // speciesTotal,
-    // stainTotal,
-    // paintTotal,
-    // baseTotal,
-  ])
+    console.log(sizeTable)
+  }, [dispatch, sizeTable, species, stain, base, paint])
 
   return (
     <>
+      <Row>
+        <Col md={2}>
+          <Button type='button' onClick={resetHandler}>
+            {' '}
+            Reset
+          </Button>
+        </Col>
+      </Row>
       <Row>
         <Col md={2}>
           <h2>Select a size: </h2>
         </Col>
         <Col md={8} className='text-left'>
           <>
-            <DropdownButton id='dropdown-basic' title={sizeSelect}>
+            <DropdownButton
+              id='dropdown-basic'
+              title={
+                size
+                // sizeTable ? sizeTable : 'Size'
+                // size && size !== 'Size' ? `${size} ft` : 'Size'
+              }
+            >
               {sizes.map(num => (
                 <Dropdown.Item
                   key={num}
                   onClick={() => {
+                    setSize(num)
                     dispatch(addSize(num))
                   }}
                 >
-                  {num} {'ft'}
+                  {num} ft
                 </Dropdown.Item>
               ))}
             </DropdownButton>
@@ -95,10 +90,22 @@ const CustomizeTableScreen = () => {
         </Col>
       </Row>
 
-      <SpeciesForm />
-      <StainForm />
-      <PaintForm />
-      <BaseForm />
+      <SpeciesForm
+        resetSpeciesValue={resetSpeciesValue}
+        setResetSpeciesValue={setResetSpeciesValue}
+      />
+      <StainForm
+        resetStainValue={resetStainValue}
+        setResetStainValue={setResetStainValue}
+      />
+      <PaintForm
+        resetPaintValue={resetPaintValue}
+        setResetPaintValue={setResetPaintValue}
+      />
+      <BaseForm
+        resetBaseValue={resetBaseValue}
+        setResetBaseValue={setResetBaseValue}
+      />
       <CustomSubtotalCol />
     </>
   )

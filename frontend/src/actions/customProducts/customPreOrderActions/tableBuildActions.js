@@ -6,20 +6,36 @@ import {
   STAIN_ADD,
   PAINT_ADD,
   BASE_ADD,
-  SPECIES_TOTAL_REQUEST,
   STAIN_TOTAL_ADD,
   PAINT_TOTAL_ADD,
   BASE_TOTAL_ADD,
+  ALL_RESET,
   // SPECIES_TOTAL_ADD,
 } from '../../../constants/customPreOrderConstants/customBuildConstants'
 
-export const addSize = size => async (dispatch, getState) => {
+export const resetAll = () => async dispatch => {
+  dispatch({
+    type: ALL_RESET,
+  })
+
+  localStorage.removeItem('size')
+  localStorage.removeItem('species')
+  localStorage.removeItem('speciesTotal')
+  localStorage.removeItem('stain')
+  localStorage.removeItem('stainTotal')
+  localStorage.removeItem('paint')
+  localStorage.removeItem('paintTotal')
+  localStorage.removeItem('base')
+  localStorage.removeItem('baseTotal')
+}
+
+export const addSize = size => async dispatch => {
   dispatch({
     type: SIZE_ADD,
     payload: size,
   })
 
-  localStorage.setItem('size', JSON.stringify(getState().tableBuild.size))
+  localStorage.setItem('size', JSON.stringify(size))
 }
 
 export const addSpecies = id => async dispatch => {
@@ -33,7 +49,7 @@ export const addSpecies = id => async dispatch => {
   localStorage.setItem('species', JSON.stringify(data))
 }
 
-export const addSpeciesTotal = total => async dispatch => {
+export const addSpeciesTotal = total => dispatch => {
   dispatch({
     type: SPECIES_TOTAL_ADD,
     payload: total,
@@ -73,7 +89,7 @@ export const addPaint = id => async dispatch => {
   localStorage.setItem('paint', JSON.stringify(data))
 }
 
-export const addPaintTotal = total => async dispatch => {
+export const addPaintTotal = total => async (dispatch, getState) => {
   dispatch({
     type: PAINT_TOTAL_ADD,
     payload: total,
@@ -93,7 +109,7 @@ export const addBase = id => async dispatch => {
   localStorage.setItem('base', JSON.stringify(data))
 }
 
-export const addBaseTotal = total => async dispatch => {
+export const addBaseTotal = total => async (dispatch, getState) => {
   dispatch({
     type: BASE_TOTAL_ADD,
     payload: total,
@@ -101,21 +117,3 @@ export const addBaseTotal = total => async dispatch => {
 
   localStorage.setItem('baseTotal', JSON.stringify(total))
 }
-
-// export const addPaintTotal = paintTotal => async dispatch => {
-//   dispatch({
-//     type: PAINT_TOTAL_ADD,
-//     payload: paintTotal,
-//   })
-
-//   localStorage.setItem('paintTotal', JSON.stringify(paintTotal))
-// }
-
-// export const addBaseTotal = baseTotal => async dispatch => {
-//   dispatch({
-//     type: BASE_TOTAL_ADD,
-//     payload: baseTotal,
-//   })
-
-//   localStorage.setItem('baseTotal', JSON.stringify(baseTotal))
-// }

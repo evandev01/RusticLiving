@@ -77,7 +77,21 @@ import {
   baseUpdateReducer,
   baseDeleteReducer,
 } from './reducers/customProductReducers/baseReducers'
+import {
+  estCompListReducer,
+  estCompDetailsReducer,
+  estCompCreateReducer,
+  estCompUpdateReducer,
+  estCompDeleteReducer,
+} from './reducers/customProductReducers/estCompReducers'
 import { tableBuildReducer } from './reducers/customPreOrderReducers/customBuildReducers'
+import {
+  customPreOrderAddReducer,
+  customPreOrderListReducer,
+  customPreOrderDetailsReducer,
+  customPreOrderUpdateReducer,
+  customPreOrderDeleteReducer,
+} from './reducers/customPreOrderReducers/customPreOrderReducers'
 
 const reducer = combineReducers({
   // CUSTOM
@@ -123,6 +137,20 @@ const reducer = combineReducers({
   baseCreate: baseCreateReducer,
   baseUpdate: baseUpdateReducer,
   baseDelete: baseDeleteReducer,
+  // Est Completion Dates
+  estCompList: estCompListReducer,
+  estCompDetails: estCompDetailsReducer,
+  estCompCreate: estCompCreateReducer,
+  estCompUpdate: estCompUpdateReducer,
+  estCompDelete: estCompDeleteReducer,
+  //
+  // PRE-ORDERS
+  customPreOrderAdd: customPreOrderAddReducer,
+  customPreOrderList: customPreOrderListReducer,
+  customPreOrderDetails: customPreOrderDetailsReducer,
+  customPreOrderUpdate: customPreOrderUpdateReducer,
+  customPreOrderDelete: customPreOrderDeleteReducer,
+
   // PRODUCTS
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -154,35 +182,40 @@ const reducer = combineReducers({
 
 // Gets data from local storage and parses it back from string (in actions) to JavaScript format
 
-// Custom subtotal local storage
+// BUILD OPTIONS //
 const sizeFromStorage = localStorage.getItem('size')
   ? JSON.parse(localStorage.getItem('size'))
-  : {}
+  : 'Size'
+
 const speciesFromStorage = localStorage.getItem('species')
   ? JSON.parse(localStorage.getItem('species'))
   : {}
 const speciesTotalFromStorage = localStorage.getItem('speciesTotal')
   ? JSON.parse(localStorage.getItem('speciesTotal'))
-  : {}
+  : 0
+
 const stainFromStorage = localStorage.getItem('stain')
   ? JSON.parse(localStorage.getItem('stain'))
   : {}
 const stainTotalFromStorage = localStorage.getItem('stainTotal')
   ? JSON.parse(localStorage.getItem('stainTotal'))
-  : {}
+  : 0
+
 const paintFromStorage = localStorage.getItem('paint')
   ? JSON.parse(localStorage.getItem('paint'))
   : {}
 const paintTotalFromStorage = localStorage.getItem('paintTotal')
   ? JSON.parse(localStorage.getItem('paintTotal'))
-  : {}
+  : 0
+
 const baseFromStorage = localStorage.getItem('base')
   ? JSON.parse(localStorage.getItem('base'))
   : {}
 const baseTotalFromStorage = localStorage.getItem('baseTotal')
   ? JSON.parse(localStorage.getItem('baseTotal'))
-  : {}
+  : 0
 
+//
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : []
@@ -205,12 +238,12 @@ const initialState = {
     paymentMethod: paymentMethodFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
-  size: sizeFromStorage,
+  // size: sizeFromStorage,
   tableBuild: {
     size: sizeFromStorage,
     species: speciesFromStorage,
-    speciesTotal: speciesTotalFromStorage,
     stain: stainFromStorage,
+    speciesTotal: speciesTotalFromStorage,
     stainTotal: stainTotalFromStorage,
     paint: paintFromStorage,
     paintTotal: paintTotalFromStorage,

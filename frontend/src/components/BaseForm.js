@@ -9,9 +9,8 @@ import {
   addBaseTotal,
 } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
-const BaseForm = () => {
+const BaseForm = ({ resetBaseValue, setResetBaseValue }) => {
   const [checkedValue, setCheckedValue] = useState('')
-  const [total, setTotal] = useState(0)
 
   const dispatch = useDispatch()
 
@@ -24,16 +23,16 @@ const BaseForm = () => {
   useEffect(() => {
     dispatch(listBases())
 
-    if (baseTotal && baseTotal !== null) {
-      setTotal(baseTotal)
-    } else {
-      setTotal(0)
-    }
-
     if (base) {
       setCheckedValue(base._id)
+    } else {
+      setCheckedValue('')
     }
-  }, [dispatch, size, base, baseTotal])
+
+    if (size && base) {
+      dispatch(addBaseTotal(size * base.basePrice))
+    }
+  }, [dispatch, size, base])
 
   return (
     <Row className='mt-3'>
@@ -69,12 +68,16 @@ const BaseForm = () => {
                           variant='outline-success'
                           name={base.speciesName}
                           value={base._id}
-                          onChange={() => setCheckedValue(base._id)}
-                          checked={base._id === checkedValue}
-                          onClick={() => {
+                          onChange={() => {
+                            setCheckedValue(base._id)
+                            setResetBaseValue(true)
                             dispatch(addBase(base._id))
-                            dispatch(addBaseTotal(base.basePrice * size))
                           }}
+                          checked={
+                            resetBaseValue === false
+                              ? resetBaseValue
+                              : base._id === checkedValue
+                          }
                           isValid
                         />
                         <p>
@@ -93,7 +96,10 @@ const BaseForm = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h5>Total: ${total}.00</h5>
+              <h5>
+                Total: ${baseTotal && baseTotal !== 0 ? baseTotal : 0}
+                .00
+              </h5>
             </ListGroup.Item>
           </ListGroup>
         </Card>

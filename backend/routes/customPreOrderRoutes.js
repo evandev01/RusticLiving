@@ -3,7 +3,7 @@ const router = express.Router()
 import {
   getCustomPreOrders,
   getCustomPreOrderById,
-  createCustomPreOrder,
+  saveCustomPreOrder,
   updateCustomPreOrder,
   deleteCustomPreOrder,
 } from '../controllers/customPreOrderController.js'
@@ -13,8 +13,8 @@ import { protect, admin } from '../middleware/authMiddleware.js'
 
 router
   .route('/')
-  .post(protect, createCustomPreOrder)
-  .get(protect, admin, getCustomPreOrders)
+  .post(protect, saveCustomPreOrder)
+  .get(protect, getCustomPreOrders)
 router
   .route('/:id')
   .get(protect, getCustomPreOrderById)
