@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 import Message from './Message'
 import Loader from './Loader'
 import { listEstCompDateDetails } from '../actions/customProducts/estCompActions'
 import { saveCustomPreOrder } from '../actions/customProducts/customPreOrderActions/customPreOrderActions'
+import { CUSTOM_PRE_ORDER_ADD_RESET } from '../constants/customPreOrderConstants/customPreOrderConstants'
+import { resetAll } from '../actions/customProducts/customPreOrderActions/tableBuildActions'
 
 const CustomSubtotalCol = () => {
+  const history = useHistory()
   const [qty, setQty] = useState('')
   const [size, setSize] = useState('')
   const [speciesName, setSpeciesName] = useState('')
@@ -19,10 +23,8 @@ const CustomSubtotalCol = () => {
   const [baseImage, setBaseImage] = useState('')
   const [estCompDate, setEstCompDate] = useState('')
   const [productType, setProductType] = useState('')
-
-  // const [totalArr, setTotalArr] = useState([''])
-  const [totalAmount, setTotalAmount] = useState('')
   const [subtotal, setSubtotal] = useState('')
+  const [disabled, setDisabled] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -56,6 +58,12 @@ const CustomSubtotalCol = () => {
   const totalArr = []
 
   useEffect(() => {
+    if (success) {
+      dispatch({ type: CUSTOM_PRE_ORDER_ADD_RESET })
+      dispatch(resetAll())
+      history.push('/profile')
+    }
+
     if (customPreOrder) {
       console.log(customPreOrder)
     }
@@ -70,7 +78,7 @@ const CustomSubtotalCol = () => {
       setEstCompDate(estComp.estCompDate)
     }
 
-    if (sizeTable) {
+    if (sizeTable && sizeTable !== 'Size') {
       setSize(sizeTable)
     } else {
       setSize(0)
@@ -122,7 +130,11 @@ const CustomSubtotalCol = () => {
 
     setSubtotal(totalArr.reduce((acc, cur) => acc + cur))
 
-    console.log(`total: ${subtotal}`)
+    if (sizeTable !== 'Size' && speciesTotal && baseTotal) {
+      setDisabled(false)
+    } else {
+      setDisabled(true)
+    }
   }, [
     dispatch,
     sizeTable,
@@ -177,10 +189,7 @@ const CustomSubtotalCol = () => {
                   </Col>
                   <Col className='text-right'>
                     <h6>
-                      <strong>
-                        {sizeTable && sizeTable !== 0 ? sizeTable : 0}
-                      </strong>{' '}
-                      ft
+                      <strong>{size}</strong> ft
                     </h6>
                   </Col>
                 </Row>
@@ -285,7 +294,7 @@ const CustomSubtotalCol = () => {
                   <Button
                     type='submit'
                     className='btn-block p-2'
-                    // disabled={!speciesTotal}
+                    disabled={disabled}
                     onClick={saveHandler}
                   >
                     Save for Later

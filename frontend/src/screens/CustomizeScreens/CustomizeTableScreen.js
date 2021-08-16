@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Row, Col, Dropdown, DropdownButton, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 // import Loader from '../../components/Loader'
@@ -19,6 +20,7 @@ import {
 import { ALL_RESET } from '../../constants/customPreOrderConstants/customBuildConstants'
 
 const CustomizeTableScreen = () => {
+  const history = useHistory()
   const [resetSpeciesValue, setResetSpeciesValue] = useState(true)
   const [resetStainValue, setResetStainValue] = useState(true)
   const [resetPaintValue, setResetPaintValue] = useState(true)
@@ -27,6 +29,9 @@ const CustomizeTableScreen = () => {
   const sizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
   const dispatch = useDispatch()
+
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
 
   const tableBuild = useSelector(state => state.tableBuild)
   const { size: sizeTable, species, stain, paint, base } = tableBuild
@@ -41,10 +46,14 @@ const CustomizeTableScreen = () => {
   }
 
   useEffect(() => {
-    if (sizeTable) {
+    if (!userInfo) {
+      history.push('/login')
+    }
+
+    if (sizeTable && sizeTable !== 'Size') {
       setSize(sizeTable)
     } else {
-      setSize('')
+      setSize('Size')
     }
 
     console.log(sizeTable)

@@ -14,10 +14,6 @@ import {
 } from '../../../constants/customPreOrderConstants/customBuildConstants'
 
 export const resetAll = () => async dispatch => {
-  dispatch({
-    type: ALL_RESET,
-  })
-
   localStorage.removeItem('size')
   localStorage.removeItem('species')
   localStorage.removeItem('speciesTotal')
@@ -27,6 +23,9 @@ export const resetAll = () => async dispatch => {
   localStorage.removeItem('paintTotal')
   localStorage.removeItem('base')
   localStorage.removeItem('baseTotal')
+  dispatch({
+    type: ALL_RESET,
+  })
 }
 
 export const addSize = size => async dispatch => {
