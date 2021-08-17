@@ -68,6 +68,10 @@ const ProductScreen = ({ history, match }) => {
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
+              {/* // */}
+              {/* MAP THROUGH IMAGES HERE */}
+              {/* ON CLICK OPEN MODAL WITH IMAGES */}
+              {/* // */}
             </Col>
             <Col md={3}>
               <ListGroup variant='flush'>

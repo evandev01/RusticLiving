@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 // import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { listMyOrders } from '../actions/orderActions'
+import { listCustomPreOrders } from '../actions/customProducts/customPreOrderActions/customPreOrderActions'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -29,6 +30,13 @@ const ProfileScreen = ({ location, history }) => {
   const orderListMy = useSelector(state => state.orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
+  const customPreOrderList = useSelector(state => state.customPreOrderList)
+  const {
+    customPreOrders,
+    loading: loadingPreOrders,
+    error: errorPreOrders,
+  } = customPreOrderList
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
@@ -37,6 +45,7 @@ const ProfileScreen = ({ location, history }) => {
         // dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(listMyOrders())
         dispatch(getUserDetails('profile'))
+        dispatch(listCustomPreOrders())
       } else {
         setName(user.name)
         setEmail(user.email)
@@ -151,6 +160,51 @@ const ProfileScreen = ({ location, history }) => {
                         Details
                       </Button>
                     </LinkContainer>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
+
+        <h2>My Saved Pre-orders</h2>
+        {loadingPreOrders ? (
+          <Loader />
+        ) : errorPreOrders ? (
+          <Message variant='danger'>{errorPreOrders}</Message>
+        ) : (
+          <Table striped bordered hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>CREATED</th>
+                <th>PRODUCT</th>
+                <th>SIZE</th>
+                <th>SPECIES</th>
+                <th>STAIN</th>
+                <th>PAINT</th>
+                <th>BASE</th>
+                <th>TOTAL</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {customPreOrders.map(order => (
+                <tr key={order._id}>
+                  {/* <td>{order._id}</td> */}
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.productType}</td>
+                  <td>{order.size}</td>
+                  <td>{order.speciesName}</td>
+                  <td>{order.stainName}</td>
+                  <td>{order.paintName}</td>
+                  <td>{order.baseName}</td>
+                  <td>{order.subtotal}</td>
+                  <td>
+                    {/* <LinkContainer to={`/custompreorder/${order._id}`}> */}
+                    <Button className='btn-sm' variant='light'>
+                      Details
+                    </Button>
+                    {/* </LinkContainer> */}
                   </td>
                 </tr>
               ))}

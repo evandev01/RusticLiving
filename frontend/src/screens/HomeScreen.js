@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 // import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Image } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -10,6 +10,7 @@ import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions'
+import Logo from '../assets/logos/RusticLiving_White_LOGO_9_fav.png'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -27,6 +28,18 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      <Row>
+        <Col className='text-center'>
+          <Image
+            src={Logo}
+            alt='Rustic Living Logo'
+            id='header-logo'
+            style={{ maxHeight: '250px', width: 'auto' }}
+            // className='p-2'
+          />
+        </Col>
+      </Row>
+
       <Meta />
       {!keyword ? (
         <ProductCarousel />

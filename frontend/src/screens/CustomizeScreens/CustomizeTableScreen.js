@@ -11,13 +11,8 @@ import PaintForm from '../../components/PaintForm'
 import CustomSubtotalCol from '../../components/CustomSubtotalCol'
 import {
   addSize,
-  addSpeciesTotal,
-  addStainTotal,
-  addPaintTotal,
-  addBaseTotal,
   resetAll,
 } from '../../actions/customProducts/customPreOrderActions/tableBuildActions'
-import { ALL_RESET } from '../../constants/customPreOrderConstants/customBuildConstants'
 
 const CustomizeTableScreen = () => {
   const history = useHistory()
@@ -57,7 +52,7 @@ const CustomizeTableScreen = () => {
     }
 
     console.log(sizeTable)
-  }, [dispatch, sizeTable, species, stain, base, paint])
+  }, [dispatch, sizeTable, species, stain, base, paint, userInfo, history])
 
   return (
     <>

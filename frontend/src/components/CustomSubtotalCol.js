@@ -21,9 +21,12 @@ const CustomSubtotalCol = () => {
   const [paintImage, setPaintImage] = useState('')
   const [baseName, setBaseName] = useState('')
   const [baseImage, setBaseImage] = useState('')
-  const [estCompDate, setEstCompDate] = useState('')
   const [productType, setProductType] = useState('')
   const [subtotal, setSubtotal] = useState('')
+  const [speciesTotal, setSpeciesTotal] = useState('')
+  const [stainTotal, setStainTotal] = useState('')
+  const [paintTotal, setPaintTotal] = useState('')
+  const [baseTotal, setBaseTotal] = useState('')
   const [disabled, setDisabled] = useState(false)
 
   const dispatch = useDispatch()
@@ -38,10 +41,10 @@ const CustomSubtotalCol = () => {
     stain,
     paint,
     base,
-    speciesTotal,
-    stainTotal,
-    paintTotal,
-    baseTotal,
+    speciesTotal: totalSpecies,
+    stainTotal: totalStain,
+    paintTotal: totalPaint,
+    baseTotal: totalBase,
   } = tableBuild
 
   const estCompDetails = useSelector(state => state.estCompDetails)
@@ -55,9 +58,36 @@ const CustomSubtotalCol = () => {
     customPreOrder,
   } = customPreOrderAdd
 
-  const totalArr = []
-
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(listEstCompDateDetails('61099b0e9e612c5b2c4210d1'))
+      setProductType('Table')
+      setQty(1)
+      if (totalSpecies) {
+        setSpeciesTotal(totalSpecies)
+      } else {
+        setSpeciesTotal(0)
+      }
+      if (totalStain) {
+        setStainTotal(totalStain)
+      } else {
+        setStainTotal(0)
+      }
+      if (totalPaint) {
+        setPaintTotal(totalPaint)
+      } else {
+        setPaintTotal(0)
+      }
+      if (totalBase) {
+        setBaseTotal(totalBase)
+      } else {
+        setBaseTotal(0)
+      }
+      setSubtotal(speciesTotal + stainTotal + paintTotal + baseTotal)
+    }
+
     if (success) {
       dispatch({ type: CUSTOM_PRE_ORDER_ADD_RESET })
       dispatch(resetAll())
@@ -66,16 +96,6 @@ const CustomSubtotalCol = () => {
 
     if (customPreOrder) {
       console.log(customPreOrder)
-    }
-
-    dispatch(listEstCompDateDetails('61099b0e9e612c5b2c4210d1'))
-
-    setProductType('Table')
-
-    setQty(1)
-
-    if (estComp) {
-      setEstCompDate(estComp.estCompDate)
     }
 
     if (sizeTable && sizeTable !== 'Size') {
@@ -106,30 +126,6 @@ const CustomSubtotalCol = () => {
       setBaseName(base.baseName)
       setBaseImage(base.baseImage)
     }
-
-    if (speciesTotal) {
-      totalArr.push(speciesTotal)
-    } else {
-      totalArr.push(0)
-    }
-    if (stainTotal) {
-      totalArr.push(stainTotal)
-    } else {
-      totalArr.push(0)
-    }
-    if (paintTotal) {
-      totalArr.push(paintTotal)
-    } else {
-      totalArr.push(0)
-    }
-    if (baseTotal) {
-      totalArr.push(baseTotal)
-    } else {
-      totalArr.push(0)
-    }
-
-    setSubtotal(totalArr.reduce((acc, cur) => acc + cur))
-
     if (sizeTable !== 'Size' && speciesTotal && baseTotal) {
       setDisabled(false)
     } else {
@@ -149,6 +145,12 @@ const CustomSubtotalCol = () => {
     success,
     errorOrder,
     customPreOrder,
+    totalSpecies,
+    totalStain,
+    totalPaint,
+    totalBase,
+    history,
+    userInfo,
   ])
 
   const saveHandler = e => {
@@ -170,7 +172,7 @@ const CustomSubtotalCol = () => {
         baseName: baseName,
         baseImage: baseImage,
         baseTotal: baseTotal,
-        estCompDate: estCompDate,
+        estCompDate: estComp.estCompDate,
         subtotal: subtotal,
       })
     )

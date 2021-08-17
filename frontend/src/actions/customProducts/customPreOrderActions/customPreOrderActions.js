@@ -17,13 +17,23 @@ import {
   CUSTOM_PRE_ORDER_DETAILS_FAIL,
 } from '../../../constants/customPreOrderConstants/customPreOrderConstants'
 
-export const listCustomPreOrders = () => async dispatch => {
+export const listCustomPreOrders = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: CUSTOM_PRE_ORDER_LIST_REQUEST,
     })
 
-    const { data } = await axios.get('/api/custompreorders')
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/api/custompreorders', config)
 
     dispatch({
       type: CUSTOM_PRE_ORDER_LIST_SUCCESS,
