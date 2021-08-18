@@ -11,6 +11,7 @@ import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions'
 import Logo from '../assets/logos/RusticLiving_White_LOGO_9_fav.png'
+import StoreFront from '../assets/store_front/store_front.jpg'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -70,12 +71,17 @@ const HomeScreen = ({ match }) => {
         </>
       )}
 
-      {/* <h1>Gallery</h1>
       <Row>
-        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-          <Product product={product} />
+        <Col className='text-center'>
+          <Image
+            src={StoreFront}
+            alt='Rustic Living store front'
+            id='store-front'
+            style={{ maxHeight: '250px', width: 'auto' }}
+            // className='p-2'
+          />
         </Col>
-      </Row> */}
+      </Row>
     </>
   )
 }
