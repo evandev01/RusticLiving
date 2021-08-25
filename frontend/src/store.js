@@ -10,6 +10,13 @@ import {
   productReviewCreateReducer,
   productTopRatedReducer,
 } from './reducers/productReducers'
+import {
+  galleryPhotoListReducer,
+  galleryPhotoDetailsReducer,
+  galleryPhotoCreateReducer,
+  galleryPhotoUpdateReducer,
+  galleryPhotoDeleteReducer,
+} from './reducers/galleryReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
   userDetailsReducer,
@@ -159,8 +166,17 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
   productTopRated: productTopRatedReducer,
+
+  // GALLERY
+  galleryPhotoList: galleryPhotoListReducer,
+  galleryPhotoDetails: galleryPhotoDetailsReducer,
+  galleryPhotoCreate: galleryPhotoCreateReducer,
+  galleryPhotoUpdate: galleryPhotoUpdateReducer,
+  galleryPhotoDelete: galleryPhotoDeleteReducer,
+
   // CART
   cart: cartReducer,
+
   // USER
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,

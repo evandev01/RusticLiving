@@ -18,17 +18,14 @@ import Img8 from '../assets/carousel/IMG_8.jpeg'
 const ProductCarousel = () => {
   const featuredImages = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8]
   const [show, setShow] = useState(false)
-  const [fullscreen, setFullscreen] = useState(true)
   const [image, setImage] = useState('')
 
   const handleClose = () => {
     setShow(false)
-    // setFullscreen(false)
   }
 
   const handleShow = product => {
     setShow(true)
-    // setFullscreen(true)
     setImage(product)
   }
 
@@ -62,9 +59,10 @@ const ProductCarousel = () => {
         </Col>
       </Row>
       <CarouselModal
+        images={featuredImages}
+        setImage={setImage}
         image={image}
         show={show}
-        fullscreen={fullscreen}
         onHide={handleClose}
       />
     </>

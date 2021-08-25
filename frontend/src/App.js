@@ -5,6 +5,9 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
+import OurStoryScreen from './screens/OurStoryScreen'
+import GalleryScreen from './screens/GalleryScreen'
+import GalleryImageScreen from './screens/GalleryImageScreen'
 import CustomBuildScreen from './screens/CustomBuildScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
@@ -48,14 +51,11 @@ import BaseEditScreen from './screens/CustomEdit/BaseEditScreen'
 import PaintEditScreen from './screens/CustomEdit/PaintEditScreen'
 import StainEditScreen from './screens/CustomEdit/StainEditScreen'
 import EstCompEditScreen from './screens/CustomEdit/EstCompEditScreen'
-
-//ADMIN CUSTOM PRICE EDIT SCREENS
-// import TablePriceEditScreen from './screens/CustomEdit/CustomPrices/TablePriceEditScreen'
-// import DoorPriceEditScreen from './screens/CustomEdit/CustomPrices/DoorPriceEditScreen'
-// import AccentPriceEditScreen from './screens/CustomEdit/CustomPrices/AccentPriceEditScreen'
-// import PaintPriceEditScreen from './screens/CustomEdit/CustomPrices/PaintPriceEditScreen'
-// import StainPriceEditScreen from './screens/CustomEdit/CustomPrices/StainPriceEditScreen'
+// USER CUSTOMIZE SCREENS
 import CustomizeTableScreen from './screens/CustomizeScreens/CustomizeTableScreen'
+import GalleryPhotoListScreen from './screens/Gallery/GalleryPhotoListScreen'
+import GalleryPhotoCreateScreen from './screens/Gallery/GalleryPhotoCreateScreen'
+import GalleryPhotoEditScreen from './screens/Gallery/GalleryPhotoEditScreen'
 
 const App = () => {
   return (
@@ -75,6 +75,19 @@ const App = () => {
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
             <Route path='/profile' component={ProfileScreen} />
+            <Route path='/ourstory' component={OurStoryScreen} />
+            <Route path='/gallery' component={GalleryScreen} />
+            <Route path='/galleryimages' component={GalleryImageScreen} />
+            <Route path='/admin/gallery' component={GalleryPhotoListScreen} />
+            <Route
+              path='/admin/galleryphoto/create'
+              component={GalleryPhotoCreateScreen}
+            />
+            <Route
+              path='/admin/galleryphoto/:id/edit'
+              component={GalleryPhotoEditScreen}
+            />
+
             <Route path='/product/:id' component={ProductScreen} />
             <Route path='/cart/:id?' component={CartScreen} />
             <Route path='/admin/userlist' component={UserListScreen} />

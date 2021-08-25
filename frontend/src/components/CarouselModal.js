@@ -1,21 +1,26 @@
 import React from 'react'
-import { Modal, Image } from 'react-bootstrap'
+import { Modal, Image, Row, Col } from 'react-bootstrap'
 
-const CarouselModal = ({ show, image, fullscreen, onHide }) => {
+const CarouselModal = ({ show, image, images, setImage, onHide }) => {
   return (
     <>
       <Modal
+        className='carousel-modal'
         show={show}
-        fullscreen={fullscreen}
         onHide={onHide}
-        style={{ maxHeight: '500px' }}
+        centered
+        fullscreen
       >
         <Modal.Header closeButton />
-        <Image
-          src={image}
-          alt='featured product'
-          style={{ maxHeight: '500px', width: 'auto', objectFit: 'contain' }}
-        />
+        <Image src={image} alt='featured product' />
+        <Row className='mt-2'>
+          {images &&
+            images.map(x => (
+              <Col>
+                <Image key={x} src={x} onClick={() => setImage(x)} fluid />
+              </Col>
+            ))}
+        </Row>
       </Modal>
     </>
   )

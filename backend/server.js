@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 import productRoutes from './routes/productRoutes.js'
+import galleryRoutes from './routes/galleryRoutes.js'
 import customRoutes from './routes/customRoutes/index.js'
 import orderRoutes from './routes/orderRoutes.js'
 import customPreOrderRoutes from './routes/customPreOrderRoutes.js'
@@ -26,6 +27,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use('/api/products', productRoutes)
+app.use('/api/gallery', galleryRoutes)
 app.use('/api/custom', customRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/custompreorders', customPreOrderRoutes)

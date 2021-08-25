@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 // import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image } from 'react-bootstrap'
+import 'animate.css'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -11,7 +12,6 @@ import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions'
 import Logo from '../assets/logos/RusticLiving_White_LOGO_9_fav.png'
-import StoreFront from '../assets/store_front/store_front.jpg'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -35,8 +35,11 @@ const HomeScreen = ({ match }) => {
             src={Logo}
             alt='Rustic Living Logo'
             id='header-logo'
-            style={{ maxHeight: '250px', width: 'auto' }}
-            // className='p-2'
+            style={{
+              maxHeight: '250px',
+              width: 'auto',
+            }}
+            className='animate__animated animate__zoomIn'
           />
         </Col>
       </Row>
@@ -58,7 +61,14 @@ const HomeScreen = ({ match }) => {
         <>
           <Row>
             {products.map(product => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Col
+                key={product._id}
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+                className='mb-2'
+              >
                 <Product product={product} />
               </Col>
             ))}
@@ -70,18 +80,6 @@ const HomeScreen = ({ match }) => {
           />
         </>
       )}
-
-      <Row>
-        <Col className='text-center'>
-          <Image
-            src={StoreFront}
-            alt='Rustic Living store front'
-            id='store-front'
-            style={{ maxHeight: '250px', width: 'auto' }}
-            // className='p-2'
-          />
-        </Col>
-      </Row>
     </>
   )
 }

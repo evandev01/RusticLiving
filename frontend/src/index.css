@@ -51,3 +51,26 @@ h2 {
 .carousel a {
   margin: 0 auto;
 }
+
+#header-logo {
+  animation-duration: 2s;
+}
+
+#nav-link {
+  font-size: smaller;
+}
+
+/* .carousel-modal .modal-dialog {
+  height: 100%;
+  width: auto; */
+/* size: cover; */
+/* margin: 0;
+  padding: 0; */
+/* align-items: center; */
+/* } */
+/* .carousel-modal .modal-content {
+  height: auto;
+  size: cover;
+  min-height: 100%;
+  border-radius: 0;
+} */
