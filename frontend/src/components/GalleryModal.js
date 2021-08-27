@@ -1,35 +1,51 @@
 import React from 'react'
-import { Modal, Image, Row, Col, Carousel } from 'react-bootstrap'
+import {
+  Modal,
+  Image,
+  Row,
+  Col,
+  Button,
+  Container,
+  Carousel,
+} from 'react-bootstrap'
 
-const GalleryModal = ({ show, image, images, setImage, onHide, index }) => {
+const GalleryModal = ({
+  show,
+  selectedImage,
+  onHide,
+  handleNext,
+  handlePrev,
+}) => {
+  const handleDirection = e => {
+    if (e.target.className === 'carousel-control-next-icon') {
+      handleNext()
+    }
+    if (e.target.className === 'carousel-control-prev-icon') {
+      handlePrev()
+    }
+  }
   return (
-    <>
+    <div className='backdrop'>
       <Modal
+        size='xl'
         className='gallery-modal text-center'
         show={show}
         onHide={onHide}
-        // size='xl'
-        scrollable
-        centered
-        // fullscreen
       >
-        <Modal.Header style={{ height: '2rem' }} closeButton />
-        <Carousel size='xl'>
-          {images &&
-            images.map(x => (
-              <Carousel.Item>
-                <Image
-                  style={{ height: '100%', width: 'auto' }}
-                  key={x}
-                  src={images[index++]}
-                  // fluid
-                />
-              </Carousel.Item>
-            ))}
+        <Carousel
+          onClick={e => {
+            console.log(e.target.className)
+            handleDirection(e)
+          }}
+        >
+          <Image
+            id='modal-img'
+            src={selectedImage}
+            onClick={() => handleNext()}
+          />
         </Carousel>
-        <Row className='mt-2'></Row>
       </Modal>
-    </>
+    </div>
   )
 }
 
