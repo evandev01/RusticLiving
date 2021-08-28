@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Row, Col, Image, Button } from 'react-bootstrap'
+import { Row, Col, Image, Button, Modal } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listGalleryPhotos } from '../actions/galleryActions'
 import GalleryModal from '../components/GalleryModal'
 import NavArrows from '../components/NavArrows'
+import { motion } from 'framer-motion'
 
 const GalleryScreen = () => {
   const [show, setShow] = useState(false)
@@ -27,79 +28,98 @@ const GalleryScreen = () => {
   }
 
   const handleNext = () => {
-    setPhotoIndex(photoIndex + 1)
-    if (photoIndex === photos.length) {
-      setSelectedImage(photos[0].image)
-      setPhotoIndex(1)
-    } else if (photoIndex) {
-      setSelectedImage(photos[photoIndex].image)
-    }
-    console.log(`photo index: ${photoIndex}`)
+    setPhotoIndex(photoIndex === photos.length - 1 ? 0 : photoIndex + 1)
   }
 
   const handlePrev = () => {
-    setPhotoIndex(photoIndex - 1)
-
-    if (photoIndex === 0) {
-      setSelectedImage(photos[photos.length].image)
-      setPhotoIndex(photos.length)
-    } else if (photoIndex) {
-      setSelectedImage(photos[photoIndex].image)
-    }
-
-    console.log(`photo index: ${photoIndex}`)
-    // if (photoIndex === ) {
-    //   console.log(`photo index: ${photoIndex}`)
-    // }
+    setPhotoIndex(photoIndex === 0 ? photos.length - 1 : photoIndex - 1)
   }
+
+  // const updateSelectedImg = async () => {
+  //   // if (photos && photoIndex) {
+  //   //   setSelectedImage(photos[photoIndex].image)
+  //   // }
+
+  //   if (photos) {
+  //     const image = photos.find(() => photos[photoIndex]image === selectedImage)
+  //       setSelectedImage(image)
+  //   }
+  // }
 
   return (
     <>
-      <Row>
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant='danger'>{error}</Message>
-        ) : (
-          photos &&
+      <div className='img-grid'>
+        {loading && <Loader />}
+        {error && <Message variant='danger'>{error}</Message>}
+        {photos &&
           photos.map((photo, index) => (
             <>
-              <Col md={2} key={index} className='m-3'>
-                <Image
-                  id={`image-${index}`}
-                  key={photo}
+              <motion.div
+                // md={2}
+                // key={index}
+                // className='m-3'
+                className='img-wrap'
+                key={`img-wrap-${index}`}
+                layout
+                whileHover={{ opacity: 0.3 }}
+              >
+                <motion.img
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
                   src={photo.image}
                   onClick={() => {
-                    setPhotoIndex(index + 1)
-                    setSelectedImage(photo.image)
+                    setPhotoIndex(
+                      index === -1
+                        ? photos.length - 1
+                        : index === photos.length
+                        ? 0
+                        : index
+                    )
                     setShow(true)
+                    // setSelectedImage(photos[photoIndex].image)
+                    // id={`image-${index}`}
+                    // key={photo}
+                    // console.log(`index: ${index}`)
                   }}
                   fluid
-                />
-              </Col>
-            </>
-          ))
-        )}
+                />{' '}
+              </motion.div>
 
-        {show && selectedImage !== null ? (
-          <>
-            <GalleryModal
-              selectedImage={selectedImage}
-              setSelectedImage={setSelectedImage}
-              photoIndex={photoIndex}
-              handleNext={handleNext}
-              handlePrev={handlePrev}
-              show={show}
-              onHide={handleClose}
-            />
-          </>
-        ) : (
-          () => {
-            setSelectedImage(null)
-            setShow(false)
-          }
-        )}
-      </Row>
+              {/* <motion.div */}
+              {/* animate={{ x: 100 }}
+                transition={{ ease: 'easeIn', duration: 2 }}
+              > */}
+              <Modal
+                className='gallery-modal'
+                show={show}
+                onHide={handleClose}
+                fullscreen
+                centered
+              >
+                <Row className='justify-content-center'>
+                  <Modal.Header id='arrows'>
+                    <Button id='right-arrow' size='md' onClick={handleNext}>
+                      <i class='fa fa-chevron-right'></i>
+                    </Button>
+                    <Button id='left-arrow' size='md' onClick={handlePrev}>
+                      <i class='fa fa-chevron-left'></i>
+                    </Button>
+                  </Modal.Header>
+                  <Image
+                    className='text-center'
+                    id='modal-img'
+                    src={photos[photoIndex].image}
+                    onClick={handleNext}
+                    centered
+                    fullscreen
+                  />
+                </Row>
+              </Modal>
+              {/* </motion.div> */}
+            </>
+          ))}
+      </div>
     </>
   )
 }

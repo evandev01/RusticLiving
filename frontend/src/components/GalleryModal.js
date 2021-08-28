@@ -7,45 +7,41 @@ import {
   Button,
   Container,
   Carousel,
+  Card,
 } from 'react-bootstrap'
 
-const GalleryModal = ({
-  show,
-  selectedImage,
-  onHide,
-  handleNext,
-  handlePrev,
-}) => {
-  const handleDirection = e => {
-    if (e.target.className === 'carousel-control-next-icon') {
-      handleNext()
-    }
-    if (e.target.className === 'carousel-control-prev-icon') {
-      handlePrev()
-    }
-  }
+const GalleryModal = ({ show, src, onHide, handleNext, handlePrev }) => {
   return (
-    <div className='backdrop'>
+    <>
+      {/* <Container> */}
       <Modal
-        size='xl'
-        className='gallery-modal text-center'
+        className='gallery-modal'
         show={show}
         onHide={onHide}
+        fullscreen
+        centered
       >
-        <Carousel
-          onClick={e => {
-            console.log(e.target.className)
-            handleDirection(e)
-          }}
-        >
+        <Row className='justify-content-center'>
+          <Modal.Header id='arrows'>
+            <Button id='right-arrow' size='md' onClick={() => handleNext()}>
+              <i class='fa fa-chevron-right'></i>
+            </Button>
+            <Button id='left-arrow' size='md' onClick={() => handlePrev()}>
+              <i class='fa fa-chevron-left'></i>
+            </Button>
+          </Modal.Header>
           <Image
+            className='text-center'
             id='modal-img'
-            src={selectedImage}
+            src={src}
             onClick={() => handleNext()}
+            centered
+            fullscreen
           />
-        </Carousel>
+        </Row>
       </Modal>
-    </div>
+      {/* </Container> */}
+    </>
   )
 }
 
