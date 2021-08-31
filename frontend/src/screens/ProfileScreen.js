@@ -43,12 +43,14 @@ const ProfileScreen = ({ location, history }) => {
     } else {
       if (!user.name || success) {
         // dispatch({ type: USER_UPDATE_PROFILE_RESET })
-        dispatch(listMyOrders())
+
         dispatch(getUserDetails('profile'))
         dispatch(listCustomPreOrders())
-      } else {
+      } else if (userInfo) {
         setName(user.name)
         setEmail(user.email)
+        dispatch(listMyOrders())
+        dispatch(listCustomPreOrders())
       }
     }
   }, [dispatch, history, userInfo, user, success])

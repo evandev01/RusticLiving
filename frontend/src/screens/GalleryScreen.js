@@ -35,17 +35,6 @@ const GalleryScreen = () => {
     setPhotoIndex(photoIndex === 0 ? photos.length - 1 : photoIndex - 1)
   }
 
-  // const updateSelectedImg = async () => {
-  //   // if (photos && photoIndex) {
-  //   //   setSelectedImage(photos[photoIndex].image)
-  //   // }
-
-  //   if (photos) {
-  //     const image = photos.find(() => photos[photoIndex]image === selectedImage)
-  //       setSelectedImage(image)
-  //   }
-  // }
-
   return (
     <>
       <div className='img-grid'>
@@ -77,19 +66,10 @@ const GalleryScreen = () => {
                         : index
                     )
                     setShow(true)
-                    // setSelectedImage(photos[photoIndex].image)
-                    // id={`image-${index}`}
-                    // key={photo}
-                    // console.log(`index: ${index}`)
                   }}
                   fluid
                 />{' '}
               </motion.div>
-
-              {/* <motion.div */}
-              {/* animate={{ x: 100 }}
-                transition={{ ease: 'easeIn', duration: 2 }}
-              > */}
               <Modal
                 className='gallery-modal'
                 show={show}
@@ -116,7 +96,6 @@ const GalleryScreen = () => {
                   />
                 </Row>
               </Modal>
-              {/* </motion.div> */}
             </>
           ))}
       </div>
@@ -126,8 +105,31 @@ const GalleryScreen = () => {
 
 export default GalleryScreen
 
-//   {
-//   document
-//     .getElementById(`image-${index}`)
-//     .requestFullscreen()
+// {
+//   show && (
+//     <motion.div
+//       // animate={{ y: 0 }}
+//       // transition={{ ease: 'easeIn', duration: 2 }}
+//       className='gallery-modal'
+//       show={show}
+//       onHide={handleClose}
+//       // fullscreen
+//       // centered
+//     >
+//       <button id='right-arrow' size='md' onClick={handleNext}>
+//         <i class='fa fa-chevron-right'></i>
+//       </button>
+//       <button id='left-arrow' size='md' onClick={handlePrev}>
+//         <i class='fa fa-chevron-left'></i>
+//       </button>
+//       <motion.img
+//         className='text-center'
+//         id='modal-img'
+//         src={photos[photoIndex].image}
+//         onClick={handleNext}
+//         centered
+//         fullscreen
+//       />
+//     </motion.div>
+//   )
 // }
