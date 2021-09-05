@@ -67,7 +67,11 @@ const UserListScreen = ({ history }) => {
                 </td>
                 <td>
                   <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
+                    <Button
+                      variant='light'
+                      className='btn-sm'
+                      disabled={user._id === '61340d5d9507768638c5ed22'}
+                    >
                       <i className='fas fa-edit'></i>
                     </Button>
                   </LinkContainer>
@@ -75,6 +79,7 @@ const UserListScreen = ({ history }) => {
                     variant='danger'
                     className='btn-sm'
                     onClick={() => deleteHandler(user._id)}
+                    disabled={user._id === '61340d5d9507768638c5ed22'}
                   >
                     <i className='fas fa-trash'></i>
                   </Button>

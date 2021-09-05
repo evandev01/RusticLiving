@@ -33,16 +33,16 @@ const Header = () => {
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className='ml-auto'>
-              <LinkContainer to='/cart'>
+              {/* <LinkContainer to='/cart'>
                 <Nav.Link id='nav-link'>
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to='/custom'>
+              </LinkContainer> */}
+              {/* <LinkContainer to='/custom'>
                 <Nav.Link id='nav-link'>
                   <i className='fas fa-wrench'></i> Build Your Own
                 </Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
 
               <LinkContainer to='/gallery'>
                 <Nav.Link id='nav-link'>

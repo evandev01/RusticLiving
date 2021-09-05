@@ -53,6 +53,7 @@ const HomeScreen = ({ match }) => {
         </Link>
       )}
       <h1>Latest Products</h1>
+      <p>More products and purchase options coming soon!</p>
       {loading ? (
         <Loader />
       ) : error ? (

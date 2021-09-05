@@ -8,7 +8,7 @@ import ProductScreen from './screens/ProductScreen'
 import OurStoryScreen from './screens/OurStoryScreen'
 import GalleryScreen from './screens/GalleryScreen'
 import GalleryImageScreen from './screens/GalleryImageScreen'
-import CustomBuildScreen from './screens/CustomBuildScreen'
+// import CustomBuildScreen from './screens/CustomBuildScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -17,7 +17,7 @@ import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 // USER CART / ORDER SCREENS
-import CartScreen from './screens/CartScreen'
+// import CartScreen from './screens/CartScreen'
 import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
@@ -52,7 +52,7 @@ import PaintEditScreen from './screens/CustomEdit/PaintEditScreen'
 import StainEditScreen from './screens/CustomEdit/StainEditScreen'
 import EstCompEditScreen from './screens/CustomEdit/EstCompEditScreen'
 // USER CUSTOMIZE SCREENS
-import CustomizeTableScreen from './screens/CustomizeScreens/CustomizeTableScreen'
+// import CustomizeTableScreen from './screens/CustomizeScreens/CustomizeTableScreen'
 import GalleryPhotoListScreen from './screens/Gallery/GalleryPhotoListScreen'
 import GalleryPhotoCreateScreen from './screens/Gallery/GalleryPhotoCreateScreen'
 import GalleryPhotoEditScreen from './screens/Gallery/GalleryPhotoEditScreen'
@@ -68,8 +68,8 @@ const App = () => {
             <Route path='/shipping' component={ShippingScreen} />
             <Route path='/payment' component={PaymentScreen} />
             <Route path='/placeorder' component={PlaceOrderScreen} />
-            <Route path='/custom' component={CustomBuildScreen} />
-            <Route path='/customize/table' component={CustomizeTableScreen} />
+            {/* <Route path='/custom' component={CustomBuildScreen} /> */}
+            {/* <Route path='/customize/table' component={CustomizeTableScreen} /> */}
             {/* <Route path='/customize/bedframe' component={CustomizeBedFrameScreen} /> */}
             {/* <Route path='/customize/door' component={CustomizeDoorScreen} /> */}
             <Route path='/login' component={LoginScreen} />
@@ -89,7 +89,7 @@ const App = () => {
             />
 
             <Route path='/product/:id' component={ProductScreen} />
-            <Route path='/cart/:id?' component={CartScreen} />
+            {/* <Route path='/cart/:id?' component={CartScreen} /> */}
             <Route path='/admin/userlist' component={UserListScreen} />
             <Route path='/admin/user/:id/edit' component={UserEditScreen} />
             <Route
