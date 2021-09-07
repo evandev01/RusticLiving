@@ -133,12 +133,12 @@ const ProductScreen = ({ history, match }) => {
                       onClick={addToCartHandler}
                       className='btn-block'
                       type='button'
-                      disabled
+                      // disabled
                       // ={product.countInStock === 0}
                     >
                       Add To Cart
                     </Button>
-                    <p>Purchase options coming soon!</p>
+                    {/* <p>Purchase options coming soon!</p> */}
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
