@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Row, Col, Image, Button, Modal } from 'react-bootstrap'
 import Loader from '../components/Loader'
@@ -7,10 +8,12 @@ import { listGalleryPhotos } from '../actions/galleryActions'
 import GalleryModal from '../components/GalleryModal'
 import NavArrows from '../components/NavArrows'
 import { motion } from 'framer-motion'
+import ReactCSSTransitionGroup from 'react-transition-group'
+import GalleryImageScreen from './GalleryImageScreen'
 
 const GalleryScreen = () => {
   const [show, setShow] = useState(false)
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [currentPhoto, setCurrentPhoto] = useState(null)
   const [photoIndex, setPhotoIndex] = useState(0)
 
   const dispatch = useDispatch()
@@ -23,7 +26,7 @@ const GalleryScreen = () => {
   }, [dispatch])
 
   const handleClose = () => {
-    setSelectedImage(null)
+    setCurrentPhoto(null)
     setShow(false)
   }
 
@@ -37,27 +40,25 @@ const GalleryScreen = () => {
 
   return (
     <>
+      {loading && <Loader />}
+      {error && <Message variant='danger'>{error}</Message>}
       <div className='img-grid'>
-        {loading && <Loader />}
-        {error && <Message variant='danger'>{error}</Message>}
         {photos &&
           photos.map((photo, index) => (
             <>
               <motion.div
-                // md={2}
-                // key={index}
-                // className='m-3'
                 className='img-wrap'
-                key={`img-wrap-${index}`}
                 layout
                 whileHover={{ opacity: 0.3 }}
               >
                 <motion.img
+                  // className='photos'
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                   src={photo.image}
                   onClick={() => {
+                    setCurrentPhoto(photo.image)
                     setPhotoIndex(
                       index === -1
                         ? photos.length - 1
@@ -68,43 +69,46 @@ const GalleryScreen = () => {
                     setShow(true)
                   }}
                   fluid
-                />{' '}
+                />
               </motion.div>
-              <Modal
-                className='gallery-modal'
-                show={show}
-                onHide={handleClose}
-                fullscreen
-                centered
-              >
-                <Row className='justify-content-center'>
-                  <Modal.Header id='arrows'>
-                    <Button id='right-arrow' size='md' onClick={handleNext}>
-                      <i class='fa fa-chevron-right'></i>
-                    </Button>
-                    <Button id='left-arrow' size='md' onClick={handlePrev}>
-                      <i class='fa fa-chevron-left'></i>
-                    </Button>
-                  </Modal.Header>
-                  <Image
-                    className='text-center'
-                    id='modal-img'
-                    src={photos[photoIndex].image}
-                    onClick={handleNext}
-                    centered
-                    fullscreen
-                  />
-                </Row>
-              </Modal>
             </>
-          ))}
+          ))}{' '}
       </div>
+      {show && (
+        <GalleryModal
+          show={show}
+          setShow={setShow}
+          photoIndex={photoIndex}
+          onHide={handleClose}
+          handleNext={handleNext}
+          handlePrev={handlePrev}
+          currentPhoto={currentPhoto}
+          setCurrentPhoto={setCurrentPhoto}
+        />
+      )}
     </>
   )
 }
 
 export default GalleryScreen
 
+{
+  /* <Link to={'/galleryimages'}> */
+}
+{
+  /* </Link> */
+}
+
+{
+  /* <GalleryImageScreen
+        show={show}
+        setShow={setShow}
+        handleNext={handleNext}
+        handlePrev={handlePrev}
+        handleClose={handleClose}
+        photoIndex={photoIndex}
+      /> */
+}
 // {
 //   show && (
 //     <motion.div

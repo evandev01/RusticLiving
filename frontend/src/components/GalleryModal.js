@@ -1,46 +1,45 @@
 import React from 'react'
-import {
-  Modal,
-  Image,
-  Row,
-  Col,
-  Button,
-  Container,
-  Carousel,
-  Card,
-} from 'react-bootstrap'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import { motion } from 'framer-motion'
 
-const GalleryModal = ({ show, src, onHide, handleNext, handlePrev }) => {
+const GalleryModal = ({
+  // handleNext,
+  // handlePrev,
+  setShow,
+  currentPhoto,
+  setCurrentPhoto,
+}) => {
+  const handleClick = e => {
+    if (e.target.classList.contains('backdrop')) {
+      setShow(false)
+    }
+  }
+
   return (
     <>
-      {/* <Container> */}
-      <Modal
-        className='gallery-modal'
-        show={show}
-        onHide={onHide}
-        fullscreen
-        centered
+      <motion.div
+        className='backdrop'
+        onClick={handleClick}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
       >
-        <Row className='justify-content-center'>
-          <Modal.Header id='arrows'>
-            <Button id='right-arrow' size='md' onClick={() => handleNext()}>
-              <i class='fa fa-chevron-right'></i>
-            </Button>
-            <Button id='left-arrow' size='md' onClick={() => handlePrev()}>
-              <i class='fa fa-chevron-left'></i>
-            </Button>
-          </Modal.Header>
-          <Image
-            className='text-center'
-            id='modal-img'
-            src={src}
-            onClick={() => handleNext()}
-            centered
-            fullscreen
-          />
-        </Row>
-      </Modal>
-      {/* </Container> */}
+        {/* <Button id='left-arrow' size='md' onClick={() => handlePrev()}>
+          <i class='fa fa-chevron-left'></i>
+        </Button>
+        <Button id='right-arrow' size='md' onClick={() => handleNext()}>
+          <i class='fa fa-chevron-right'></i>
+        </Button> */}
+        {/* {loading && <Loader />}
+        {error && <Message variant='danger'>{error}</Message>} */}
+
+        <motion.img
+          initial={{ y: '-100vh' }}
+          animate={{ y: 0 }}
+          src={currentPhoto}
+          // onClick={() => handleNext()}
+        />
+      </motion.div>
     </>
   )
 }

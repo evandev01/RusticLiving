@@ -68,6 +68,18 @@ const LoginScreen = ({ location, history }) => {
           </Link>
         </Col>
       </Row>
+
+      <Row>
+        <Col className='mt-3'>
+          <p style={{ fontSize: 'small' }}>
+            Like privacy? So do we!{' '}
+            <p>
+              We will <u>never</u> share any personal information under any
+              circumstance.
+            </p>
+          </p>
+        </Col>
+      </Row>
     </FormContainer>
   )
 }
