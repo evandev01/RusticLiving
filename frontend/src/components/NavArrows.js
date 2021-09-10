@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Image, Row, Col, Button, Container } from 'react-bootstrap'
+import { Row, Button } from 'react-bootstrap'
 
 const NavArrows = () => {
   return (

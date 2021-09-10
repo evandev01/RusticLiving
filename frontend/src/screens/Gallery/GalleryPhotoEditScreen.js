@@ -32,11 +32,7 @@ const GalleryPhotoEditScreen = ({ match, history }) => {
   } = galleryPhotoDetails
 
   const galleryPhotoUpdate = useSelector(state => state.galleryPhotoUpdate)
-  const {
-    loading: loadingUpdate,
-    success: successUpdate,
-    error: errorUpdate,
-  } = galleryPhotoUpdate
+  const { success: successUpdate } = galleryPhotoUpdate
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin

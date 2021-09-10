@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Image, Row, Col } from 'react-bootstrap'
+import { Modal, Image } from 'react-bootstrap'
 
 const CarouselModal = ({ show, image, images, setImage, onHide }) => {
   return (
@@ -20,17 +20,3 @@ const CarouselModal = ({ show, image, images, setImage, onHide }) => {
 }
 
 export default CarouselModal
-
-{
-  /* <Modal.Header /> */
-}
-{
-  /* <Row className='mt-2'>
-          {images &&
-            images.map(x => (
-              <Col>
-                <Image key={x} src={x} onClick={() => setImage(x)} fluid />
-              </Col>
-            ))}
-        </Row> */
-}

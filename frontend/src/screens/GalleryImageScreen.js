@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Row, Col, Image, Button, Modal, Container } from 'react-bootstrap'
+import { Row, Col, Image, Button, Container } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listGalleryPhotos } from '../actions/galleryActions'
-import GalleryModal from '../components/GalleryModal'
-import NavArrows from '../components/NavArrows'
-import { motion } from 'framer-motion'
 
 const GalleryImageScreen = ({
   photoIndex,

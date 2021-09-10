@@ -106,37 +106,15 @@ h2 {
   left: 0;
 }
 
-/* @keyframes store-img {
-  from {
-    opacity: 0.01;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.story-container {
-  animation-name: store-img;
-  animation-duration: 4s;
-} */
-
 /* OUR STORY */
-/* @keyframes store-img {
-  from {
-    opacity: 0.01;
-  }
-  to {
-    opacity: 1;
-  }
-} */
 .store-front {
-  /* animation-name: store-img;
-  animation-duration: 2s; */
   max-height: 100%;
   max-width: 100%;
   padding: 0px auto;
   margin: 0px auto;
 }
 
+/* SLIDERS */
 /* #left-arrow {
   z-index: 2;
   position: fixed;

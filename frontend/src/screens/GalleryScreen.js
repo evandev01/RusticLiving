@@ -1,15 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Row, Col, Image, Button, Modal } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listGalleryPhotos } from '../actions/galleryActions'
 import GalleryModal from '../components/GalleryModal'
-import NavArrows from '../components/NavArrows'
 import { motion } from 'framer-motion'
-import ReactCSSTransitionGroup from 'react-transition-group'
-import GalleryImageScreen from './GalleryImageScreen'
 
 const GalleryScreen = () => {
   const [show, setShow] = useState(false)
@@ -78,49 +73,3 @@ const GalleryScreen = () => {
 }
 
 export default GalleryScreen
-
-{
-  /* <Link to={'/galleryimages'}> */
-}
-{
-  /* </Link> */
-}
-
-{
-  /* <GalleryImageScreen
-        show={show}
-        setShow={setShow}
-        handleNext={handleNext}
-        handlePrev={handlePrev}
-        handleClose={handleClose}
-        photoIndex={photoIndex}
-      /> */
-}
-// {
-//   show && (
-//     <motion.div
-//       // animate={{ y: 0 }}
-//       // transition={{ ease: 'easeIn', duration: 2 }}
-//       className='gallery-modal'
-//       show={show}
-//       onHide={handleClose}
-//       // fullscreen
-//       // centered
-//     >
-//       <button id='right-arrow' size='md' onClick={handleNext}>
-//         <i class='fa fa-chevron-right'></i>
-//       </button>
-//       <button id='left-arrow' size='md' onClick={handlePrev}>
-//         <i class='fa fa-chevron-left'></i>
-//       </button>
-//       <motion.img
-//         className='text-center'
-//         id='modal-img'
-//         src={photos[photoIndex].image}
-//         onClick={handleNext}
-//         centered
-//         fullscreen
-//       />
-//     </motion.div>
-//   )
-// }

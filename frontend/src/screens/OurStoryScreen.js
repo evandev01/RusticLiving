@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Row, Col, Image, Container } from 'react-bootstrap'
-import storeFront from '../assets/store_front/store_front.jpg'
+import StoreFront from '../assets/store_front/store_front2.png'
 import Logo from '../assets/logos/logo_fb.jpg'
 import { motion } from 'framer-motion'
 
 const OurStoryScreen = () => {
-  // const [image, setImage] = useState(storeFront)
   return (
     <>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.01 }}
+      >
         <Container className='story-container'>
           <Row>
             <Col md={2} />
             <Col className='text-center' md={8}>
               <motion.img
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                src={storeFront}
+                src={StoreFront}
                 alt='Rustic Living store front'
                 className='store-front'
-                // style={{ maxHeight: '400px', width: 'auto' }}
               />
             </Col>
             <Col md={2} />
@@ -69,7 +69,11 @@ const OurStoryScreen = () => {
 
           <Row className='justify-content-center'>
             <Col className='text-center'>
-              <Image src={Logo} style={{ maxWidth: '300px', height: 'auto' }} />
+              <Image
+                src={Logo}
+                style={{ maxWidth: '300px', height: 'auto' }}
+                rounded
+              />
             </Col>
           </Row>
         </Container>

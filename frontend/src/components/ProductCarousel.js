@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { Carousel, Image, Row, Col, Modal } from 'react-bootstrap'
-import Loader from './Loader'
-import Message from './Message'
+import { useDispatch } from 'react-redux'
+import { Carousel, Image, Row, Col } from 'react-bootstrap'
 import CarouselModal from './CarouselModal'
 import { listTopProducts } from '../actions/productActions'
 import Img1 from '../assets/carousel/IMG_1.jpg'
@@ -31,8 +28,8 @@ const ProductCarousel = () => {
 
   const dispatch = useDispatch()
 
-  const productTopRated = useSelector(state => state.productTopRated)
-  const { loading, error, products } = productTopRated
+  // const productTopRated = useSelector(state => state.productTopRated)
+  // const { loading, error, products } = productTopRated
 
   useEffect(() => {
     dispatch(listTopProducts())

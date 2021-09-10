@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Navbar, Nav, NavDropdown, Image } from 'react-bootstrap'
 import SearchBox from './SearchBox'
-import LogoFb from '../assets/logos/logo_fb.jpg'
 import Logo from '../assets/logos/RusticLiving_White_LOGO_9_fav.png'
 
 import { logout } from '../actions/userActions'
