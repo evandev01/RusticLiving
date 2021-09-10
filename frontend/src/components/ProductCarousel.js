@@ -58,13 +58,16 @@ const ProductCarousel = () => {
           </Carousel>
         </Col>
       </Row>
-      <CarouselModal
-        images={featuredImages}
-        setImage={setImage}
-        image={image}
-        show={show}
-        onHide={handleClose}
-      />
+
+      {show && (
+        <CarouselModal
+          images={featuredImages}
+          setImage={setImage}
+          image={image}
+          show={show}
+          onHide={handleClose}
+        />
+      )}
     </>
   )
 }

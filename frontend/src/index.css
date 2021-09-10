@@ -24,7 +24,7 @@ h2 {
   margin: 0.1rem;
 }
 
-/* carousel */
+/* HOME SCREEN CAROUSEL */
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item.active {
@@ -46,57 +46,18 @@ h2 {
   padding: 30px;
   margin: 40px;
 }
-/* border-radius: 50%; */
-/* }
-
-.carousel a {
-  margin: 0 auto;
+@keyframes carousel-images {
+  from {
+    opacity: 0.01;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
-#header-logo {
-  animation-duration: 2s;
+.car-img {
+  animation-name: carousel-images;
+  animation-duration: 1s;
 }
-
-#nav-link {
-  font-size: smaller;
-}
-
-/* modal styles */
-/* .modal-content {
-  background-color: rgba(0, 0, 0, 0);
-} */
-
-/* #modal-img {
-  position: fixed;
-  top: 0;
-  display: block;
-
-  max-width: 50%;
-  height: auto;
-  padding: 10px auto;
-  margin: auto;
-} */
-
-/* box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
-  border: 3px solid rgba(95, 95, 95, 0.205); */
-/* } */
-
-/* #left-arrow {
-  z-index: 2;
-  position: fixed;
-  left: 0;
-  margin: 20px;
-}
-#right-arrow {
-  z-index: 2;
-  position: fixed;
-  right: 0;
-  margin: 20px;
-} */
-
-/* .modal-content {
-  background-color: rgba(0, 0, 0, 0);
-} */
 .car-img {
   display: block;
   max-width: 100%;
@@ -105,7 +66,8 @@ h2 {
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
   border: 3px solid white;
 }
-/* image grid styles */
+
+/* GALLERY SCREEN */
 .backdrop {
   position: fixed;
   top: 0;
@@ -144,7 +106,7 @@ h2 {
   left: 0;
 }
 
-/* @keyframes images {
+@keyframes store-img {
   from {
     opacity: 0.01;
   }
@@ -152,7 +114,38 @@ h2 {
     opacity: 1;
   }
 }
-.photos {
-  animation-name: images;
-  animation-duration: 5s;
+.story-container {
+  animation-name: store-img;
+  animation-duration: 4s;
+}
+
+/* OUR STORY */
+@keyframes store-img {
+  from {
+    opacity: 0.01;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.store-front {
+  animation-name: store-img;
+  animation-duration: 2s;
+  max-height: 100%;
+  max-width: 100%;
+  padding: 0px auto;
+  margin: 0px auto;
+}
+
+/* #left-arrow {
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  margin: 20px;
+}
+#right-arrow {
+  z-index: 2;
+  position: fixed;
+  right: 0;
+  margin: 20px;
 } */

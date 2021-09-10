@@ -41,6 +41,7 @@ const HomeScreen = ({ match }) => {
             }}
             className='animate__animated animate__zoomIn'
           />
+          <h5 className='mt-5'>More Than Furniture, It's A Way Of Life!</h5>
         </Col>
       </Row>
 
