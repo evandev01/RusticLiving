@@ -11,16 +11,16 @@ const CarouselModal = ({ show, image, images, setImage, onHide }) => {
         centered
         fullscreen
       >
-        <Modal.Header closeButton />
-        <Image src={image} alt='featured product' />
-        <Row className='mt-2'>
+        {/* <Modal.Header /> */}
+        <Image src={image} alt='featured product' className='car-img' />
+        {/* <Row className='mt-2'>
           {images &&
             images.map(x => (
               <Col>
                 <Image key={x} src={x} onClick={() => setImage(x)} fluid />
               </Col>
             ))}
-        </Row>
+        </Row> */}
       </Modal>
     </>
   )

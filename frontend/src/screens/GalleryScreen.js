@@ -30,14 +30,6 @@ const GalleryScreen = () => {
     setShow(false)
   }
 
-  const handleNext = () => {
-    setPhotoIndex(photoIndex === photos.length - 1 ? 0 : photoIndex + 1)
-  }
-
-  const handlePrev = () => {
-    setPhotoIndex(photoIndex === 0 ? photos.length - 1 : photoIndex - 1)
-  }
-
   return (
     <>
       {loading && <Loader />}
@@ -58,14 +50,8 @@ const GalleryScreen = () => {
                   transition={{ delay: 1 }}
                   src={photo.image}
                   onClick={() => {
-                    setCurrentPhoto(photo.image)
-                    setPhotoIndex(
-                      index === -1
-                        ? photos.length - 1
-                        : index === photos.length
-                        ? 0
-                        : index
-                    )
+                    // setCurrentPhoto(photo.image)
+                    setPhotoIndex(index)
                     setShow(true)
                   }}
                   fluid
@@ -79,10 +65,11 @@ const GalleryScreen = () => {
           show={show}
           setShow={setShow}
           photoIndex={photoIndex}
+          setPhotoIndex={setPhotoIndex}
           onHide={handleClose}
-          handleNext={handleNext}
-          handlePrev={handlePrev}
-          currentPhoto={currentPhoto}
+          // handleNext={handleNext(imageHandler)}
+          // handlePrev={handlePrev}
+          currentPhoto={photos[photoIndex].image}
           setCurrentPhoto={setCurrentPhoto}
         />
       )}

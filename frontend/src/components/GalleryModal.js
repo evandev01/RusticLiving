@@ -2,18 +2,30 @@ import React from 'react'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { motion } from 'framer-motion'
+import { useSelector } from 'react-redux'
 
 const GalleryModal = ({
   // handleNext,
   // handlePrev,
-  setShow,
+  photoIndex,
+  setPhotoIndex,
   currentPhoto,
   setCurrentPhoto,
+  setShow,
 }) => {
+  const galleryPhotoList = useSelector(state => state.galleryPhotoList)
+  const { loading, error, photos } = galleryPhotoList
+
   const handleClick = e => {
     if (e.target.classList.contains('backdrop')) {
       setShow(false)
     }
+  }
+
+  const nextHandler = () => {
+    let index = photoIndex
+    index++
+    setPhotoIndex(index === photos.length ? 0 : index)
   }
 
   return (
@@ -37,7 +49,10 @@ const GalleryModal = ({
           initial={{ y: '-100vh' }}
           animate={{ y: 0 }}
           src={currentPhoto}
-          // onClick={() => handleNext()}
+          onClick={e => {
+            console.log(e.target)
+            nextHandler()
+          }}
         />
       </motion.div>
     </>
