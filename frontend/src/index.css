@@ -106,7 +106,7 @@ h2 {
   left: 0;
 }
 
-@keyframes store-img {
+/* @keyframes store-img {
   from {
     opacity: 0.01;
   }
@@ -117,20 +117,20 @@ h2 {
 .story-container {
   animation-name: store-img;
   animation-duration: 4s;
-}
+} */
 
 /* OUR STORY */
-@keyframes store-img {
+/* @keyframes store-img {
   from {
     opacity: 0.01;
   }
   to {
     opacity: 1;
   }
-}
+} */
 .store-front {
-  animation-name: store-img;
-  animation-duration: 2s;
+  /* animation-name: store-img;
+  animation-duration: 2s; */
   max-height: 100%;
   max-width: 100%;
   padding: 0px auto;
