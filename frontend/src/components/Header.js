@@ -20,7 +20,13 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar
+        bg='dark'
+        variant='dark'
+        expand='lg'
+        style={{ fontSize: 'small' }}
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer style={{ color: '#FF671F' }} to='/'>
             <Navbar.Brand>
@@ -54,6 +60,11 @@ const Header = () => {
               <LinkContainer to='/ourstory'>
                 <Nav.Link id='nav-link'>
                   <i className='fas fa-book-open'></i> Our Story
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/contact'>
+                <Nav.Link id='nav-link'>
+                  <i className='fas fa-book-open'></i> Contact
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
