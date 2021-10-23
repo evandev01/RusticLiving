@@ -24,7 +24,7 @@ const Header = () => {
         bg='dark'
         variant='dark'
         expand='lg'
-        style={{ fontSize: 'small' }}
+        style={{ fontSize: 'medium' }}
         collapseOnSelect
       >
         <Container>
