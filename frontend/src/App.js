@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import OurStoryScreen from './screens/OurStoryScreen'
+import ContactScreen from './screens/ContactScreen'
 import GalleryScreen from './screens/GalleryScreen'
 import GalleryImageScreen from './screens/GalleryImageScreen'
 // import CustomBuildScreen from './screens/CustomBuildScreen'
@@ -52,7 +53,7 @@ import PaintEditScreen from './screens/CustomEdit/PaintEditScreen'
 import StainEditScreen from './screens/CustomEdit/StainEditScreen'
 import EstCompEditScreen from './screens/CustomEdit/EstCompEditScreen'
 // USER CUSTOMIZE SCREENS
-// import CustomizeTableScreen from './screens/CustomizeScreens/CustomizeTableScreen'
+import CustomizeTableScreen from './screens/CustomizeScreens/CustomizeTableScreen'
 import GalleryPhotoListScreen from './screens/Gallery/GalleryPhotoListScreen'
 import GalleryPhotoCreateScreen from './screens/Gallery/GalleryPhotoCreateScreen'
 import GalleryPhotoEditScreen from './screens/Gallery/GalleryPhotoEditScreen'
@@ -69,13 +70,14 @@ const App = () => {
             <Route path='/payment' component={PaymentScreen} />
             <Route path='/placeorder' component={PlaceOrderScreen} />
             {/* <Route path='/custom' component={CustomBuildScreen} /> */}
-            {/* <Route path='/customize/table' component={CustomizeTableScreen} /> */}
+            <Route path='/customize/table' component={CustomizeTableScreen} />
             {/* <Route path='/customize/bedframe' component={CustomizeBedFrameScreen} /> */}
             {/* <Route path='/customize/door' component={CustomizeDoorScreen} /> */}
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
             <Route path='/profile' component={ProfileScreen} />
             <Route path='/ourstory' component={OurStoryScreen} />
+            <Route path='/contact' component={ContactScreen} />
             <Route path='/gallery' component={GalleryScreen} />
             <Route path='/galleryimages' component={GalleryImageScreen} />
             <Route path='/admin/gallery' component={GalleryPhotoListScreen} />

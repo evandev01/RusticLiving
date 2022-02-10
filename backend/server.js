@@ -13,6 +13,7 @@ import customPreOrderRoutes from './routes/customPreOrderRoutes.js'
 import customOrderRoutes from './routes/customOrderRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
+import emailRoutes from './routes/emailRoutes.js'
 
 dotenv.config()
 
@@ -34,6 +35,7 @@ app.use('/api/custompreorders', customPreOrderRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/customorders', customOrderRoutes)
 app.use('/api/upload', uploadRoutes)
+app.use('/api/contact-send', emailRoutes)
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
