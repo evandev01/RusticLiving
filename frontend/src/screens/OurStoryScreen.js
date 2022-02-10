@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col, Image, Container } from 'react-bootstrap'
-import StoreFront from '../assets/store_front/store_front2.png'
+import TempStore from '../assets/store_front/temp_store.png'
 import Logo from '../assets/logos/logo_fb.jpg'
 import { motion } from 'framer-motion'
 
@@ -17,7 +17,7 @@ const OurStoryScreen = () => {
             <Col md={2} />
             <Col className='text-center' md={8}>
               <motion.img
-                src={StoreFront}
+                src={TempStore}
                 alt='Rustic Living store front'
                 className='store-front'
               />
