@@ -119,7 +119,7 @@ h2 {
   max-height: 80px;
   width: auto;
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 475px) {
   #icon {
     max-height: 50px;
     width: auto;
