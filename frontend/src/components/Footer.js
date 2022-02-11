@@ -68,6 +68,7 @@ const Footer = () => {
                 <Image id='icon' alt='Facebook' src={FB_LOGO} />
               </a>
               <br />
+              <br />
               Facebook
             </p>
           </Col>
@@ -81,6 +82,7 @@ const Footer = () => {
                 <Image id='icon' alt='Instagram' src={IG_LOGO} />
               </a>
               <br />
+              <br />
               Instagram
             </p>
           </Col>
@@ -93,6 +95,7 @@ const Footer = () => {
               >
                 <Image id='icon' alt='TikTok' src={TT_LOGO} />
               </a>
+              <br />
               <br />
               TikTok
             </p>
