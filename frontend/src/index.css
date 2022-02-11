@@ -114,16 +114,14 @@ h2 {
   margin: 0px auto;
 }
 
-/* SLIDERS */
-/* #left-arrow {
-  z-index: 2;
-  position: fixed;
-  left: 0;
-  margin: 20px;
+/* FOOTER */
+#icon {
+  max-height: 80px;
+  width: auto;
 }
-#right-arrow {
-  z-index: 2;
-  position: fixed;
-  right: 0;
-  margin: 20px;
-} */
+@media screen and (max-width: 375px) {
+  #icon {
+    max-height: 50px;
+    width: auto;
+  }
+}
