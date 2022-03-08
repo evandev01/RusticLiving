@@ -105,10 +105,8 @@ const App = () => {
               component={ProductListScreen}
               exact
             />
-            <Route
-              path='/admin/product/:id/edit'
-              component={ProductEditScreen}
-            />
+            <Route path='/admin/product' component={ProductEditScreen} exact />
+            <Route path='/admin/product/:id' component={ProductEditScreen} />
             {/* CUSTOM PRODUCTS */}
             <Route
               path='/admin/custom/products'
