@@ -45,7 +45,6 @@ const GalleryScreen = () => {
                   transition={{ delay: 1 }}
                   src={photo.image}
                   onClick={() => {
-                    // setCurrentPhoto(photo.image)
                     setPhotoIndex(index)
                     setShow(true)
                   }}
@@ -62,8 +61,6 @@ const GalleryScreen = () => {
           photoIndex={photoIndex}
           setPhotoIndex={setPhotoIndex}
           onHide={handleClose}
-          // handleNext={handleNext(imageHandler)}
-          // handlePrev={handlePrev}
           currentPhoto={photos[photoIndex].image}
           setCurrentPhoto={setCurrentPhoto}
         />
