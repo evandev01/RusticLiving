@@ -10,7 +10,10 @@ import {
   deleteProduct,
   createProduct,
 } from '../actions/productActions'
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+import {
+  PRODUCT_CREATE_RESET,
+  PRODUCT_UPDATE_RESET,
+} from '../constants/productConstants'
 
 const ProductListScreen = ({ match, history }) => {
   const pageNumber = match.params.pageNumber || 1
@@ -27,47 +30,26 @@ const ProductListScreen = ({ match, history }) => {
     success: successDelete,
   } = productDelete
 
-  const productCreate = useSelector(state => state.productCreate)
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate
-
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET })
+    dispatch({ type: PRODUCT_UPDATE_RESET })
+
+    if (successDelete) {
+      dispatch(listProducts('', pageNumber))
+    }
 
     if (!userInfo.isAdmin) {
       history.push('/login')
-    }
-
-    if (successCreate) {
-      history.push(`/admin/product/${createdProduct._id}/edit`)
-    } else {
-      dispatch(listProducts('', pageNumber))
-    }
-  }, [
-    dispatch,
-    history,
-    userInfo,
-    successDelete,
-    successCreate,
-    createdProduct,
-    pageNumber,
-  ])
+    } else dispatch(listProducts('', pageNumber))
+  }, [dispatch, history, userInfo, pageNumber, successDelete])
 
   const deleteHandler = id => {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteProduct(id))
     }
-  }
-
-  const createProductHandler = () => {
-    dispatch(createProduct())
   }
 
   return (
@@ -77,16 +59,16 @@ const ProductListScreen = ({ match, history }) => {
           <h1>Products</h1>
         </Col>
         <Col className='text-center'>
-          <Button className='my-3' onClick={createProductHandler}>
-            <i className='fas fa-plus'></i> Create Product
-          </Button>
+          <LinkContainer to={`/admin/product`}>
+            <Button className='my-3'>
+              <i className='fas fa-plus'></i> Create Product
+            </Button>
+          </LinkContainer>
         </Col>
       </Row>
 
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
-      {loadingCreate && <Loader />}
-      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -101,7 +83,7 @@ const ProductListScreen = ({ match, history }) => {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
-                <th></th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -112,19 +94,20 @@ const ProductListScreen = ({ match, history }) => {
                   <td>${product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
-                  <td></td>
-                  <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'></i>
+                  <td>
+                    <LinkContainer to={`/admin/product/${product._id}`}>
+                      <Button variant='light' className='btn-sm'>
+                        <i className='fas fa-edit'></i>
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant='danger'
+                      className='btn-sm'
+                      onClick={() => deleteHandler(product._id)}
+                    >
+                      <i className='fas fa-trash'></i>
                     </Button>
-                  </LinkContainer>
-                  <Button
-                    variant='danger'
-                    className='btn-sm'
-                    onClick={() => deleteHandler(product._id)}
-                  >
-                    <i className='fas fa-trash'></i>
-                  </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

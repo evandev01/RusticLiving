@@ -6,8 +6,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { listProductDetails, updateProduct } from '../actions/productActions'
-import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import {
+  listProductDetails,
+  updateProduct,
+  createProduct,
+} from '../actions/productActions'
+import {
+  PRODUCT_UPDATE_RESET,
+  PRODUCT_CREATE_RESET,
+} from '../constants/productConstants'
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id
@@ -33,24 +40,26 @@ const ProductEditScreen = ({ match, history }) => {
     success: successUpdate,
   } = productUpdate
 
+  const productCreate = useSelector(state => state.productCreate)
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+  } = productCreate
+
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET })
       history.push('/admin/productlist')
-    } else {
-      if (!product.name || product._id !== productId) {
-        dispatch(listProductDetails(productId))
-      } else {
-        setName(product.name)
-        setPrice(product.price)
-        setImage(product.image)
-        setBrand(product.brand)
-        setCategory(product.category)
-        setCountInStock(product.countInStock)
-        setDescription(product.description)
-      }
     }
-  }, [dispatch, history, productId, product, successUpdate])
+    if (successCreate) {
+      dispatch({ type: PRODUCT_CREATE_RESET })
+      history.push('/admin/productlist')
+    }
+    if (productId) {
+      dispatch(listProductDetails(productId))
+    }
+  }, [dispatch, history, productId, successCreate, successUpdate])
 
   const uploadFileHandler = async e => {
     const file = e.target.files[0]
@@ -77,18 +86,32 @@ const ProductEditScreen = ({ match, history }) => {
 
   const submitHandler = e => {
     e.preventDefault()
-    dispatch(
-      updateProduct({
-        _id: productId,
-        name,
-        price,
-        image,
-        brand,
-        category,
-        description,
-        countInStock,
-      })
-    )
+    if (product && productId) {
+      dispatch(
+        updateProduct({
+          _id: productId,
+          name,
+          price,
+          image,
+          brand,
+          category,
+          description,
+          countInStock,
+        })
+      )
+    } else {
+      dispatch(
+        createProduct({
+          name,
+          price,
+          image,
+          brand,
+          category,
+          description,
+          countInStock,
+        })
+      )
+    }
   }
 
   return (
@@ -98,6 +121,8 @@ const ProductEditScreen = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {loadingCreate && <Loader />}
+        {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
@@ -109,9 +134,14 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId='name'>
               <Form.Label>Name</Form.Label>
               <Form.Control
+                onClick={() => {
+                  if (product) {
+                    setName(product.name)
+                  } else return
+                }}
                 type='name'
-                placeholder='Enter name'
-                value={name}
+                placeholder={product && productId ? product.name : 'Enter name'}
+                defaultValue={name}
                 onChange={e => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
@@ -119,9 +149,16 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId='price'>
               <Form.Label>Price</Form.Label>
               <Form.Control
+                onClick={() => {
+                  if (product) {
+                    setPrice(product.price)
+                  } else return
+                }}
                 type='number'
-                placeholder='Enter price'
-                value={price}
+                placeholder={
+                  product && productId ? product.price : 'Enter price'
+                }
+                defaultValue={price}
                 onChange={e => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
@@ -129,15 +166,20 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId='image'>
               <Form.Label>Image</Form.Label>
               <Form.Control
+                onClick={() => {
+                  if (product) {
+                    setImage(product.image)
+                  } else return
+                }}
                 type='text'
-                placeholder='Enter image url'
-                value={image}
+                placeholder={
+                  product && productId ? product.image : 'Enter image url'
+                }
+                defaultValue={image}
                 onChange={e => setImage(e.target.value)}
               ></Form.Control>
               <Form.File
                 id='image-file'
-                // label='Choose File'
-                // custom
                 onChange={uploadFileHandler}
               ></Form.File>
               {uploading && <Loader />}
@@ -146,9 +188,16 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId='brand'>
               <Form.Label>Brand</Form.Label>
               <Form.Control
+                onClick={() => {
+                  if (product) {
+                    setBrand(product.brand)
+                  } else return
+                }}
                 type='text'
-                placeholder='Enter brand'
-                value={brand}
+                placeholder={
+                  product && productId ? product.brand : 'Enter brand'
+                }
+                defaultValue={brand}
                 onChange={e => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
@@ -156,9 +205,14 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId='countInStock'>
               <Form.Label>Count In Stock</Form.Label>
               <Form.Control
+                onClick={() => {
+                  if (product) {
+                    setCountInStock(product.countInStock)
+                  } else return
+                }}
                 type='number'
                 placeholder='Enter count in stock'
-                value={countInStock}
+                defaultValue={countInStock}
                 onChange={e => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
@@ -166,9 +220,16 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId='category'>
               <Form.Label>Category</Form.Label>
               <Form.Control
+                onClick={() => {
+                  if (product) {
+                    setCategory(product.category)
+                  } else return
+                }}
                 type='text'
-                placeholder='Enter category'
-                value={category}
+                placeholder={
+                  product && productId ? product.category : 'Enter category'
+                }
+                defaultValue={category}
                 onChange={e => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
@@ -176,15 +237,22 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId='description'>
               <Form.Label>Description</Form.Label>
               <Form.Control
+                onClick={() => {
+                  if (product) {
+                    setDescription(product.description)
+                  } else return
+                }}
                 type='text'
-                placeholder='Enter description'
-                value={description}
+                placeholder={
+                  product ? product.description : 'Enter description'
+                }
+                defaultValue={description}
                 onChange={e => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Button type='submit' variant='primary'>
-              Update
+              Save
             </Button>
           </Form>
         )}
