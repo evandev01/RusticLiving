@@ -12,6 +12,7 @@ import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions'
 import Logo from '../assets/logos/RusticLiving_White_LOGO_9_fav.png'
+import Commercial from '../assets/new_05.19/commercial/commercial.mp4'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -42,6 +43,22 @@ const HomeScreen = ({ match }) => {
             className='animate__animated animate__zoomIn'
           />
           <h5 className='mt-5'>More Than Furniture, It's A Way Of Life!</h5>
+        </Col>
+      </Row>
+
+      <Row className='justify-content-md-center'>
+        <Col md={12} className='text-center m-3 p-3'>
+          <video
+            id='commercial'
+            width='100%'
+            height='auto'
+            loop
+            autoPlay
+            controls
+            muted
+          >
+            <source src={Commercial} type='video/mp4' />
+          </video>
         </Col>
       </Row>
 
