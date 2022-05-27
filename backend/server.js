@@ -1,6 +1,7 @@
 import path from 'path'
 import express from 'express'
 import dotenv from 'dotenv'
+import enforce from 'express-sslify'
 import colors from 'colors'
 import morgan from 'morgan'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
@@ -49,7 +50,6 @@ const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-  const enforce = require('express-sslify')
   app.use(enforce.HTTPS({ trustProtoHeader: true }))
   app.use(express.static(path.join(__dirname, '/frontend/build')))
 
