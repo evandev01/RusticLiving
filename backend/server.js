@@ -49,6 +49,8 @@ const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
+  const enforce = require('express-sslify')
+  app.use(enforce.HTTPS({ trustProtoHeader: true }))
   app.use(express.static(path.join(__dirname, '/frontend/build')))
 
   app.get('*', (req, res) =>
